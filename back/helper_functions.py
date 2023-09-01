@@ -1,14 +1,6 @@
-import difflib
+from difflib import SequenceMatcher
 from consts import TEAMS
 
-def find_closest_team(input_name):
-    input_parts = input_name.lower().split()
-    closest_match = difflib.get_close_matches(' '.join(input_parts), TEAMS, n=1, cutoff=0)
-    if closest_match:
-        # print(f"{input_name} -> {closest_match[0]}")
-        return closest_match[0]
-    else:
-        return None
 
 def sum_all(numbers):
     sum = 0
@@ -29,10 +21,9 @@ def get_sure_bets_from_events(events:list):
     # verify that the events are from the same match
     teams = []
     for e in events: teams+= e["event"].split(" vs ")
-    print("teams:",teams)
-    print("teams:",set(teams))
+    # print("teams:",teams)
+    # print("teams:",set(teams))
     if len(set(teams)) != 2: raise Exception("the events are not from the same match")
-    print("good")
     bigger_odds = {
         teams[0]:{"odds":0},
         teams[1]:{"odds":0},
@@ -64,18 +55,19 @@ def get_sure_bets_from_events(events:list):
         print("="*120)
         print("sure bet :D")
         print("="*120)
-        
-    bigger_odds = calcular_montos_apuesta(bigger_odds, 50000)
-        
-    for odd_option in bigger_odds: print(f"""
-    bet {bigger_odds[odd_option]["invest_amount"]} to {odd_option} in the bookmaker {bigger_odds[odd_option]["id_bookmaker"]}                              
-                                    """)
-    invest = sum_all([bigger_odds[odd]["invest_amount"] for odd in bigger_odds])
-    final_profit = bigger_odds[odd_option]["invest_amount"] * float(bigger_odds[odd_option]["odds"])
-    print(f"""
-        total bet: {invest}
-        final profit: {final_profit}
-        profit percentage: {round((1-sumatory)*100,2)}%
-            """)
+        bigger_odds = calcular_montos_apuesta(bigger_odds, 50000)
+        for odd_option in bigger_odds: print(f"""
+        bet {bigger_odds[odd_option]["invest_amount"]} to {odd_option} in the bookmaker {bigger_odds[odd_option]["id_bookmaker"]}                              
+                                        """)
+        invest = sum_all([bigger_odds[odd]["invest_amount"] for odd in bigger_odds])
+        final_profit = bigger_odds[odd_option]["invest_amount"] * float(bigger_odds[odd_option]["odds"])
+        print(f"""
+            total bet: {invest}
+            final profit: {final_profit}
+            profit percentage: {round((1-sumatory)*100,2)}%
+                """)
+            
+def str_compare(str1:str,str2:str):
+    return SequenceMatcher(None, str1, str2).ratio()
         
         
