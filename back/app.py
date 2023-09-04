@@ -3,11 +3,14 @@ import requests
 from bs4 import BeautifulSoup
 from getters import *
 from helper_functions import *
+from flask_cors import CORS
+
 
 
 
 app = Flask(__name__)
 
+cors = CORS(app)
             
 
 @app.route('/sure_bets', methods=['GET'])

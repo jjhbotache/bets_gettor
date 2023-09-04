@@ -31,7 +31,7 @@ class Bookmaker:
         return f"{self.id}) {self.name}"
     
 class Event:
-    two_events_similarity_umbral = 1.3
+    two_events_similarity_umbral = 1.5
     
     def __init__(self,team1:dict,team2:dict,drawOdd:float,bookmaker:dict):
         self.bookmaker = Bookmaker(bookmaker["name"],bookmaker["id"])
@@ -76,18 +76,26 @@ class Event:
             str_compare(self.team2.name , other_event.team1.name),
         ]
         
+        
+        
         if (
             reduce(lambda acum,coincidence: acum+coincidence,coincidences1) >= umbral_acumulated_needed
             or
             reduce(lambda acum,coincidence: acum+coincidence,coincidences2) >= umbral_acumulated_needed
         ):
+            ideal_team1 = max([self.team1.name,other_event.team1.name],key=lambda name : len(name))
+            ideal_team2 = max([self.team2.name,other_event.team2.name],key=lambda name : len(name))
+            # ideal_team1 = self.team1.name
+            # ideal_team2 = self.team2.name
+            
+            print("ideal events",ideal_team1,"//",ideal_team2)
             return Event(
                 {
-                    "name":min([self.team1.name,other_event.team1.name],key=lambda name : len(name)),
+                    "name":ideal_team1,
                     "odd":0
                 },
                 {
-                    "name":min([self.team2.name,other_event.team2.name],key=lambda name : len(name)),
+                    "name":ideal_team2,
                     "odd":0
                 },
                 0,
@@ -109,7 +117,19 @@ class Surebet:
         self.team1 = self.events[0].team1
         self.team2 = self.events[0].team2
         self.draw = self.events[0].draw
+        
         self.get_biggers_odds()
+        
+        self.prob_imp_t1 = 1 / self.team1.odd
+        self.prob_imp_t2 = 1 / self.team2.odd
+        self.prob_imp_d = 1 / self.draw.odd
+        
+        self.sum = self.prob_imp_t1 + self.prob_imp_t2 + self.prob_imp_d
+        
+        self.is_surebet = self.sum < 1
+        self.profit = (1 / self.sum) * 100 - 100
+        
+        
 
         
     def get_biggers_odds(self):
@@ -117,40 +137,61 @@ class Surebet:
         teams = [event.team1 for event in self.events] + [event.team2 for event in self.events]
         
         teams.sort(key=lambda team : str_compare(team.name,self.team1.name)) 
+        teams.sort(key=lambda team : str_compare(team.name,self.team2.name),reverse=True) 
         
         teams1 = teams[:len(teams)//2]
         teams2 = teams[len(teams)//2:]
-        
         
         self.team1 = max(teams1, key=lambda team : team.odd)
         self.team2 = max(teams2, key=lambda team : team.odd)
         self.draw = max([event.draw for event in self.events], key=lambda team : team.odd)
          
-        
+    def get_dict(self):
+        return {
+            "options":
+        [
+            {
+                "name": self.team1.name,
+                "odd": float(self.team1.odd),
+                "bookmaker": self.team1.bookmaker.__dict__
+            },
+            {
+                "name": self.draw.name,
+                "odd": float(self.draw.odd),
+                "bookmaker": self.draw.bookmaker.__dict__
+            },
+            {
+                "name": self.team2.name,
+                "odd": float(self.team2.odd),
+                "bookmaker": self.team2.bookmaker.__dict__
+            }
+        ],
+            "info":{
+                "prob_imp_t1": self.prob_imp_t1,
+                "prob_imp_t2": self.prob_imp_t2,
+                "prob_imp_d": self.prob_imp_d,
+                "sum": self.sum,
+                "is_surebet": self.is_surebet,
+                "profit": self.profit
+                
+            }
+        }
         
     def __str__(self):
         bet_amount = 50000
         
-        prob_imp_t1 = 1 / self.team1.odd
-        prob_imp_t2 = 1 / self.team2.odd
-        prob_imp_d = 1 / self.draw.odd
-        
-        self.sum = prob_imp_t1 + prob_imp_t2 + prob_imp_d
-        
         if self.sum < 1:
-            
             # Cantidad a Apostar en Opción = (Probabilidad Implícita de Opción / Suma de las Probabilidades Implícitas) * Factor de Estaca
-            
             return f"""
                 Surebet:
                 {self.team1} VS {self.team2} // {self.draw}
                 
-                Apuesta al {self.team1.name} en {self.team1.bookmaker.name}: {(prob_imp_t1/self.sum) * bet_amount }
-                Apuesta al {self.team2.name} en {self.team2.bookmaker.name}: {(prob_imp_t2/self.sum) * bet_amount }
-                Apuesta al {self.draw.name} en {self.draw.bookmaker.name}: {(prob_imp_d/self.sum) * bet_amount }
+                Apuesta al {self.team1.name} en {self.team1.bookmaker.name}: {(self.prob_imp_t1/self.sum) * bet_amount }
+                Apuesta al {self.team2.name} en {self.team2.bookmaker.name}: {(self.prob_imp_t2/self.sum) * bet_amount }
+                Apuesta al {self.draw.name} en {self.draw.bookmaker.name}: {(self.prob_imp_d/self.sum) * bet_amount }
                 
                 apuesta: {bet_amount}
-                ganancia: {(((prob_imp_t1/self.sum) * bet_amount ) * self.team1.odd)-bet_amount} 
+                ganancia: {(((self.prob_imp_t1/self.sum) * bet_amount ) * self.team1.odd)-bet_amount} 
                 
             """
         else:

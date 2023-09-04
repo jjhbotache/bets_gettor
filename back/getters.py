@@ -154,6 +154,7 @@ def get_sure_bets():
       sure_bets: a list with the sure bets
   """
   
+  surebets = []
   matches = []
   
   list_of_events = scrape_page(0)[1]
@@ -186,9 +187,14 @@ def get_sure_bets():
   print("~"*60)
   for lists in matches:
     print("~"*60)
-    print(Surebet(lists))
-    # for e in lists:
-    #   print("matches:",e)
+    current_surebet = Surebet(lists)
+    print(current_surebet)
+    if current_surebet.is_surebet : surebets.append(current_surebet)
+    
+    
+    
   
 
-  return {"msg":"succesfully"}
+  return [
+    surebet.get_dict() for surebet in surebets
+  ]
