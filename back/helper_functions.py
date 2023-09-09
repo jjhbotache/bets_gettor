@@ -1,5 +1,6 @@
 from difflib import SequenceMatcher
 from consts import TEAMS
+import re
 
 
 def sum_all(numbers):
@@ -70,4 +71,16 @@ def get_sure_bets_from_events(events:list):
 def str_compare(str1:str,str2:str):
     return SequenceMatcher(None, str1, str2).ratio()
         
-        
+def generar_segunda_string(primera_string):
+    # Convertir a minúsculas
+    segunda_string = primera_string.lower()
+    # Reemplazar espacios con guiones bajos
+    segunda_string = re.sub(r'\s', '_', segunda_string)
+    # Eliminar caracteres no alfanuméricos, excepto paréntesis y guiones bajos
+    segunda_string = re.sub(r'[^\w\s\(\)]', '', segunda_string)
+    # reemplazar cualquier cosa encerrada entre parentesis por "_w_"
+    segunda_string = re.sub(r'\([^)]*\)', '_w_', segunda_string)
+    
+    
+    
+    return segunda_string

@@ -21,6 +21,7 @@ def scrape_page(id):
     # filter them by the ones that have: in the div with the "markets" class, 3 td's
     divs = list(filter(lambda div : len(div.find_all("td"))>=3, divs))
     
+    
     buttons = list(map(lambda div : div.find_all('button', {'class': 'price'}), 
                   divs))
     
@@ -28,12 +29,23 @@ def scrape_page(id):
     # Loop through each button and extract the team name and odds
     events = []
     for button in buttons:
+      print("-"*60)
+      # print(button)
       new_event = []
+      classes = button[0]["class"]
+      code = classes[-1].split("-")[-1]
+      # https://apuestas.wplay.co/es/e/19637325
+      link = "https://apuestas.wplay.co/es/e/"+code
+      print(link)
       for opt in button:
         name = opt.find("span", {"class": "seln-label"}).text.strip()
         odd = float( opt.find("span", {"class": "price dec"}).text.strip() )
+        
+        
+        
         new_event.append({"name": name, "odd": odd})
-      new_event = Event(new_event[0],new_event[2],new_event[1]["odd"],bookmaker_dict)
+        
+      new_event = Event(new_event[0],new_event[2],new_event[1]["odd"],bookmaker_dict,link=link)
       events.append(new_event)
       
     response = [e.get_dict() for e in events]
@@ -50,33 +62,47 @@ def scrape_page(id):
       event["event"]["path"][0]["englishName"].lower() == "football"
       , events))
     
+    # https://betplay.com.co/apuestas#event/live/1019952772
+    
     
     def get_mainBetOffer(event):
       output = None
+      link = ""
       try:
+        # print(event)
+        # https://betplay.com.co/apuestas#filter/football/all/all/kuopion_palloseura__w_
+        team = event["event"]["name"].split(" - ")[0]
+        print("event:",team)
+        link = " https://betplay.com.co/apuestas#filter/football/all/all/"+generar_segunda_string(team)
+        # link = f"https://betplay.com.co/apuestas#event/live/1020077375{event['event']['id']}"
+        # link = f"https://betplay.com.co/apuestas#event/live/1020077375{event['event']['id']}"
+        
         output = event["mainBetOffer"]["outcomes"]
-      except:
-        print("error, couldnt get the mainBetOffer of the event:")
+      except Exception as e:
+        print("error, couldnt get the mainBetOffer of the event:",e)
         print(event["event"]["name"])
-      return output
+      return output,link
     
     events = list(map(get_mainBetOffer, events))
     print("len events:",len(events))
     events_objs = []
     for e in events:
+      event = e[0]
+      link = e[1]
       try:
         events_objs.append(
         Event(
           {
-            "name": e[0]["participant"],
-            "odd": e[0]["odds"]/1000
+            "name": event[0]["participant"],
+            "odd": event[0]["odds"]/1000
           },
           {
-            "name": e[2]["participant"],
-            "odd": e[2]["odds"]/1000          
+            "name": event[2]["participant"],
+            "odd": event[2]["odds"]/1000          
           },
-          e[1]["odds"]/1000,
-          bookmaker_dict
+          event[1]["odds"]/1000,
+          bookmaker_dict,
+          link
         )
         )
         print(events_objs[-1])
@@ -114,7 +140,8 @@ def scrape_page(id):
                 "odd": results[2]['Odd']          
               },
               results[1]['Odd'],
-              bookmaker_dict
+              bookmaker_dict,
+              f"{results[0]['Name']} - {results[2]['Name']}"
             )
           )
           

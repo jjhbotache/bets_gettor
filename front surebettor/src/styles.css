@@ -1,0 +1,16 @@
+body{
+  background: #222;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+main{
+  width: 87vw;
+  max-width: 400px;
+  margin: auto;
+  height: 95vh;
+}

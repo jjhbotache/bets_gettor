@@ -1,0 +1,38 @@
+[
+	{
+		"info": {
+			"is_surebet": true,
+			"prob_imp_d": 0.10526315789473684,
+			"prob_imp_t1": 0.8,
+			"prob_imp_t2": 0.045454545454545456,
+			"profit": 5.183694011071964,
+			"sum": 0.9507177033492823
+		},
+		"options": [
+			{
+				"bookmaker": {
+					"id": 1,
+					"name": "wplay"
+				},
+				"name": "Connahs Quay",
+				"odd": 1.25
+			},
+			{
+				"bookmaker": {
+					"id": 3,
+					"name": "codere"
+				},
+				"name": "Draw",
+				"odd": 9.5
+			},
+			{
+				"bookmaker": {
+					"id": 3,
+					"name": "codere"
+				},
+				"name": "Caernarfon Town",
+				"odd": 22.0
+			}
+		]
+	}
+]

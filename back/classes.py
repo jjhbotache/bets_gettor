@@ -14,10 +14,11 @@ class Match:
 
 
 class Option:
-    def __init__(self, name:str, odd:float, bookmaker):
+    def __init__(self, name:str, odd:float, bookmaker, link:str=""):
         self.name = name
         self.odd = odd
         self.bookmaker = bookmaker
+        self.link = link
     
     def __str__(self):
         return f"{self.name} ({self.odd})"
@@ -33,32 +34,41 @@ class Bookmaker:
 class Event:
     two_events_similarity_umbral = 1.5
     
-    def __init__(self,team1:dict,team2:dict,drawOdd:float,bookmaker:dict):
+    def __init__(self,team1:dict,team2:dict,drawOdd:float,bookmaker:dict,link:str=""):
         self.bookmaker = Bookmaker(bookmaker["name"],bookmaker["id"])
-        self.team1= Option(team1["name"],float(team1["odd"]),self.bookmaker)
-        self.team2= Option(team2["name"],float(team2["odd"]),self.bookmaker)
-        self.draw = Option("Draw",drawOdd,self.bookmaker)
+        self.link = link
+        self.team1= Option(team1["name"],float(team1["odd"]),self.bookmaker,self.link)
+        self.team2= Option(team2["name"],float(team2["odd"]),self.bookmaker,self.link)
+        self.draw = Option("Draw",drawOdd,self.bookmaker,self.link)
+        
         
         
         # self.get_teams_from_div()
     def get_dict(self):
         return {
             "bookmaker": self.bookmaker.__dict__,
-            "options":
-        [
-            {
-                "name": self.team1.name,
-                "odd": float(self.team1.odd)
-            },
-            {
-                "name": self.draw.name,
-                "odd": float(self.draw.odd)
-            },
-            {
-                "name": self.team2.name,
-                "odd": float(self.team2.odd)
-            }
-        ]}
+            "link": self.link,
+            "options":[
+                {
+                    "name": self.team1.name,    
+                    "odd": self.team1.odd,
+                    "bookmaker": self.team1.bookmaker.__dict__,
+                    "link": self.link,
+                },
+                {
+                    "name": self.team2.name,
+                    "odd": self.team2.odd,
+                    "bookmaker": self.team2.bookmaker.__dict__,
+                    "link": self.link,
+                },
+                {
+                    "name": self.draw.name,
+                    "odd": self.draw.odd,
+                    "bookmaker": self.draw.bookmaker.__dict__,
+                    "link": self.link,
+                }
+            ]
+        }
     
     def compare_with_other_event(self,other_event,umbral_acumulated_needed=two_events_similarity_umbral):
         """compare two events and return the ideal one that is the one with the shortest names
@@ -126,7 +136,8 @@ class Surebet:
         
         self.sum = self.prob_imp_t1 + self.prob_imp_t2 + self.prob_imp_d
         
-        self.is_surebet = self.sum < 1
+        self.is_surebet = self.sum < 1.1
+        # self.is_surebet = self.sum < 1
         self.profit = (1 / self.sum) * 100 - 100
         
         
@@ -153,27 +164,29 @@ class Surebet:
             {
                 "name": self.team1.name,
                 "odd": float(self.team1.odd),
-                "bookmaker": self.team1.bookmaker.__dict__
+                "bookmaker": self.team1.bookmaker.__dict__,
+                "link": self.team1.link,
+                "prob_impl": self.prob_imp_t1
             },
             {
                 "name": self.draw.name,
                 "odd": float(self.draw.odd),
-                "bookmaker": self.draw.bookmaker.__dict__
+                "bookmaker": self.draw.bookmaker.__dict__,
+                "link": self.draw.link,
+                "prob_impl": self.prob_imp_d
             },
             {
                 "name": self.team2.name,
                 "odd": float(self.team2.odd),
-                "bookmaker": self.team2.bookmaker.__dict__
+                "bookmaker": self.team2.bookmaker.__dict__,
+                "link": self.team2.link,
+                "prob_impl": self.prob_imp_t2
             }
         ],
             "info":{
-                "prob_imp_t1": self.prob_imp_t1,
-                "prob_imp_t2": self.prob_imp_t2,
-                "prob_imp_d": self.prob_imp_d,
                 "sum": self.sum,
                 "is_surebet": self.is_surebet,
                 "profit": self.profit
-                
             }
         }
         
