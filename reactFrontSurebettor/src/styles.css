@@ -2,6 +2,9 @@
   background: #222;
   color: white;
   font-family: 'Roboto', sans-serif;
+}
+#root{
   height: 100vh;
-
+  display: flex;
+  flex-direction: column;
 }

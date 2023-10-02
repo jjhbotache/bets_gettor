@@ -1,7 +1,9 @@
 import { navLinks } from "../const/consts"
 
-export default function Nav({activeLink}) {
+export default function Nav() {
   const links = navLinks;
+  
+  const url = window.location.pathname;
     
 
   return(
@@ -11,7 +13,7 @@ export default function Nav({activeLink}) {
           links.map((link, index) => {
             return(
               <li className="nav-item" key={index}>
-                <a className={`nav-link ${activeLink === link.link ? "active" : ""}`} href={link.link}>{link.name}</a>
+                <a className={`nav-link ${url === link.link ? "active" : ""}`} href={link.link}>{link.name}</a>
               </li>
             )
           })

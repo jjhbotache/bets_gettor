@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import './styles.css'
 import { apiRoute } from './const/consts'
 import response from "./mocks/sure_bets_response.json";
-import Nav from './coomponent/Nav';
+import Nav from './component/Nav';
 import { Link } from 'react-router-dom';
+import BetsViewer from './component/BetsViewer/BetsViewer';
 
 
 
@@ -62,8 +63,13 @@ function App() {
 
   return (
     <>
-      <Nav/>
-      <Link to="/2">Go to 2</Link>
+    <Nav/>
+
+    <div className="container h-100 d-flex justify-content-center align-items-center ">
+      <div className="row">
+        <BetsViewer bets={surebets}/>
+      </div>
+    </div>
     </>
   )
 }
