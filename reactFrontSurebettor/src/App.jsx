@@ -3,6 +3,7 @@ import './styles.css'
 import { apiRoute } from './const/consts'
 import response from "./mocks/sure_bets_response.json";
 import Nav from './coomponent/Nav';
+import { Link } from 'react-router-dom';
 
 
 
@@ -60,9 +61,10 @@ function App() {
   }
 
   return (
-    <Nav/>
-    
-
+    <>
+      <Nav/>
+      <Link to="/2">Go to 2</Link>
+    </>
   )
 }
 
