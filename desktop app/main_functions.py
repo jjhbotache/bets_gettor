@@ -3,6 +3,7 @@ import time
 import pyautogui as pya
 import pyperclip as pypc
 from plyer import notification
+import csv
 
 
 
@@ -82,13 +83,36 @@ def say_hi(name):
   print(string)
   return string
 
-def create_notification(titulo,mensaje,duracion=10):
+def create_notification(titulo,mensaje,duracion=2):
+  titulo = str(titulo)
+  mensaje = str(mensaje)
   notification.notify(
     title=titulo,
     message=mensaje,
     timeout=duracion
   )
   
-def copy_to_clipboard(text):
-  create_notification("Copied to clipboard",text,2)
+def copy_to_clipboard(text=""):
+  text = str(text)
+  # create_notificati on("Copied to clipboard",text)
   pypc.copy(text)
+  
+  
+def get_durations():
+  with open('periods_register.csv', mode='r') as file:
+    reader = csv.reader(file)
+    lista_numeros = list(reader)
+  try:
+    return [i[0] for i in lista_numeros]
+  except IndexError:
+    return []
+  
+def write_duration(period):
+  lista_numeros = get_durations()
+  lista_numeros.append(period)
+  
+  with open('periods_register.csv', mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerows([[n] for n in lista_numeros])
+
+

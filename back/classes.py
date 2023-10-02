@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from helper_functions import str_compare 
 from functools import reduce
+from consts import *
 
 # make a class that gets two teams and create a match obj
 class Match:
@@ -14,14 +15,31 @@ class Match:
 
 
 class Option:
+    def get_js_code(self,bookmaker,name,price="promt('Insert the price of the bet')"):
+        try:
+            right_code = list(filter(
+                        lambda obj_code : int(obj_code["bookermaker_id"]) == int(bookmaker.id)
+                        , JS_CODES
+                    ))[0]
+            right_code = right_code["code"].replace("<<name>>", name)
+            right_code = right_code["code"].replace("<<amount>>", price)
+        except Exception as e:
+            print("===========error:",e)
+            return "no code"
+        return right_code
+        
+    
     def __init__(self, name:str, odd:float, bookmaker, link:str=""):
         self.name = name
         self.odd = odd
         self.bookmaker = bookmaker
         self.link = link
+        self.code = self.get_js_code(bookmaker,name)
     
     def __str__(self):
         return f"{self.name} ({self.odd})"
+
+    
 
 class Bookmaker:
     def __init__(self, name:str, id:int):
@@ -34,12 +52,15 @@ class Bookmaker:
 class Event:
     two_events_similarity_umbral = 1.5
     
-    def __init__(self,team1:dict,team2:dict,drawOdd:float,bookmaker:dict,link:str=""):
+    def __init__(self,team1:dict,team2:dict,drawOdd:float,bookmaker:dict,link:str="",time:str="00:00"):
         self.bookmaker = Bookmaker(bookmaker["name"],bookmaker["id"])
         self.link = link
+        self.time = time
         self.team1= Option(team1["name"],float(team1["odd"]),self.bookmaker,self.link)
         self.team2= Option(team2["name"],float(team2["odd"]),self.bookmaker,self.link)
         self.draw = Option("Draw",drawOdd,self.bookmaker,self.link)
+        
+        
         
         
         
@@ -48,6 +69,7 @@ class Event:
         return {
             "bookmaker": self.bookmaker.__dict__,
             "link": self.link,
+            "time": self.time,
             "options":[
                 {
                     "name": self.team1.name,    
@@ -124,6 +146,7 @@ class Event:
 class Surebet:
     def __init__(self, events:list):
         self.events = events
+        self.time = self.events[0].time
         self.team1 = self.events[0].team1
         self.team2 = self.events[0].team2
         self.draw = self.events[0].draw
@@ -136,8 +159,8 @@ class Surebet:
         
         self.sum = self.prob_imp_t1 + self.prob_imp_t2 + self.prob_imp_d
         
-        self.is_surebet = self.sum < 1.1
-        # self.is_surebet = self.sum < 1
+        # self.is_surebet = self.sum < 1.1
+        self.is_surebet = self.sum < 1
         self.profit = (1 / self.sum) * 100 - 100
         
         
@@ -153,11 +176,13 @@ class Surebet:
         teams1 = teams[:len(teams)//2]
         teams2 = teams[len(teams)//2:]
         
+        # set the team with the bigger odd
         self.team1 = max(teams1, key=lambda team : team.odd)
         self.team2 = max(teams2, key=lambda team : team.odd)
         self.draw = max([event.draw for event in self.events], key=lambda team : team.odd)
          
     def get_dict(self):
+        
         return {
             "options":
         [
@@ -166,27 +191,31 @@ class Surebet:
                 "odd": float(self.team1.odd),
                 "bookmaker": self.team1.bookmaker.__dict__,
                 "link": self.team1.link,
-                "prob_impl": self.prob_imp_t1
+                "prob_impl": self.prob_imp_t1,
+                "code":self.team1.code
             },
             {
                 "name": self.draw.name,
                 "odd": float(self.draw.odd),
                 "bookmaker": self.draw.bookmaker.__dict__,
                 "link": self.draw.link,
-                "prob_impl": self.prob_imp_d
+                "prob_impl": self.prob_imp_d,
+                "code":self.draw.code
             },
             {
                 "name": self.team2.name,
                 "odd": float(self.team2.odd),
                 "bookmaker": self.team2.bookmaker.__dict__,
                 "link": self.team2.link,
-                "prob_impl": self.prob_imp_t2
+                "prob_impl": self.prob_imp_t2,
+                "code":self.team2.code
             }
         ],
             "info":{
                 "sum": self.sum,
                 "is_surebet": self.is_surebet,
-                "profit": self.profit
+                "profit": self.profit,
+                "time": self.time,
             }
         }
         

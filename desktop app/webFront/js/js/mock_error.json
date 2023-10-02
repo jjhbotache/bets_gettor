@@ -1,0 +1,43 @@
+[
+  {
+      "info": {
+          "is_surebet": true,
+          "profit": 44.09030544488712,
+          "sum": 0.6940092165898617,
+          "time": "37:52"
+      },
+      "options": [
+          {
+              "bookmaker": {
+                  "id": 2,
+                  "name": "betplay"
+              },
+              "link": " https://betplay.com.co/apuestas#filter/football/all/all/sheffield_wednesday",
+              "name": "Middlesbrough",
+              "odd": 7.5,
+              "prob_impl": 0.13333333333333333
+          },
+          {
+              "bookmaker": {
+                  "id": 2,
+                  "name": "betplay"
+              },
+              "link": " https://betplay.com.co/apuestas#filter/football/all/all/sheffield_wednesday",
+              "name": "Draw",
+              "odd": 4.2,
+              "prob_impl": 0.23809523809523808
+          },
+          {
+              "bookmaker": {
+                  "id": 1,
+                  "name": "wplay"
+              },
+              "link": "https://apuestas.wplay.co/es/e/19720725",
+              "name": "Sheffield Wednesday",
+              "odd": 3.1,
+              "prob_impl": 0.3225806451612903
+          }
+      ],
+      "totalBet": 34600
+  }
+]

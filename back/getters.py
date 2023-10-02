@@ -25,29 +25,30 @@ def scrape_page(id):
     buttons = list(map(lambda div : div.find_all('button', {'class': 'price'}), 
                   divs))
     
-
+    # clock ticking clock_mode_forward first_half first_half
     # Loop through each button and extract the team name and odds
     events = []
-    for button in buttons:
-      print("-"*60)
-      # print(button)
-      new_event = []
-      classes = button[0]["class"]
-      code = classes[-1].split("-")[-1]
-      # https://apuestas.wplay.co/es/e/19637325
-      link = "https://apuestas.wplay.co/es/e/"+code
-      print(link)
-      for opt in button:
-        name = opt.find("span", {"class": "seln-label"}).text.strip()
-        odd = float( opt.find("span", {"class": "price dec"}).text.strip() )
+
+    button_indices = range(len(buttons))  # Crear una lista de índices de botones
+    for button_idx in button_indices:
+        print("-" * 60)
+        time = divs[button_idx].find("span", {"class": "clock"}).text.strip()
         
+        new_event = []
+        button = buttons[button_idx]  # Obtener el botón actual utilizando el índice
+        classes = button[0]["class"]
+        code = classes[-1].split("-")[-1]
+        # https://apuestas.wplay.co/es/e/19637325
+        link = "https://apuestas.wplay.co/es/e/" + code
+        print(link)
+        for opt in button:
+            name = opt.find("span", {"class": "seln-label"}).text.strip()
+            odd = float(opt.find("span", {"class": "price dec"}).text.strip())
+            new_event.append({"name": name, "odd": odd})
         
-        
-        new_event.append({"name": name, "odd": odd})
-        
-      new_event = Event(new_event[0],new_event[2],new_event[1]["odd"],bookmaker_dict,link=link)
-      events.append(new_event)
-      
+        new_event = Event(new_event[0], new_event[2], new_event[1]["odd"], bookmaker_dict, link=link, time=time)
+        events.append(new_event)
+
     response = [e.get_dict() for e in events]
     data_usable = events
   elif id==2:
@@ -57,10 +58,10 @@ def scrape_page(id):
     api_response = requests.get(api_route)
     api_response = api_response.json()
     # en "liveEvents", por cada evento, se busca el "mainBetOffer" de donde se sacan las "outcomes" y se imprimien
-    events = api_response["liveEvents"]
+    raw_events = api_response["liveEvents"]
     events = list(filter(lambda event : 
       event["event"]["path"][0]["englishName"].lower() == "football"
-      , events))
+      , raw_events))
     
     # https://betplay.com.co/apuestas#event/live/1019952772
     
@@ -86,31 +87,40 @@ def scrape_page(id):
     events = list(map(get_mainBetOffer, events))
     print("len events:",len(events))
     events_objs = []
-    for e in events:
-      event = e[0]
-      link = e[1]
-      try:
-        events_objs.append(
-        Event(
-          {
-            "name": event[0]["participant"],
-            "odd": event[0]["odds"]/1000
-          },
-          {
-            "name": event[2]["participant"],
-            "odd": event[2]["odds"]/1000          
-          },
-          event[1]["odds"]/1000,
-          bookmaker_dict,
-          link
-        )
-        )
-        print(events_objs[-1])
-        print("-"*60)
-      except:
-        pass
+    event_indices = range(len(events))  # Crear una lista de índices de eventos
+
+    for event_idx in event_indices:
+        clock = raw_events[event_idx]["liveData"]["matchClock"]
+        time = f"{'0' if len(str(clock['minute']))==1 else ''}{clock['minute']}:{'0' if len(str(clock['second']))==1 else ''}{clock['second']}"
+      
+        event_data = events[event_idx]  # Obtener los datos del evento actual utilizando el índice
+        event = event_data[0]
+        link = event_data[1]
+        try:
+            events_objs.append(
+                Event(
+                    {
+                        "name": event[0]["participant"],
+                        "odd": event[0]["odds"] / 1000
+                    },
+                    {
+                        "name": event[2]["participant"],
+                        "odd": event[2]["odds"] / 1000
+                    },
+                    event[1]["odds"] / 1000,
+                    bookmaker_dict,
+                    link,
+                    time
+                )
+            )
+            print(events_objs[-1])
+            print("-" * 60)
+        except:
+            pass
+
     response = [e.get_dict() for e in events_objs]
     data_usable = events_objs
+
   elif id==3:
     url = "https://m.codere.com.co/NavigationService/Home/GetLiveEventsBySportHandle?sportHandle=soccer&gametypes=1"
     data = requests.get(url)
@@ -120,6 +130,8 @@ def scrape_page(id):
     for obj in data:
       events = obj["Events"]
       for event in events:
+        time = event["liveData"]["MatchTime"]
+        time_str = f" {'0' if time<10 else ''}{time}:00"
         try:
           results = event["Games"][0]["Results"]
           # print(
@@ -141,7 +153,8 @@ def scrape_page(id):
               },
               results[1]['Odd'],
               bookmaker_dict,
-              f"{results[0]['Name']} - {results[2]['Name']}"
+              f"{results[0]['Name']} - {results[2]['Name']}",
+              time_str
             )
           )
           

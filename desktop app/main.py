@@ -9,6 +9,8 @@ def loop(window):
     login_bookmaker,
     create_notification,
     copy_to_clipboard,
+    write_duration,
+    get_durations,
   )
 
 window = webview.create_window('Hello world', 'webFront/index.html',maximized=True)

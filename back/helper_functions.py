@@ -1,5 +1,4 @@
 from difflib import SequenceMatcher
-from consts import TEAMS
 import re
 
 
