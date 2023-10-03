@@ -163,6 +163,9 @@ class Surebet:
         self.is_surebet = self.sum < 1
         self.profit = (1 / self.sum) * 100 - 100
         
+        self.id = (self.team1.name[:2] + self.team1.name[-2:] +\
+                  self.team2.name[:2] + self.team2.name[-2:] ).lower()
+                      
         
 
         
@@ -216,6 +219,7 @@ class Surebet:
                 "is_surebet": self.is_surebet,
                 "profit": self.profit,
                 "time": self.time,
+                "id": self.id
             }
         }
         
