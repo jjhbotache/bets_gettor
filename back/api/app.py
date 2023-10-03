@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from getters import *
 from helper_functions import *
 from flask_cors import CORS
+from waitress import serve
 
 
 
@@ -11,7 +12,10 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 cors = CORS(app)
-            
+
+@app.route('/', methods=['GET'])            
+def main():
+    return "Hello World!"
 
 @app.route('/sure_bets', methods=['GET'])
 def sureBets():
@@ -54,9 +58,10 @@ def get_data_from_bookmaker(bookmaker_id=0):
     return jsonify(response)
     
 
-# ------------------------------------------------------------
+# # ------------------------------------------------------------
 # if __name__ == '__main__':
-#     app.run(debug=True)
+#     app.run(
+#         # debug=True
+#     )
 if __name__ == '__main__':
-    from waitress import serve
     serve(app, host='0.0.0.0', port=1000)
