@@ -5,17 +5,17 @@ import response from "./mocks/sure_bets_response.json";
 import Nav from './component/Nav';
 import { Link } from 'react-router-dom';
 import BetsViewer from './component/BetsViewer/BetsViewer';
+import OneBetViewer from './component/OneBetViewer/OneBetViewer';
 
 
 
 function App() {
   const [surebets, setSureBets] = useState([])
   const numberOfSurebetsBefore = useRef(0)
-  // const [surebets, setSureBets] = useState(response)
   const [loading, setLoading] = useState(false)
   let timeToWait = 500;
 
-  const [betAmount, setBetAmount] = useState(50000);
+  const [betOnViewer, setBetOnViewer] = useState(null);
   
   useEffect(() => {
     fetching()
@@ -36,7 +36,8 @@ function App() {
     fetch(apiRoute+"/sure_bets")
     .then(res => res.json())
     .then(data => {
-      data.length === 0 ? (timeToWait = 0) : (timeToWait = 500);
+      // data.length === 0 ? (timeToWait = 0) : (timeToWait = 1000);
+      timeToWait = 200;
 
       console.log(data)
       setSureBets(data)
@@ -49,27 +50,19 @@ function App() {
     })
   }
 
-  function openBookMaker(bookmaker_id = 0) {
-    // <button _ngcontent-serverapp-c176="" id="dropdownLogin" class="btn-inicio w-100 mb-2 no-row"> Iniciar sesión </button>
-
-    let betplayPage = window.open("https://betplay.com.co", 'popupWindow');
-    setTimeout(() => {
-      console.log(betplayPage);
-      betplayPage.getElementById("dropdownLogin").click();
-    }, 5000);
-
-    
-  }
-
+  
   return (
     <>
     <Nav/>
 
     <div className="container h-100 d-flex justify-content-center align-items-center ">
       <div className="row">
-        <BetsViewer bets={surebets}/>
+        <BetsViewer bets={surebets} loading={loading} onSetBet={bet=>setBetOnViewer(bet)}/>
       </div>
     </div>
+
+    {betOnViewer && ( <OneBetViewer bet={betOnViewer} />)}
+    
     </>
   )
 }

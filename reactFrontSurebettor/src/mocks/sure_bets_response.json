@@ -1,38 +1,90 @@
 [
 	{
-		"info": {
-			"is_surebet": true,
-			"prob_imp_d": 0.10526315789473684,
-			"prob_imp_t1": 0.8,
-			"prob_imp_t2": 0.045454545454545456,
-			"profit": 5.183694011071964,
-			"sum": 0.9507177033492823
-		},
-		"options": [
-			{
-				"bookmaker": {
-					"id": 1,
-					"name": "wplay"
-				},
-				"name": "Connahs Quay",
-				"odd": 1.25
+			"info": {
+					"id": "BocliBarla",
+					"is_surebet": true,
+					"profit": 168.3113273106324,
+					"sum": 0.3727013727013727,
+					"time": " 84:00"
 			},
-			{
-				"bookmaker": {
-					"id": 3,
-					"name": "codere"
-				},
-				"name": "Draw",
-				"odd": 9.5
+			"options": [
+					{
+							"bookmaker": {
+									"id": 3,
+									"name": "codere"
+							},
+							"code": "no code",
+							"link": "Barranquilla FC - Boca Juniors de Cali",
+							"name": "Boca Juniors de Cali",
+							"odd": 27,
+							"prob_impl": 0.037037037037037035
+					},
+					{
+							"bookmaker": {
+									"id": 3,
+									"name": "codere"
+							},
+							"code": "no code",
+							"link": "Barranquilla FC - Boca Juniors de Cali",
+							"name": "Draw",
+							"odd": 6.5,
+							"prob_impl": 0.15384615384615385
+					},
+					{
+							"bookmaker": {
+									"id": 1,
+									"name": "wplay"
+							},
+							"code": "no code",
+							"link": "https://apuestas.wplay.co/es/e/19779231",
+							"name": "Barranquilla",
+							"odd": 5.5,
+							"prob_impl": 0.18181818181818182
+					}
+			]
+	},
+	{
+			"info": {
+					"id": "GuañaSpono",
+					"is_surebet": true,
+					"profit": 57.266300078554565,
+					"sum": 0.6358641358641359,
+					"time": "56:00"
 			},
-			{
-				"bookmaker": {
-					"id": 3,
-					"name": "codere"
-				},
-				"name": "Caernarfon Town",
-				"odd": 22.0
-			}
-		]
+			"options": [
+					{
+							"bookmaker": {
+									"id": 2,
+									"name": "betplay"
+							},
+							"code": "no code",
+							"link": " https://betplay.com.co/apuestas#filter/football/all/all/sportivo_luqueño",
+							"name": "Guaireña",
+							"odd": 26,
+							"prob_impl": 0.038461538461538464
+					},
+					{
+							"bookmaker": {
+									"id": 2,
+									"name": "betplay"
+							},
+							"code": "no code",
+							"link": " https://betplay.com.co/apuestas#filter/football/all/all/sportivo_luqueño",
+							"name": "Draw",
+							"odd": 7,
+							"prob_impl": 0.14285714285714285
+					},
+					{
+							"bookmaker": {
+									"id": 1,
+									"name": "wplay"
+							},
+							"code": "no code",
+							"link": "https://apuestas.wplay.co/es/e/19832280",
+							"name": "Sportivo Luqueno",
+							"odd": 2.2,
+							"prob_impl": 0.45454545454545453
+					}
+			]
 	}
 ]
