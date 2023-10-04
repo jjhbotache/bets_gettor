@@ -35,13 +35,13 @@ function App() {
 
 
   function fetching() {
-    setLoading(true)
-    setTimeout(() => {
-      setSureBets(mockAnswer.sort((a, b) => b.info.profit - a.info.profit));
-      setLoading(false)
-      fetching()
-    }, 5000);
-    return 
+    // setLoading(true)
+    // setTimeout(() => {
+    //   setSureBets(mockAnswer.sort((a, b) => b.info.profit - a.info.profit));
+    //   setLoading(false)
+    //   fetching()
+    // }, 2000);
+    // return 
     console.log("fetching");
     setLoading(true)
     fetch(apiRoute+"/sure_bets")
