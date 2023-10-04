@@ -6,6 +6,7 @@ import BetsViewer from './component/BetsViewer/BetsViewer';
 import OneBetViewer from './component/OneBetViewer/OneBetViewer';
 import mockAnswer from "./mocks/sure_bets_response.json";
 import Sidebar from './component/Sidebar/Sidebar';
+import { isMobile } from './functions/functions';
 
 
 
@@ -26,7 +27,7 @@ function App() {
 
   useEffect(() => {
     timeToWait = 500;
-    if (surebets.length > numberOfSurebetsBefore.current ) {
+    if (surebets.length > numberOfSurebetsBefore.current && !isMobile()) {
       numberOfSurebetsBefore.current = surebets.length
       console.log(surebets)
       new Notification("New surebet");
@@ -47,16 +48,14 @@ function App() {
     fetch(apiRoute+"/sure_bets")
     .then(res => res.json())
     .then(data => {
-      data = mockAnswer;
-      console.log(data);
       // sort by profit
       data.sort((a, b) => b.info.profit - a.info.profit);
-
+      
       // data.length === 0 ? (timeToWait = 0) : (timeToWait = 1000);
       timeToWait = 200;
 
-      console.log(data)
       setSureBets(data)
+      console.log(data)
       
     })
     .catch((e) => {
