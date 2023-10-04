@@ -8,3 +8,8 @@
   display: flex;
   flex-direction: column;
 }
+
+i::before {
+  display: block;
+  margin: auto auto;
+}

@@ -1,34 +1,34 @@
 [
 	{
 			"info": {
-					"id": "BocliBarla",
+					"id": "huwnbity",
 					"is_surebet": true,
-					"profit": 168.3113273106324,
-					"sum": 0.3727013727013727,
-					"time": " 84:00"
+					"profit": 18.795620437956217,
+					"sum": 0.8417818740399385,
+					"time": "23:36"
 			},
 			"options": [
 					{
 							"bookmaker": {
-									"id": 3,
-									"name": "codere"
+									"id": 2,
+									"name": "betplay"
 							},
 							"code": "no code",
-							"link": "Barranquilla FC - Boca Juniors de Cali",
-							"name": "Boca Juniors de Cali",
-							"odd": 27,
-							"prob_impl": 0.037037037037037035
+							"link": " https://betplay.com.co/apuestas#filter/football/all/all/birmingham",
+							"name": "Huddersfield Town",
+							"odd": 31,
+							"prob_impl": 0.03225806451612903
 					},
 					{
 							"bookmaker": {
-									"id": 3,
-									"name": "codere"
+									"id": 2,
+									"name": "betplay"
 							},
 							"code": "no code",
-							"link": "Barranquilla FC - Boca Juniors de Cali",
+							"link": " https://betplay.com.co/apuestas#filter/football/all/all/birmingham",
 							"name": "Draw",
-							"odd": 6.5,
-							"prob_impl": 0.15384615384615385
+							"odd": 10.5,
+							"prob_impl": 0.09523809523809523
 					},
 					{
 							"bookmaker": {
@@ -36,20 +36,20 @@
 									"name": "wplay"
 							},
 							"code": "no code",
-							"link": "https://apuestas.wplay.co/es/e/19779231",
-							"name": "Barranquilla",
-							"odd": 5.5,
-							"prob_impl": 0.18181818181818182
+							"link": "https://apuestas.wplay.co/es/e/19843267",
+							"name": "Birmingham City",
+							"odd": 1.4,
+							"prob_impl": 0.7142857142857143
 					}
 			]
 	},
 	{
 			"info": {
-					"id": "GuañaSpono",
+					"id": "polebrrs",
 					"is_surebet": true,
-					"profit": 57.266300078554565,
-					"sum": 0.6358641358641359,
-					"time": "56:00"
+					"profit": 26.212999694842836,
+					"sum": 0.7923114119922631,
+					"time": "25:14"
 			},
 			"options": [
 					{
@@ -58,10 +58,10 @@
 									"name": "betplay"
 							},
 							"code": "no code",
-							"link": " https://betplay.com.co/apuestas#filter/football/all/all/sportivo_luqueño",
-							"name": "Guaireña",
-							"odd": 26,
-							"prob_impl": 0.038461538461538464
+							"link": " https://betplay.com.co/apuestas#filter/football/all/all/bristol_rovers",
+							"name": "Port Vale",
+							"odd": 8,
+							"prob_impl": 0.125
 					},
 					{
 							"bookmaker": {
@@ -69,10 +69,10 @@
 									"name": "betplay"
 							},
 							"code": "no code",
-							"link": " https://betplay.com.co/apuestas#filter/football/all/all/sportivo_luqueño",
+							"link": " https://betplay.com.co/apuestas#filter/football/all/all/bristol_rovers",
 							"name": "Draw",
-							"odd": 7,
-							"prob_impl": 0.14285714285714285
+							"odd": 4.7,
+							"prob_impl": 0.2127659574468085
 					},
 					{
 							"bookmaker": {
@@ -80,10 +80,186 @@
 									"name": "wplay"
 							},
 							"code": "no code",
-							"link": "https://apuestas.wplay.co/es/e/19832280",
-							"name": "Sportivo Luqueno",
+							"link": "https://apuestas.wplay.co/es/e/19874656",
+							"name": "Bristol Rovers",
 							"odd": 2.2,
 							"prob_impl": 0.45454545454545453
+					}
+			]
+	},
+	{
+			"info": {
+					"id": "brtytrre",
+					"is_surebet": true,
+					"profit": 34.3654068743395,
+					"sum": 0.7442391782694594,
+					"time": "23:48"
+			},
+			"options": [
+					{
+							"bookmaker": {
+									"id": 2,
+									"name": "betplay"
+							},
+							"code": "no code",
+							"link": " https://betplay.com.co/apuestas#filter/football/all/all/tranmere_rovers",
+							"name": "Bradford City",
+							"odd": 4.75,
+							"prob_impl": 0.21052631578947367
+					},
+					{
+							"bookmaker": {
+									"id": 2,
+									"name": "betplay"
+							},
+							"code": "no code",
+							"link": " https://betplay.com.co/apuestas#filter/football/all/all/tranmere_rovers",
+							"name": "Draw",
+							"odd": 3.65,
+							"prob_impl": 0.273972602739726
+					},
+					{
+							"bookmaker": {
+									"id": 1,
+									"name": "wplay"
+							},
+							"code": "no code",
+							"link": "https://apuestas.wplay.co/es/e/19881015",
+							"name": "Tranmere",
+							"odd": 3.85,
+							"prob_impl": 0.2597402597402597
+					}
+			]
+	},
+	{
+			"info": {
+					"id": "alotalfc",
+					"is_surebet": true,
+					"profit": 15.404021099304344,
+					"sum": 0.8665209326974033,
+					"time": "24:40"
+			},
+			"options": [
+					{
+							"bookmaker": {
+									"id": 2,
+									"name": "betplay"
+							},
+							"code": "no code",
+							"link": " https://betplay.com.co/apuestas#filter/football/all/all/altrincham",
+							"name": "Aldershot",
+							"odd": 8.5,
+							"prob_impl": 0.11764705882352941
+					},
+					{
+							"bookmaker": {
+									"id": 2,
+									"name": "betplay"
+							},
+							"code": "no code",
+							"link": " https://betplay.com.co/apuestas#filter/football/all/all/altrincham",
+							"name": "Draw",
+							"odd": 4.8,
+							"prob_impl": 0.20833333333333334
+					},
+					{
+							"bookmaker": {
+									"id": 1,
+									"name": "wplay"
+							},
+							"code": "no code",
+							"link": "https://apuestas.wplay.co/es/e/19843320",
+							"name": "Altrincham FC",
+							"odd": 1.85,
+							"prob_impl": 0.5405405405405405
+					}
+			]
+	},
+	{
+			"info": {
+					"id": "oxtysued",
+					"is_surebet": true,
+					"profit": 17.874930824571095,
+					"sum": 0.8483568075117371,
+					"time": "25:59"
+			},
+			"options": [
+					{
+							"bookmaker": {
+									"id": 1,
+									"name": "wplay"
+							},
+							"code": "no code",
+							"link": "https://apuestas.wplay.co/es/e/19843330",
+							"name": "Oxford City",
+							"odd": 6,
+							"prob_impl": 0.16666666666666666
+					},
+					{
+							"bookmaker": {
+									"id": 2,
+									"name": "betplay"
+							},
+							"code": "no code",
+							"link": " https://betplay.com.co/apuestas#filter/football/all/all/southend",
+							"name": "Draw",
+							"odd": 3.55,
+							"prob_impl": 0.28169014084507044
+					},
+					{
+							"bookmaker": {
+									"id": 3,
+									"name": "codere"
+							},
+							"code": "no code",
+							"link": "Sutton United - Salford City",
+							"name": "Sutton United",
+							"odd": 2.5,
+							"prob_impl": 0.4
+					}
+			]
+	},
+	{
+			"info": {
+					"id": "clesclas",
+					"is_surebet": true,
+					"profit": 32.734530938123754,
+					"sum": 0.7533834586466165,
+					"time": " 40:00"
+			},
+			"options": [
+					{
+							"bookmaker": {
+									"id": 1,
+									"name": "wplay"
+							},
+							"code": "no code",
+							"link": "https://apuestas.wplay.co/es/e/19841677",
+							"name": "Club Mercedes",
+							"odd": 15,
+							"prob_impl": 0.06666666666666667
+					},
+					{
+							"bookmaker": {
+									"id": 1,
+									"name": "wplay"
+							},
+							"code": "no code",
+							"link": "https://apuestas.wplay.co/es/e/19841677",
+							"name": "Draw",
+							"odd": 4.75,
+							"prob_impl": 0.21052631578947367
+					},
+					{
+							"bookmaker": {
+									"id": 3,
+									"name": "codere"
+							},
+							"code": "no code",
+							"link": "Club Sportivo Barracas - Club Mercedes",
+							"name": "Club Sportivo Barracas",
+							"odd": 2.1,
+							"prob_impl": 0.47619047619047616
 					}
 			]
 	}

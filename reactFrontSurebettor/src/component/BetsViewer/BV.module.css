@@ -1,7 +1,8 @@
 .BVContainer{
   height: 90vh;
-  width: 98vw;
+  width: 95vw;
   max-width: 400px;
+  
 
 }
 .noLoading{
@@ -31,6 +32,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow-y: hidden;
+}
+.betsContainer:hover{
+  overflow-y: auto;
 }
 
 

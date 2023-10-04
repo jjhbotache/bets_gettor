@@ -1,0 +1,52 @@
+/* CustomNav.module.css */
+:root{
+  --backgroundColor: #0b008a;
+  --textcolor: #fff;
+  --borderLeftColor: #fff;
+}
+
+
+.navbar-menu {
+  height: 100%;
+  background-color: #05003e !important; /* Usando variables para colores */
+  box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.502);
+  transition: all 0.2s ease;
+}
+
+.burger {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+.navbar__list {
+  list-style-type: none;
+  padding-left: 1em !important;
+}
+
+.navbar__li {
+  display: inline-block;
+  padding: 0px 0px 0px 3px;
+  position: relative;
+  top: 2.5px;
+  font-size: 16px;
+  letter-spacing: 0px;
+  line-height: 38px;
+  color: var(--textcolor); /* Usando variables para colores */
+  font-weight: 400;
+}
+
+
+.navbar__li_box:first-child {
+  margin-top: 2vh;
+}
+
+.navbar__li_box {
+  height: 43px;
+  margin-top: 5px;
+}
+
+.navbar__li_box:hover {
+  border-left: 2px solid var(--borderLeftColor); /* Usando variables para colores */
+  cursor: pointer;
+}
