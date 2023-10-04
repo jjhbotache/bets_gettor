@@ -11,7 +11,7 @@ import { isMobile } from './functions/functions';
 
 
 function App() {
-  const [surebets, setSureBets] = useState([])
+  const [surebets, setSureBets] = useState(mockAnswer)
   const numberOfSurebetsBefore = useRef(0)
   const [loading, setLoading] = useState(false)
   let timeToWait = 500;
