@@ -1,6 +1,6 @@
 from difflib import SequenceMatcher
 import re
-
+import psutil
 
 def sum_all(numbers):
     sum = 0
@@ -83,3 +83,17 @@ def generar_segunda_string(primera_string):
     
     
     return segunda_string
+
+
+def get_memory_used_mb():
+    # Obtener el uso de memoria actual del proceso de Python
+    process = psutil.Process()
+    memory_info = process.memory_info()
+
+    # Obtener la cantidad de memoria utilizada en bytes
+    memory_used_bytes = memory_info.rss
+
+    # Convertir la cantidad de memoria a MB para mayor legibilidad
+    memory_used_mb = memory_used_bytes / (1024 * 1024)
+    
+    return memory_used_mb
