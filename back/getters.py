@@ -177,7 +177,7 @@ def scrape_page(id):
       result = fn(args)
       result_var.append(result)
       
-    while True:
+    for bookmaker_id in range(1,len(bookmakers)):
       try:
         thread_list.append(threading.Thread(target=task_fn, args=(scrape_page,id_to_scrape,all_answers)))
         id_to_scrape+=1

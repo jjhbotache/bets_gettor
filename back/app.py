@@ -26,14 +26,14 @@ def sureBets():
 # V2
 
 bookmakers = [
-    "all",
+    # "all",
     "wplay",
     "betplay",
     "codere",
-    "betjuego",
-    "rushbet",
-    "zamba",
-    "betfair",
+    # "betjuego",
+    # "rushbet",
+    # "zamba",
+    # "betfair",
 ]
 
 @app.route('/get_data_from_bookmaker', methods=['GET'])
@@ -61,7 +61,7 @@ def get_data_from_bookmaker(bookmaker_id=0):
 # # ------------------------------------------------------------
 # if __name__ == '__main__':
 #     app.run(
-#         # debug=True
+#         debug=True
 #     )
 if __name__ == '__main__':
     serve(app, host='0.0.0.0', port=1000)
