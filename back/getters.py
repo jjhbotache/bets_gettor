@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from helper_functions import *
 from classes import *
 from app import bookmakers
+import threading
 
   
 def scrape_page(id):
@@ -168,19 +169,37 @@ def scrape_page(id):
     response = []
     data_usable = []
     
+    thread_list = []
     
+    all_answers = []
+    # Función para ejecutar la tarea y almacenar el resultado
+    def task_fn(fn,args, result_var):
+      result = fn(args)
+      result_var.append(result)
+      
     while True:
       try:
-        scrape = scrape_page(id_to_scrape)
-        response.append(scrape[0])
-        data_usable.append(scrape[1])
+        thread_list.append(threading.Thread(target=task_fn, args=(scrape_page,id_to_scrape,all_answers)))
         id_to_scrape+=1
+        
+        
       except IndexError as e:
         break
       except Exception as e:
         print("error:",e)
         raise e
         break
+        
+    for thread in thread_list:
+      thread.start()
+
+    for thread in thread_list:
+      thread.join()
+      
+    for answer in all_answers:
+      response.append(answer[0])
+      data_usable.append(answer[1]) 
+      
   else:
     raise IndexError("id not found")
     
