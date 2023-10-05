@@ -5,3 +5,12 @@
   align-items: center;
   text-align: center;
 }
+
+.infoRow{
+  text-decoration: none;
+  color: inherit;
+  max-width: 95%;
+}
+.infoRow>div{
+  padding: 0.1rem 0;
+}

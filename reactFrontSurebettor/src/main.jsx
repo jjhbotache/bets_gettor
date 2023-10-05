@@ -11,6 +11,9 @@ const router = createBrowserRouter(
     },
   ]);
 
+  if (Notification.permission !== "granted") {
+    Notification.requestPermission();
+  }
 ReactDOM.createRoot(document.getElementById('root')).render(
   <>
     <React.StrictMode>

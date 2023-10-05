@@ -15,10 +15,10 @@ function App() {
   const numberOfSurebetsBefore = useRef(0)
   const [loading, setLoading] = useState(false)
   let timeToWait = 500;
-
   const [betOnViewer, setBetOnViewer] = useState(null);
-
   const [pageIndex, setPageIndex] = useState(0);
+  const [amount, setAmount] = useState(50000);
+
   
 
   useEffect(() => {
@@ -85,8 +85,13 @@ function App() {
       } value={pageIndex} onChange={i=>{setPageIndex(i)}} />
 
       {pageIndex === 0 && (
-        <div className="container mt-1 h-100 d-flex justify-content-center align-items-center ">
-          <div className="row">
+        <div className="container mt-sm-1 h-100 d-flex justify-content-center align-items-center ">
+          <div className="row d-flex justify-content-center px-sm-5">
+            {/* betAmount input */}
+            <div className="input-group input-group-sm mb-sm-3 mx-auto mb-1" style={{maxWidth:"400px"}}>
+              <span className="input-group-text">Bet amount</span>
+              <input type="number" step={1000} className="form-control bg-dark text-light" value={amount} onChange={(e)=>{setAmount(e.target.value)}}/>
+            </div>
             <BetsViewer bets={surebets} loading={loading} onSetBet={bet=>{setBetOnViewer(bet);setPageIndex(1)}}/>
           </div>
         </div>
@@ -94,7 +99,12 @@ function App() {
       {pageIndex === 1 && (
         betOnViewer ? ( 
           <div className="mt-1 w-100" >
-            <OneBetViewer bet={betOnViewer} />
+            {/* betAmount input */}
+            <div className="input-group input-group-sm mb-sm-3 mx-auto mb-1" style={{maxWidth:"400px"}}>
+              <span className="input-group-text">Bet amount</span>
+              <input type="number" step={1000} className="form-control bg-dark text-light" value={amount} onChange={(e)=>{setAmount(e.target.value)}}/>
+            </div>
+            <OneBetViewer bet={betOnViewer} betAmount={amount} />
           </div>
         ) : (
           <div className="d-flex align-items-center flex-column gap-2 m-1 w-100" >

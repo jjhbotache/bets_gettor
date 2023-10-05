@@ -17,14 +17,12 @@ export default function BetsViewer({bets, loading, onSetBet}) {
             onClick={e=>onSetBet(bet)}
             >
               <strong><h4 className='text-center'>{bet.options.map(o=>o.name!="Draw"?o.name:" VS ")}</h4></strong>
-              <span className={`badge fs-6 rounded-pill text-light text-bg-${
-                (bet.info.profit<10?"danger":
-                bet.info.profit<20?"warning":
-                bet.info.profit<30?"info":
-                bet.info.profit<40?"primary":
-                bet.info.profit<50?"secondary":
-                bet.info.profit<100?"success":"light"
-                )
+              <span className={`badge fs-6 rounded-pill text-light ${
+                bet.info.profit < 10 ? "bg-danger":
+                bet.info.profit < 20 ? "bg-warning":
+                bet.info.profit < 30 ? "bg-info":
+                bet.info.profit < 40 ? "bg-primary":
+                bet.info.profit < 50 ? "bg-success":"bg-light text-dark"
               } w-auto`}>{"Profit: "+Math.floor(bet.info.profit)+"%"}</span>
             </div>
           ))}       

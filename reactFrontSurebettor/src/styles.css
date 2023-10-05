@@ -10,7 +10,21 @@
 }
 
 i::before {
-  display: block;
-  margin: auto auto;
+  display: grid;
+  place-items: center;
+  margin: 0.2em;
 }
 
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: white !important;
+}
+
+.hoverable{
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.hoverable:hover{
+  transform: scale(1.07);
+}
