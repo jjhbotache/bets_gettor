@@ -192,7 +192,8 @@ def scrape_page(id):
         
     for thread in thread_list:
       print("()()()(()()()()()(using "+str(get_memory_used_mb())+" mb of memory)()()()(()()()()()")
-      if get_memory_used_mb()>300:
+      memory_per_process = get_memory_used_mb()/len(thread_list) + 10
+      if get_memory_used_mb()+memory_per_process > 512:
         for thread in thread_list:
           thread.join()
           # delete the thread
