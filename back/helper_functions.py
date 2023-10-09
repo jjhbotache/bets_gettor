@@ -97,3 +97,18 @@ def get_memory_used_mb():
     memory_used_mb = memory_used_bytes / (1024 * 1024)
     
     return memory_used_mb
+
+# Función para limpiar y formatear un nombre
+def clean_and_format_name(name):
+    # Utilizar una expresión regular para eliminar caracteres no alfabéticos
+    cleaned_name = re.sub(r'[^a-zA-Z]', '', name)
+    return cleaned_name
+
+def format_str_to_minutes(tiempo):
+    # Divide la cadena de tiempo en minutos y segundos
+    minutos, segundos = map(int, tiempo.split(":"))
+    
+    # Calcula el total de minutos
+    total_minutos = minutos + segundos / 60
+    
+    return total_minutos

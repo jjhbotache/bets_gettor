@@ -9,7 +9,8 @@
   flex-direction: column;
 }
 
-i::before {
+
+i {
   display: grid;
   place-items: center;
   margin: 0.2em;

@@ -7,7 +7,7 @@ export default function Nav() {
     
 
   return(
-    <nav>
+    <nav className="">
       <ul className="nav nav-tabs">
         {
           links.map((link, index) => {

@@ -16,8 +16,8 @@ const Sidebar = ({ li , value, onChange }) => {
 
   return (
     <nav
-      className={styles["navbar-menu"]} // Aplica estilos desde el objeto de estilos
-      style={{ width: window === false ? "25vw" : 60 , height: "90vh"}}
+      className={` ${styles["navbar-menu"]}`} // Aplica estilos desde el objeto de estilos
+      style={{ width: window === false ? 210 : 60 }}
     >
       <div className={styles.burger} onClick={() => openClose()}>
         <i className="fi fi-br-menu-dots-vertical m-2"></i>

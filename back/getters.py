@@ -91,9 +91,12 @@ def scrape_page(id):
     event_indices = range(len(events))  # Crear una lista de índices de eventos
 
     for event_idx in event_indices:
-        clock = raw_events[event_idx]["liveData"]["matchClock"]
-        time = f"{'0' if len(str(clock['minute']))==1 else ''}{clock['minute']}:{'0' if len(str(clock['second']))==1 else ''}{clock['second']}"
-      
+        try:
+          clock = raw_events[event_idx]["liveData"]["matchClock"]
+          time = f"{'0' if len(str(clock['minute']))==1 else ''}{clock['minute']}:{'0' if len(str(clock['second']))==1 else ''}{clock['second']}"
+        except:
+          time = "00:00"
+          
         event_data = events[event_idx]  # Obtener los datos del evento actual utilizando el índice
         event = event_data[0]
         link = event_data[1]

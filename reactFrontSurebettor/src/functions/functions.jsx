@@ -1,3 +1,5 @@
+import { apiRoute } from "../const/consts";
+
 export function isMobile() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
@@ -21,3 +23,27 @@ export function addDots(numero) {
   // Unir el arreglo en una nueva cadena y devolverla
   return arreglo.join("");
 }
+
+export function surebetsPerMinute(surebets) {
+  const contador = {}; // Objeto para almacenar el conteo
+
+  // Itera sobre cada objeto en el array de surebets
+  surebets.forEach((surebet) => {
+    const minuto = Math.floor(surebet.match_time_minutes); // Obtiene el minuto redondeando hacia abajo
+    // Verifica si el minuto ya existe en el contador
+    if (contador[minuto]) {
+      contador[minuto]++; // Incrementa el conteo si ya existe
+    } else {
+      contador[minuto] = 1; // Inicializa el conteo en 1 si es la primera vez
+    }
+  });
+
+  // Convierte el objeto contador en un array de objetos con las propiedades "minuto" y "cantidad de surebets"
+  const resultado = Object.entries(contador).map(([minuto, cantidad]) => ({
+    "M. time": parseInt(minuto),
+    "surebetsAmount": cantidad,
+  }));
+
+  return resultado;
+}
+

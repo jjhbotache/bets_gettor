@@ -1,7 +1,8 @@
 from bs4 import BeautifulSoup
-from helper_functions import str_compare 
+from helper_functions import *
 from functools import reduce
 from consts import *
+import time
 
 # make a class that gets two teams and create a match obj
 class Match:
@@ -159,12 +160,17 @@ class Surebet:
         
         self.sum = self.prob_imp_t1 + self.prob_imp_t2 + self.prob_imp_d
         
-        # self.is_surebet = self.sum < 1.1
         self.is_surebet = self.sum < 1
+        # self.is_surebet = self.sum < 1.03
         self.profit = (1 / self.sum) * 100 - 100
         
-        self.id = (self.team1.name[:2] + self.team1.name[-2:] +\
-                  self.team2.name[:2] + self.team2.name[-2:] ).lower()
+        # Limpiar y formatear los nombres de los equipos
+        team1_name_cleaned = clean_and_format_name(self.team1.name)
+        team2_name_cleaned = clean_and_format_name(self.team2.name)
+        # Crear el ID combinando los nombres de los equipos limpios
+        self.id = (team1_name_cleaned[:2] + team1_name_cleaned[-2:] +
+                   team2_name_cleaned[:2] + team2_name_cleaned[-2:]).lower()
+        # tomar la fecha actual en milisegundos
                       
         
 

@@ -8,6 +8,7 @@ import mockAnswer from "./mocks/sure_bets_response.json";
 import Sidebar from './component/Sidebar/Sidebar';
 import { isMobile } from './functions/functions';
 
+import { surebetsPeriod } from './main';
 
 
 function App() {
@@ -16,8 +17,10 @@ function App() {
   const [loading, setLoading] = useState(false)
   let timeToWait = 500;
   const [betOnViewer, setBetOnViewer] = useState(null);
+  const firstBetDone = useRef(false)
   const [pageIndex, setPageIndex] = useState(0);
   const [amount, setAmount] = useState(50000);
+  const [sendLogs, setSendLogs] = useState(false);
 
   
 
@@ -25,44 +28,30 @@ function App() {
     fetching()
   }, []);
 
-  useEffect(() => {
-    timeToWait = 500;
-    if (surebets.length > numberOfSurebetsBefore.current && !isMobile()) {
-      numberOfSurebetsBefore.current = surebets.length
-      console.log(surebets)
-      new Notification("New surebet");
-    }
-  }, [surebets]);
+  
 
 
   function fetching() {
-    // setLoading(true)
-    // setTimeout(() => {
-    //   setSureBets(mockAnswer.sort((a, b) => b.info.profit - a.info.profit));
-    //   setLoading(false)
-    //   fetching()
-    // }, 2000);
-    // return 
-    console.log("fetching");
     setLoading(true)
     fetch(apiRoute+"/sure_bets")
     .then(res => res.json())
-    .then(data => {
+    .then(bets => {
+      // bets = mockAnswer;
       // sort by profit
-      data.sort((a, b) => b.info.profit - a.info.profit);
+      bets.sort((a, b) => b.info.profit - a.info.profit);
       
       // data.length === 0 ? (timeToWait = 0) : (timeToWait = 1000);
-      timeToWait = 200;
+      timeToWait = 500;
 
-      setSureBets(data)
-      console.log(data)
+      setSureBets(bets)
+      console.log(bets)
+      
       
     })
     .catch((e) => {
       console.log(e);
     })
     .finally(() => {
-      console.log("fetching finished");
       setLoading(false)
       setTimeout(() => {
         fetching()
@@ -70,12 +59,73 @@ function App() {
     })
   }
 
-  console.log(pageIndex);
+  useEffect(() => {
+    // if the number of surebets is bigger than the last time, send a notification (if its not mobile)
+    if (surebets.length > numberOfSurebetsBefore.current && !isMobile()) {
+      numberOfSurebetsBefore.current = surebets.length
+      const notification = new Notification("New surebet")
+      setTimeout(() => notification.close(), 2500)
+    }
+
+
+    // update the periods of the bets
+    surebetsPeriod.forEach(sp=>{
+      const existingBet = surebets.find(surebet => surebet.info.id === sp.info.id)
+      // if doesn't exist, means that desapeared, so we add the endTime and sent it
+      if(existingBet === undefined){
+        sp.endTime = Date.now();
+        sp.period = (sp.endTime - sp.startTime)/1000;
+        sp.noExists = true;
+        // if sendsLogs is true, send the data to the server
+        if(sendLogs){
+          fetch(apiRoute+"/manage_surebets",{
+            method: "POST",
+            headers: {"Content-Type": "application/json",},
+            body: JSON.stringify(sp),
+          })
+          .then(res => {
+            try {res.text()}
+            catch (error) {res.json()}
+            // set for las time on the oneBetViewer and delete it from the array
+          })
+        }
+        // set on betViewer and delete it from the array
+        sp.info.id === betOnViewer?.info.id && setBetOnViewer(sp);
+        surebetsPeriod.splice(surebetsPeriod.indexOf(sp),1);
+
+      }
+    })
+
+    surebets.forEach(s =>{
+      const existingBet = surebetsPeriod.find(sp => sp.info.id === s.info.id)
+      // if doesn't exist, means that is a new bet, so we add it to the array
+      if(existingBet === undefined){
+        const sObj = {
+          ...s,
+          startTime: Date.now(),
+          endTime: null,
+          period: null
+        };
+
+        betOnViewer?.info.id === sObj.info.id && setBetOnViewer(sObj);
+
+        surebetsPeriod.push(sObj)
+      }
+    })
+
+
+    
+  }, [surebets]);
+
+
+
+  // console.log(surebetsPeriod);
+  console.log("sendLogs",sendLogs);
   return (
     <>
     <Nav/>
 
-    <div className="d-flex  ">
+    <div className="d-flex h-100 ">
 
       <Sidebar li={
         [
@@ -90,19 +140,30 @@ function App() {
             {/* betAmount input */}
             <div className="input-group input-group-sm mb-sm-3 mx-auto mb-1" style={{maxWidth:"400px"}}>
               <span className="input-group-text">Bet amount</span>
-              <input type="number" step={1000} className="form-control bg-dark text-light" value={amount} onChange={(e)=>{setAmount(e.target.value)}}/>
+              <input type="number" step={2500} className="form-control bg-dark text-light rounded" value={amount} onChange={(e)=>{setAmount(e.target.value)}}/>
+              <div className="form-check form-switch d-flex flex-column align-items-center justify-content-center p-0">
+                <label className="form-check-label mx-1" htmlFor="flexSwitchCheckDefault">Sent data: </label>
+                <input className="form-check-input mx-auto" type="checkbox" role="switch" checked={sendLogs} onChange={e=>setSendLogs(e.target.checked)} />
+              </div>
             </div>
-            <BetsViewer bets={surebets} loading={loading} onSetBet={bet=>{setBetOnViewer(bet);setPageIndex(1)}}/>
+            <BetsViewer bets={surebets} loading={loading} onSetBet={bet=>{
+              setBetOnViewer(bet);
+              setPageIndex(1);
+              firstBetDone.current=true;
+              setBetOnViewer(surebetsPeriod.find(sp=>sp.info.id===bet.info.id));
+              }}/>
           </div>
         </div>
       )}
+
+
       {pageIndex === 1 && (
         betOnViewer ? ( 
           <div className="mt-1 w-100" >
             {/* betAmount input */}
             <div className="input-group input-group-sm mb-sm-3 mx-auto mb-1" style={{maxWidth:"400px"}}>
               <span className="input-group-text">Bet amount</span>
-              <input type="number" step={1000} className="form-control bg-dark text-light" value={amount} onChange={(e)=>{setAmount(e.target.value)}}/>
+              <input type="number" step={2500} className="form-control bg-dark text-light" value={amount} onChange={(e)=>{setAmount(e.target.value)}}/>
             </div>
             <OneBetViewer bet={betOnViewer} betAmount={amount} />
           </div>
