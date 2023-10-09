@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { navLinks } from "../const/consts"
 
 export default function Nav() {
@@ -13,7 +14,8 @@ export default function Nav() {
           links.map((link, index) => {
             return(
               <li className="nav-item" key={index}>
-                <a className={`nav-link ${url === link.link ? "active" : ""}`} href={link.link}>{link.name}</a>
+                <Link className={`nav-link ${url === link.link ? "active" : ""}`} to={link.link}>{link.name}</Link>
+                {/* <a className={`nav-link ${url === link.link ? "active" : ""}`} href={link.link}>{link.name}</a> */}
               </li>
             )
           })
