@@ -1,19 +1,18 @@
 import webview
 from main_functions import * 
+from python.app import *
 
 
 def loop(window):
   window.expose(
-    say_hi,
-    open_google,
-    login_bookmaker,
     create_notification,
     copy_to_clipboard,
-    write_duration,
-    get_durations,
+    # api functions
+    sure_bets,
+    manage_surebet
   )
 
-window = webview.create_window('Hello world', 'webFront/index.html',maximized=True)
+window = webview.create_window('Apibettor', 'reactUI/dist/index.html',maximized=True)
 webview.start(func=loop,args=window,
               debug=True,
               ) 

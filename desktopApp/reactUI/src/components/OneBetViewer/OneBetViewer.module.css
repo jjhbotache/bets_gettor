@@ -1,0 +1,38 @@
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.infoRow{
+  text-decoration: none;
+  color: inherit;
+  max-width: 95%;
+}
+.infoRow>div{
+  padding: 0.1rem 0;
+}
+
+.noBet{
+  border: solid 0.01em #a80000;
+}
+.bet{
+  animation: pulse 0.8s ease-in-out infinite;
+}
+@keyframes pulse {
+  0% {
+    border: 0.2em solid #7d9eff;
+    box-shadow: 0px 0px 20px 8px #000000;
+  }
+  50% {
+    border: 0.2em solid #0014cb;
+    box-shadow: 0px 0px 20px -2px #000000;
+    transform: scale(1.01);
+  }
+  100% {
+    border: 0.2em solid #fbfcff;
+    box-shadow: 0px 0px 20px 8px #000000;
+  }
+}

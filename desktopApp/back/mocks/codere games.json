@@ -1,0 +1,1813 @@
+{"response": [
+  {
+    "ChildrenCount": 146,
+    "CountryCode": "CO",
+    "CountryName": "Colombia",
+    "Games": [
+      {
+        "CategoryInfo": {
+          "CategoryId": "99",
+          "CategoryName": "PRINCIPALES",
+          "IsRelevant": true
+        },
+        "CategoryInfos": [
+          {
+            "CategoryId": "99",
+            "CategoryName": "PRINCIPALES",
+            "IsRelevant": true
+          }
+        ],
+        "DisplayTypeName": "3way",
+        "GameType": 1,
+        "Locked": false,
+        "Name": "1X2",
+        "NodeId": "7781120572",
+        "ParentNodeId": "7781120508",
+        "Priority": 9990,
+        "Results": [
+          {
+            "EventHasHandicap": false,
+            "EventId": "7781120508",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7781120572",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "Atlético Bucaramanga",
+            "NodeId": "7781120970",
+            "Odd": 2.4,
+            "ParentNodeId": "7781120572",
+            "Priority": 0,
+            "SortOrder": 0,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7781120508",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7781120572",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "X",
+            "NodeId": "7781120969",
+            "Odd": 3.2,
+            "ParentNodeId": "7781120572",
+            "Priority": 1,
+            "SortOrder": 1,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7781120508",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7781120572",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "Rionegro Águilas",
+            "NodeId": "7781120968",
+            "Odd": 3.1,
+            "ParentNodeId": "7781120572",
+            "Priority": 2,
+            "SortOrder": 2,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          }
+        ],
+        "SmartMarketAvailable": true,
+        "SportHandle": "soccer",
+        "Spov": ""
+      }
+    ],
+    "HighlightPriority": 0,
+    "LTMEnabled": false,
+    "LeagueKlothoPriority": 9550,
+    "LeagueName": "Primera A Colombia",
+    "LiveHistory": null,
+    "Locked": false,
+    "Name": "Atlético Bucaramanga - Rionegro Águilas",
+    "NodeId": "7781120508",
+    "ParentNodeId": "3069005120",
+    "ParticipantAway": "Rionegro Águilas",
+    "ParticipantAwayId": 15387132,
+    "ParticipantHome": "Atlético Bucaramanga",
+    "ParticipantHomeId": 15403483,
+    "Participants": [
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "1"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 15387132,
+        "IsHome": false,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Rionegro Águilas"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "RÁg"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      },
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "0"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 15403483,
+        "IsHome": true,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Atlético Bucaramanga"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "ABu"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      }
+    ],
+    "Priority": 0,
+    "SmartMarketReferenceGameTypeIds": "1,2,4,6,7,8,12,14,15,18,20,22,24,25,27,29,30,31,36,37,82,98,99,102,103,104,105,109,112,113,114,149,153,155,156,160,161,192,316,321,336,958,960,984,987,1033,1060,1187,1812,1813,2115|4,18;5|5,18;74,75,76,149|4,18,74;45,46,47,49,56,133,134,374|46,54;54|54;77,100,101,139|62,139;62|62;2633|2633,2634,4,18,75;2634|2633,2634,4,18,75;2616|2616,4,18,75",
+    "SportHandle": "soccer",
+    "SportId": "2817453298",
+    "SportName": "Fútbol",
+    "StarDate": "/Date(1692651600000)/",
+    "StartDate": "/Date(1692651600000)/",
+    "StatisticsId": "42767505",
+    "StreamingEnabled": null,
+    "StreamingId": null,
+    "isLive": false
+  },
+  {
+    "ChildrenCount": 145,
+    "CountryCode": "CO",
+    "CountryName": "Colombia",
+    "Games": [
+      {
+        "CategoryInfo": {
+          "CategoryId": "99",
+          "CategoryName": "PRINCIPALES",
+          "IsRelevant": true
+        },
+        "CategoryInfos": [
+          {
+            "CategoryId": "99",
+            "CategoryName": "PRINCIPALES",
+            "IsRelevant": true
+          }
+        ],
+        "DisplayTypeName": "3way",
+        "GameType": 1,
+        "Locked": false,
+        "Name": "1X2",
+        "NodeId": "7778641514",
+        "ParentNodeId": "7778641447",
+        "Priority": 9990,
+        "Results": [
+          {
+            "EventHasHandicap": false,
+            "EventId": "7778641447",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7778641514",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "Millonarios",
+            "NodeId": "7778641935",
+            "Odd": 1.75,
+            "ParentNodeId": "7778641514",
+            "Priority": 0,
+            "SortOrder": 0,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7778641447",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7778641514",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "X",
+            "NodeId": "7778641934",
+            "Odd": 3.45,
+            "ParentNodeId": "7778641514",
+            "Priority": 1,
+            "SortOrder": 1,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7778641447",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7778641514",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "Once Caldas",
+            "NodeId": "7778641933",
+            "Odd": 5.5,
+            "ParentNodeId": "7778641514",
+            "Priority": 2,
+            "SortOrder": 2,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          }
+        ],
+        "SmartMarketAvailable": true,
+        "SportHandle": "soccer",
+        "Spov": ""
+      }
+    ],
+    "HighlightPriority": 0,
+    "LTMEnabled": false,
+    "LeagueKlothoPriority": 9550,
+    "LeagueName": "Primera A Colombia",
+    "LiveHistory": null,
+    "Locked": false,
+    "Name": "Millonarios - Once Caldas",
+    "NodeId": "7778641447",
+    "ParentNodeId": "3069005120",
+    "ParticipantAway": "Once Caldas",
+    "ParticipantAwayId": 15371276,
+    "ParticipantHome": "Millonarios",
+    "ParticipantHomeId": 15333877,
+    "Participants": [
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "0"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 15333877,
+        "IsHome": true,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Millonarios"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Mil"
+            },
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "es",
+              "Value": "Mil"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      },
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "1"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 15371276,
+        "IsHome": false,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Once Caldas"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "OCa"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      }
+    ],
+    "Priority": 0,
+    "SmartMarketReferenceGameTypeIds": "1,2,4,6,7,8,12,14,15,18,20,22,24,25,27,29,30,31,36,37,82,98,99,102,103,104,105,109,112,113,114,149,153,155,156,160,161,192,316,321,336,958,960,984,987,1033,1060,1187,1812,1813,2115|4,18;5|5,18;74,75,76,149|4,18,74;45,46,47,49,56,133,134,374|46,54;54|54;77,100,101,139|62,139;62|62;2633|2633,2634,4,18,75;2634|2633,2634,4,18,75;2616|2616,4,18,75",
+    "SportHandle": "soccer",
+    "SportId": "2817453298",
+    "SportName": "Fútbol",
+    "StarDate": "/Date(1692662400000)/",
+    "StartDate": "/Date(1692662400000)/",
+    "StatisticsId": "42744637",
+    "StreamingEnabled": null,
+    "StreamingId": null,
+    "isLive": false
+  },
+  {
+    "ChildrenCount": 149,
+    "CountryCode": "CO",
+    "CountryName": "Colombia",
+    "Games": [
+      {
+        "CategoryInfo": {
+          "CategoryId": "99",
+          "CategoryName": "PRINCIPALES",
+          "IsRelevant": true
+        },
+        "CategoryInfos": [
+          {
+            "CategoryId": "99",
+            "CategoryName": "PRINCIPALES",
+            "IsRelevant": true
+          }
+        ],
+        "DisplayTypeName": "3way",
+        "GameType": 1,
+        "Locked": false,
+        "Name": "1X2",
+        "NodeId": "7776482898",
+        "ParentNodeId": "7776482815",
+        "Priority": 9990,
+        "Results": [
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776482815",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776482898",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "Atlético Huila",
+            "NodeId": "7776483340",
+            "Odd": 3.15,
+            "ParentNodeId": "7776482898",
+            "Priority": 0,
+            "SortOrder": 0,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776482815",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776482898",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "X",
+            "NodeId": "7776483339",
+            "Odd": 3.25,
+            "ParentNodeId": "7776482898",
+            "Priority": 1,
+            "SortOrder": 1,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776482815",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776482898",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "Atlético Nacional",
+            "NodeId": "7776483338",
+            "Odd": 2.35,
+            "ParentNodeId": "7776482898",
+            "Priority": 2,
+            "SortOrder": 2,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          }
+        ],
+        "SmartMarketAvailable": true,
+        "SportHandle": "soccer",
+        "Spov": ""
+      }
+    ],
+    "HighlightPriority": 0,
+    "LTMEnabled": false,
+    "LeagueKlothoPriority": 9550,
+    "LeagueName": "Primera A Colombia",
+    "LiveHistory": null,
+    "Locked": false,
+    "Name": "Atlético Huila - Atlético Nacional",
+    "NodeId": "7776482815",
+    "ParentNodeId": "3069005120",
+    "ParticipantAway": "Atlético Nacional",
+    "ParticipantAwayId": 15381747,
+    "ParticipantHome": "Atlético Huila",
+    "ParticipantHomeId": 15371107,
+    "Participants": [
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "0"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 15371107,
+        "IsHome": true,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Atlético Huila"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "AHu"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      },
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "1"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 15381747,
+        "IsHome": false,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Atlético Nacional"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "ANa"
+            },
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "es",
+              "Value": "ANa"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      }
+    ],
+    "Priority": 0,
+    "SmartMarketReferenceGameTypeIds": "1,2,4,6,7,8,12,14,15,18,20,22,24,25,27,29,30,31,36,37,82,98,99,102,103,104,105,109,112,113,114,149,153,155,156,160,161,192,316,321,336,958,960,984,987,1033,1060,1187,1812,1813,2115|4,18;5|5,18;74,75,76,149|4,18,74;45,46,47,49,56,133,134,374|46,54;54|54;77,100,101,139|62,139;62|62;2633|2633,2634,4,18,75;2634|2633,2634,4,18,75;2616|2616,4,18,75",
+    "SportHandle": "soccer",
+    "SportId": "2817453298",
+    "SportName": "Fútbol",
+    "StarDate": "/Date(1692580800000)/",
+    "StartDate": "/Date(1692580800000)/",
+    "StatisticsId": "42743489",
+    "StreamingEnabled": null,
+    "StreamingId": null,
+    "isLive": false
+  },
+  {
+    "ChildrenCount": 145,
+    "CountryCode": "CO",
+    "CountryName": "Colombia",
+    "Games": [
+      {
+        "CategoryInfo": {
+          "CategoryId": "99",
+          "CategoryName": "PRINCIPALES",
+          "IsRelevant": true
+        },
+        "CategoryInfos": [
+          {
+            "CategoryId": "99",
+            "CategoryName": "PRINCIPALES",
+            "IsRelevant": true
+          }
+        ],
+        "DisplayTypeName": "3way",
+        "GameType": 1,
+        "Locked": false,
+        "Name": "1X2",
+        "NodeId": "7776474737",
+        "ParentNodeId": "7776474663",
+        "Priority": 9990,
+        "Results": [
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776474663",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776474737",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "Deportivo Pereira",
+            "NodeId": "7776475150",
+            "Odd": 1.72,
+            "ParentNodeId": "7776474737",
+            "Priority": 0,
+            "SortOrder": 0,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776474663",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776474737",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "X",
+            "NodeId": "7776475149",
+            "Odd": 3.6,
+            "ParentNodeId": "7776474737",
+            "Priority": 1,
+            "SortOrder": 1,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776474663",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776474737",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "Jaguares de Córdoba",
+            "NodeId": "7776475148",
+            "Odd": 5.25,
+            "ParentNodeId": "7776474737",
+            "Priority": 2,
+            "SortOrder": 2,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          }
+        ],
+        "SmartMarketAvailable": true,
+        "SportHandle": "soccer",
+        "Spov": ""
+      }
+    ],
+    "HighlightPriority": 0,
+    "LTMEnabled": true,
+    "LeagueKlothoPriority": 9550,
+    "LeagueName": "Primera A Colombia",
+    "LiveHistory": null,
+    "Locked": false,
+    "Name": "Deportivo Pereira - Jaguares de Córdoba",
+    "NodeId": "7776474663",
+    "ParentNodeId": "3069005120",
+    "ParticipantAway": "Jaguares de Córdoba",
+    "ParticipantAwayId": 15404064,
+    "ParticipantHome": "Deportivo Pereira",
+    "ParticipantHomeId": 15376234,
+    "Participants": [
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "0"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 15376234,
+        "IsHome": true,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Deportivo Pereira"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "DPe"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      },
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "1"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 15404064,
+        "IsHome": false,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Jaguares de Córdoba"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Jde"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      }
+    ],
+    "Priority": 0,
+    "SmartMarketReferenceGameTypeIds": "1,2,4,6,7,8,12,14,15,18,20,22,24,25,27,29,30,31,36,37,82,98,99,102,103,104,105,109,112,113,114,149,153,155,156,160,161,192,316,321,336,958,960,984,987,1033,1060,1187,1812,1813,2115|4,18;5|5,18;74,75,76,149|4,18,74;45,46,47,49,56,133,134,374|46,54;54|54;77,100,101,139|62,139;62|62;2633|2633,2634,4,18,75;2634|2633,2634,4,18,75;2616|2616,4,18,75",
+    "SportHandle": "soccer",
+    "SportId": "2817453298",
+    "SportName": "Fútbol",
+    "StarDate": "/Date(1692478800000)/",
+    "StartDate": "/Date(1692478800000)/",
+    "StatisticsId": "42744639",
+    "StreamingEnabled": null,
+    "StreamingId": null,
+    "isLive": false
+  },
+  {
+    "ChildrenCount": 147,
+    "CountryCode": "CO",
+    "CountryName": "Colombia",
+    "Games": [
+      {
+        "CategoryInfo": {
+          "CategoryId": "99",
+          "CategoryName": "PRINCIPALES",
+          "IsRelevant": true
+        },
+        "CategoryInfos": [
+          {
+            "CategoryId": "99",
+            "CategoryName": "PRINCIPALES",
+            "IsRelevant": true
+          }
+        ],
+        "DisplayTypeName": "3way",
+        "GameType": 1,
+        "Locked": false,
+        "Name": "1X2",
+        "NodeId": "7776473662",
+        "ParentNodeId": "7776473598",
+        "Priority": 9990,
+        "Results": [
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776473598",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776473662",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "Unión Magdalena",
+            "NodeId": "7776474051",
+            "Odd": 3.0,
+            "ParentNodeId": "7776473662",
+            "Priority": 0,
+            "SortOrder": 0,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776473598",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776473662",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "X",
+            "NodeId": "7776474050",
+            "Odd": 3.1,
+            "ParentNodeId": "7776473662",
+            "Priority": 1,
+            "SortOrder": 1,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776473598",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776473662",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "Santa Fe",
+            "NodeId": "7776474049",
+            "Odd": 2.55,
+            "ParentNodeId": "7776473662",
+            "Priority": 2,
+            "SortOrder": 2,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          }
+        ],
+        "SmartMarketAvailable": true,
+        "SportHandle": "soccer",
+        "Spov": ""
+      }
+    ],
+    "HighlightPriority": 0,
+    "LTMEnabled": true,
+    "LeagueKlothoPriority": 9550,
+    "LeagueName": "Primera A Colombia",
+    "LiveHistory": null,
+    "Locked": false,
+    "Name": "Unión Magdalena - Santa Fe",
+    "NodeId": "7776473598",
+    "ParentNodeId": "3069005120",
+    "ParticipantAway": "Santa Fe",
+    "ParticipantAwayId": 15387028,
+    "ParticipantHome": "Unión Magdalena",
+    "ParticipantHomeId": 15376198,
+    "Participants": [
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "0"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 15376198,
+        "IsHome": true,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Unión Magdalena"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "UMa"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      },
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "1"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 15387028,
+        "IsHome": false,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Santa Fe"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "SFe"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      }
+    ],
+    "Priority": 0,
+    "SmartMarketReferenceGameTypeIds": "1,2,4,6,7,8,12,14,15,18,20,22,24,25,27,29,30,31,36,37,82,98,99,102,103,104,105,109,112,113,114,149,153,155,156,160,161,192,316,321,336,958,960,984,987,1033,1060,1187,1812,1813,2115|4,18;5|5,18;74,75,76,149|4,18,74;45,46,47,49,56,133,134,374|46,54;54|54;77,100,101,139|62,139;62|62;2633|2633,2634,4,18,75;2634|2633,2634,4,18,75;2616|2616,4,18,75",
+    "SportHandle": "soccer",
+    "SportId": "2817453298",
+    "SportName": "Fútbol",
+    "StarDate": "/Date(1692486600000)/",
+    "StartDate": "/Date(1692486600000)/",
+    "StatisticsId": "42744641",
+    "StreamingEnabled": null,
+    "StreamingId": null,
+    "isLive": false
+  },
+  {
+    "ChildrenCount": 143,
+    "CountryCode": "CO",
+    "CountryName": "Colombia",
+    "Games": [
+      {
+        "CategoryInfo": {
+          "CategoryId": "99",
+          "CategoryName": "PRINCIPALES",
+          "IsRelevant": true
+        },
+        "CategoryInfos": [
+          {
+            "CategoryId": "99",
+            "CategoryName": "PRINCIPALES",
+            "IsRelevant": true
+          }
+        ],
+        "DisplayTypeName": "3way",
+        "GameType": 1,
+        "Locked": false,
+        "Name": "1X2",
+        "NodeId": "7778643435",
+        "ParentNodeId": "7778643371",
+        "Priority": 9990,
+        "Results": [
+          {
+            "EventHasHandicap": false,
+            "EventId": "7778643371",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7778643435",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "Deportivo Cali",
+            "NodeId": "7778643830",
+            "Odd": 2.4,
+            "ParentNodeId": "7778643435",
+            "Priority": 0,
+            "SortOrder": 0,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7778643371",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7778643435",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "X",
+            "NodeId": "7778643829",
+            "Odd": 3.15,
+            "ParentNodeId": "7778643435",
+            "Priority": 1,
+            "SortOrder": 1,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7778643371",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7778643435",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "Deportes Tolima",
+            "NodeId": "7778643828",
+            "Odd": 3.15,
+            "ParentNodeId": "7778643435",
+            "Priority": 2,
+            "SortOrder": 2,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          }
+        ],
+        "SmartMarketAvailable": true,
+        "SportHandle": "soccer",
+        "Spov": ""
+      }
+    ],
+    "HighlightPriority": 0,
+    "LTMEnabled": false,
+    "LeagueKlothoPriority": 9550,
+    "LeagueName": "Primera A Colombia",
+    "LiveHistory": null,
+    "Locked": false,
+    "Name": "Deportivo Cali - Deportes Tolima",
+    "NodeId": "7778643371",
+    "ParentNodeId": "3069005120",
+    "ParticipantAway": "Deportes Tolima",
+    "ParticipantAwayId": 15333997,
+    "ParticipantHome": "Deportivo Cali",
+    "ParticipantHomeId": 15333876,
+    "Participants": [
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "0"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 15333876,
+        "IsHome": true,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Deportivo Cali"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "DCa"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      },
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "1"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 15333997,
+        "IsHome": false,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Deportes Tolima"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "DTo"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      }
+    ],
+    "Priority": 0,
+    "SmartMarketReferenceGameTypeIds": "1,2,4,6,7,8,12,14,15,18,20,22,24,25,27,29,30,31,36,37,82,98,99,102,103,104,105,109,112,113,114,149,153,155,156,160,161,192,316,321,336,958,960,984,987,1033,1060,1187,1812,1813,2115|4,18;5|5,18;74,75,76,149|4,18,74;45,46,47,49,56,133,134,374|46,54;54|54;77,100,101,139|62,139;62|62;2633|2633,2634,4,18,75;2634|2633,2634,4,18,75;2616|2616,4,18,75",
+    "SportHandle": "soccer",
+    "SportId": "2817453298",
+    "SportName": "Fútbol",
+    "StarDate": "/Date(1692659400000)/",
+    "StartDate": "/Date(1692659400000)/",
+    "StatisticsId": "42744645",
+    "StreamingEnabled": null,
+    "StreamingId": null,
+    "isLive": false
+  },
+  {
+    "ChildrenCount": 130,
+    "CountryCode": "CO",
+    "CountryName": "Colombia",
+    "Games": [
+      {
+        "CategoryInfo": {
+          "CategoryId": "99",
+          "CategoryName": "PRINCIPALES",
+          "IsRelevant": true
+        },
+        "CategoryInfos": [
+          {
+            "CategoryId": "99",
+            "CategoryName": "PRINCIPALES",
+            "IsRelevant": true
+          }
+        ],
+        "DisplayTypeName": "3way",
+        "GameType": 1,
+        "Locked": false,
+        "Name": "1X2",
+        "NodeId": "7776483971",
+        "ParentNodeId": "7776483907",
+        "Priority": 9990,
+        "Results": [
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776483907",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776483971",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "La Equidad",
+            "NodeId": "7776484414",
+            "Odd": 1.95,
+            "ParentNodeId": "7776483971",
+            "Priority": 0,
+            "SortOrder": 0,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776483907",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776483971",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "X",
+            "NodeId": "7776484413",
+            "Odd": 3.1,
+            "ParentNodeId": "7776483971",
+            "Priority": 1,
+            "SortOrder": 1,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776483907",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776483971",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "Junior",
+            "NodeId": "7776484412",
+            "Odd": 4.5,
+            "ParentNodeId": "7776483971",
+            "Priority": 2,
+            "SortOrder": 2,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          }
+        ],
+        "SmartMarketAvailable": true,
+        "SportHandle": "soccer",
+        "Spov": ""
+      }
+    ],
+    "HighlightPriority": 0,
+    "LTMEnabled": false,
+    "LeagueKlothoPriority": 9550,
+    "LeagueName": "Primera A Colombia",
+    "LiveHistory": null,
+    "Locked": false,
+    "Name": "La Equidad - Junior",
+    "NodeId": "7776483907",
+    "ParentNodeId": "3069005120",
+    "ParticipantAway": "Junior",
+    "ParticipantAwayId": 15326360,
+    "ParticipantHome": "La Equidad",
+    "ParticipantHomeId": 15381743,
+    "Participants": [
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "1"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 15326360,
+        "IsHome": false,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Junior"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Jun"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      },
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "0"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 15381743,
+        "IsHome": true,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "La Equidad"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "LEq"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      }
+    ],
+    "Priority": 0,
+    "SmartMarketReferenceGameTypeIds": "1,2,4,6,7,8,12,14,15,18,20,22,24,25,27,29,30,31,36,37,82,98,99,102,103,104,105,109,112,113,114,149,153,155,156,160,161,192,316,321,336,958,960,984,987,1033,1060,1187,1812,1813,2115|4,18;5|5,18;74,75,76,149|4,18,74;45,46,47,49,56,133,134,374|46,54;54|54;77,100,101,139|62,139;62|62;2633|2633,2634,4,18,75;2634|2633,2634,4,18,75;2616|2616,4,18,75",
+    "SportHandle": "soccer",
+    "SportId": "2817453298",
+    "SportName": "Fútbol",
+    "StarDate": "/Date(1692494400000)/",
+    "StartDate": "/Date(1692494400000)/",
+    "StatisticsId": "42744643",
+    "StreamingEnabled": null,
+    "StreamingId": null,
+    "isLive": false
+  },
+  {
+    "ChildrenCount": 146,
+    "CountryCode": "CO",
+    "CountryName": "Colombia",
+    "Games": [
+      {
+        "CategoryInfo": {
+          "CategoryId": "99",
+          "CategoryName": "PRINCIPALES",
+          "IsRelevant": true
+        },
+        "CategoryInfos": [
+          {
+            "CategoryId": "99",
+            "CategoryName": "PRINCIPALES",
+            "IsRelevant": true
+          }
+        ],
+        "DisplayTypeName": "3way",
+        "GameType": 1,
+        "Locked": false,
+        "Name": "1X2",
+        "NodeId": "7776491769",
+        "ParentNodeId": "7776491702",
+        "Priority": 9990,
+        "Results": [
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776491702",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776491769",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "Independiente Medellín",
+            "NodeId": "7776492437",
+            "Odd": 1.8,
+            "ParentNodeId": "7776491769",
+            "Priority": 0,
+            "SortOrder": 0,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776491702",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776491769",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "X",
+            "NodeId": "7776492436",
+            "Odd": 3.6,
+            "ParentNodeId": "7776491769",
+            "Priority": 1,
+            "SortOrder": 1,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776491702",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776491769",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "Alianza Petrolera",
+            "NodeId": "7776492435",
+            "Odd": 4.6,
+            "ParentNodeId": "7776491769",
+            "Priority": 2,
+            "SortOrder": 2,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          }
+        ],
+        "SmartMarketAvailable": true,
+        "SportHandle": "soccer",
+        "Spov": ""
+      }
+    ],
+    "HighlightPriority": 0,
+    "LTMEnabled": false,
+    "LeagueKlothoPriority": 9550,
+    "LeagueName": "Primera A Colombia",
+    "LiveHistory": null,
+    "Locked": false,
+    "Name": "Independiente Medellín - Alianza Petrolera",
+    "NodeId": "7776491702",
+    "ParentNodeId": "3069005120",
+    "ParticipantAway": "Alianza Petrolera",
+    "ParticipantAwayId": 14653615,
+    "ParticipantHome": "Independiente Medellín",
+    "ParticipantHomeId": 15954287,
+    "Participants": [
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "1"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 14653615,
+        "IsHome": false,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Alianza Petrolera"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "APe"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      },
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "0"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 15954287,
+        "IsHome": true,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Independiente Medellin"
+            },
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "es",
+              "Value": "Independiente Medellín"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "IMe"
+            },
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "es",
+              "Value": "IMe"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      }
+    ],
+    "Priority": 0,
+    "SmartMarketReferenceGameTypeIds": "1,2,4,6,7,8,12,14,15,18,20,22,24,25,27,29,30,31,36,37,82,98,99,102,103,104,105,109,112,113,114,149,153,155,156,160,161,192,316,321,336,958,960,984,987,1033,1060,1187,1812,1813,2115|4,18;5|5,18;74,75,76,149|4,18,74;45,46,47,49,56,133,134,374|46,54;54|54;77,100,101,139|62,139;62|62;2633|2633,2634,4,18,75;2634|2633,2634,4,18,75;2616|2616,4,18,75",
+    "SportHandle": "soccer",
+    "SportId": "2817453298",
+    "SportName": "Fútbol",
+    "StarDate": "/Date(1692573000000)/",
+    "StartDate": "/Date(1692573000000)/",
+    "StatisticsId": "42735249",
+    "StreamingEnabled": null,
+    "StreamingId": null,
+    "isLive": false
+  },
+  {
+    "ChildrenCount": 143,
+    "CountryCode": "CO",
+    "CountryName": "Colombia",
+    "Games": [
+      {
+        "CategoryInfo": {
+          "CategoryId": "99",
+          "CategoryName": "PRINCIPALES",
+          "IsRelevant": true
+        },
+        "CategoryInfos": [
+          {
+            "CategoryId": "99",
+            "CategoryName": "PRINCIPALES",
+            "IsRelevant": true
+          }
+        ],
+        "DisplayTypeName": "3way",
+        "GameType": 1,
+        "Locked": false,
+        "Name": "1X2",
+        "NodeId": "7776494889",
+        "ParentNodeId": "7776494822",
+        "Priority": 9990,
+        "Results": [
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776494822",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776494889",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "Deportivo Pasto",
+            "NodeId": "7776495314",
+            "Odd": 2.0,
+            "ParentNodeId": "7776494889",
+            "Priority": 0,
+            "SortOrder": 0,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776494822",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776494889",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "X",
+            "NodeId": "7776495313",
+            "Odd": 3.2,
+            "ParentNodeId": "7776494889",
+            "Priority": 1,
+            "SortOrder": 1,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          },
+          {
+            "EventHasHandicap": false,
+            "EventId": "7776494822",
+            "GameBetTypeAvailability": 0,
+            "GameId": "7776494889",
+            "GameNumberOfStarters": 0,
+            "GameSpecialOddsValue": "",
+            "GameTypeId": 1,
+            "IsLive": false,
+            "IsNonRunner": false,
+            "LeagueId": "3069005120",
+            "LocationId": "3064262567",
+            "Locked": false,
+            "Name": "Boyacá Chicó",
+            "NodeId": "7776495312",
+            "Odd": 4.1,
+            "ParentNodeId": "7776494889",
+            "Priority": 2,
+            "SortOrder": 2,
+            "SportHandle": "soccer",
+            "SportId": "2817453298",
+            "downOdd": false,
+            "upOdd": false
+          }
+        ],
+        "SmartMarketAvailable": true,
+        "SportHandle": "soccer",
+        "Spov": ""
+      }
+    ],
+    "HighlightPriority": 0,
+    "LTMEnabled": false,
+    "LeagueKlothoPriority": 9550,
+    "LeagueName": "Primera A Colombia",
+    "LiveHistory": null,
+    "Locked": false,
+    "Name": "Deportivo Pasto - Boyacá Chicó",
+    "NodeId": "7776494822",
+    "ParentNodeId": "3069005120",
+    "ParticipantAway": "Boyacá Chicó",
+    "ParticipantAwayId": 15381744,
+    "ParticipantHome": "Deportivo Pasto",
+    "ParticipantHomeId": 15333996,
+    "Participants": [
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "0"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 15333996,
+        "IsHome": true,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Deportivo Pasto"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "DPa"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      },
+      {
+        "AdditionalValues": {
+          "KeyValues": [],
+          "LocalizedValues": [
+            {
+              "Key": "ParticipantOrder",
+              "Value": "1"
+            }
+          ],
+          "ReferenceId": 0
+        },
+        "Id": 15381744,
+        "IsHome": false,
+        "LocalizedNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "Boyacá Chicó"
+            }
+          ],
+          "ReferenceId": -1
+        },
+        "LocalizedShortNames": {
+          "LocalizedValues": [
+            {
+              "CountryCode": "-1",
+              "LanguageCode": "-1",
+              "Value": "BCh"
+            }
+          ],
+          "ReferenceId": 0
+        }
+      }
+    ],
+    "Priority": 0,
+    "SmartMarketReferenceGameTypeIds": "1,2,4,6,7,8,12,14,15,18,20,22,24,25,27,29,30,31,36,37,82,98,99,102,103,104,105,109,112,113,114,149,153,155,156,160,161,192,316,321,336,958,960,984,987,1033,1060,1187,1812,1813,2115|4,18;5|5,18;74,75,76,149|4,18,74;45,46,47,49,56,133,134,374|46,54;54|54;77,100,101,139|62,139;62|62;2633|2633,2634,4,18,75;2634|2633,2634,4,18,75;2616|2616,4,18,75",
+    "SportHandle": "soccer",
+    "SportId": "2817453298",
+    "SportName": "Fútbol",
+    "StarDate": "/Date(1692565200000)/",
+    "StartDate": "/Date(1692565200000)/",
+    "StatisticsId": "42743483",
+    "StreamingEnabled": null,
+    "StreamingId": null,
+    "isLive": false
+  }
+]}
