@@ -4,7 +4,6 @@ import App from './App.jsx'
 import { createBrowserRouter, RouterProvider} from "react-router-dom";
 import Logger from './pages/logger/Logger.jsx';
 import "./index.css"
-import Spinner from './components/Spinner/Spinner.jsx';
 
 
 

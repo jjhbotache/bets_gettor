@@ -60,10 +60,10 @@ function App() {
 
   useEffect(() => {
     // if the number of surebets is bigger than the last time, send a notification (if its not mobile)
-    if (surebets.length > numberOfSurebetsBefore.current && !isMobile()) {
+    if (surebets.length > numberOfSurebetsBefore.current) {
       numberOfSurebetsBefore.current = surebets.length
-      const notification = new Notification("New surebet")
-      setTimeout(() => notification.close(), 2500)
+      pywebview.api.create_notification("New Surebet",
+      `There are ${surebets.length} surebets`, "https://www.google.com/s2/favicons?sz=64&domain_url=https://www.betburger.com/")
     }
 
 
@@ -77,7 +77,7 @@ function App() {
         sp.noExists = true;
         // if sendsLogs is true, send the data to the server
         if(sendLogs){
-          pywebview.api.manage_surebets("POST",sp)
+          pywebview.api.manage_surebet("POST",sp)
         }
         // set on betViewer and delete it from the array
         sp.info.id === betOnViewer?.info.id && setBetOnViewer(sp);
@@ -109,8 +109,6 @@ function App() {
 
 
 
-  // console.log(surebetsPeriod);
-  console.log("sendLogs",sendLogs);
 
   return(
     <>

@@ -1,13 +1,47 @@
 import { useEffect, useState } from "react";
 import { betplayIcon, codereIcon, wplayIcon } from "../../const/consts.js";
 import styles from "./OneBetViewer.module.css";
-import { addDots, isMobile } from "../../functions/functions.jsx";
+import { addDots, isMobile, strTimeToFloat } from "../../functions/functions.jsx";
 export default function OneBetViewer({bet,betAmount}) {
   const wAndH = 25;
   // console.log("onBetViewer",bet); 
   const [timer, setTimer] = useState(bet.period||(Date.now()-bet.startTime)/1000);
 
-  // console.log("bet on viewer",bet.startTime);
+
+  // state for average time and shift
+  const [averageTime, setAverageTime] = useState(0);
+  // states for the minimuns and maximuns times
+  const [minTime, setMinTime] = useState(0);
+  const [maxTime, setMaxTime] = useState(0);
+
+  const [shift, setShift] = useState(5);
+
+
+  function updateAverageTime() {
+    pywebview.api.manage_surebet().then(s => {
+      const choosenSurebets = s.filter(s => {
+        const currentTime = strTimeToFloat(bet.info.time);
+        const match_time_minutes = s.match_time_minutes;
+        if(currentTime+shift >= match_time_minutes && currentTime-shift <= match_time_minutes){
+          console.log("match_time_minutes", match_time_minutes);
+          console.log("currentTime", currentTime);
+        }
+        return currentTime+shift >= match_time_minutes && currentTime-shift <= match_time_minutes;
+      });
+      console.log("choosenSurebets", choosenSurebets);
+      // get the average period of the choosen surebets
+      const averagePeriod = choosenSurebets.reduce((a, b) => a + b.period, 0) / choosenSurebets.length;
+      const minPeriod = Math.min(...choosenSurebets.map(s => s.period));
+      const maxPeriod = Math.max(...choosenSurebets.map(s => s.period));
+      setMinTime(minPeriod);
+      setMaxTime(maxPeriod);
+      setAverageTime(averagePeriod);
+    });
+  }
+
+  useEffect(() => {
+    updateAverageTime();
+  }, []);
 
   useEffect(() => {
     if (bet.noExists) {
@@ -29,17 +63,38 @@ export default function OneBetViewer({bet,betAmount}) {
       {/* title, seconds and profit% */}
       <div className="row d-flex justify-content-center text-center">
         <h2 className="rounded bg-light bg-opacity-10 m-2">{bet.options.map(o=>o.name!="Draw"?o.name:" VS ")}
-          <span className="badge bg-gradient m-1 border border-1">{
+          
+          <div className="dropdown open">
+            <span className="badge bg-gradient m-1 border border-1 dropdown-toggle" type="button" id="segsDropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">{
             Math.round(timer)+" sg"
-          }</span>
+            }</span>
+            <div className="dropdown-menu text-center bg-dark text-light p-2" aria-labelledby="segsDropdown">
+              <h4>{averageTime.toFixed(1)}</h4>
+              <small className="text-muted">Average period for the SB with <strong>±{shift}</strong></small>
+              <small> <em className="d-block">{minTime.toFixed(1) + " - " + maxTime.toFixed(1) }</em> </small>
+              <input className="form-control px-3" type="range" value={shift} onChange={e=>{setShift(e.target.value);updateAverageTime();}} />
+            </div>
+          </div>
+
+          
+
+
         </h2>
-        <span className={`badge fs-6 rounded-pill text-light ${
+        <div className="row">
+          <div className="col">
+            <span className="text-muted">{bet.info.time}</span>
+          </div>
+          <div className="col"><span className={`badge fs-6 rounded-pill text-light mx-auto ${
                 bet.info.profit < 10 ? "bg-danger":
                 bet.info.profit < 20 ? "bg-warning":
                 bet.info.profit < 30 ? "bg-info":
                 bet.info.profit < 40 ? "bg-primary":
                 bet.info.profit < 50 ? "bg-success":"bg-light text-dark"
-              } w-auto`}>{"Profit: "+Math.floor(bet.info.profit)+"%"}</span>
+              } w-auto`}>{"Profit: "+Math.floor(bet.info.profit)+"%"}</span></div>
+          <div className="col"></div>
+        </div>
+        
       </div>
       <hr />
       {/* info */}
@@ -154,4 +209,6 @@ export default function OneBetViewer({bet,betAmount}) {
 
     </div>
   )
+
+  
 };

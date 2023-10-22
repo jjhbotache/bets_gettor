@@ -20,10 +20,10 @@ export default function Graph({data,xData,yData,xLabel,yLabel,title}) {
   return(
     <div className="col-12 p-0">
       <div className="container-fluid">
-        <div className="row"><span className='text-center'>{title}</span></div>
+        <div className="row"><h2 className='text-center'>{title}</h2></div>
         <div className="row">
           <div className="col-2 d-none d-md-flex justify-content-center align-items-center text-center  text-break p-0">
-            {yLabel}
+            <span className="badge bg-primary">{yLabel}</span>
           </div>
           <div className="col p-0">
             <div className={styles.chart1 + " overflow-hidden"}>
@@ -70,7 +70,7 @@ export default function Graph({data,xData,yData,xLabel,yLabel,title}) {
                 <LineChart
                   width={500}
                   height={300}
-                  data={calculateAverage(data,yData,averagePeriod)}
+                  data={calculateAverage(data,yData,xData,averagePeriod)}
                   margin={{
                     top: 5,
                     right: 30,
@@ -90,11 +90,9 @@ export default function Graph({data,xData,yData,xLabel,yLabel,title}) {
             </div>
           </div>
         </div>
-        <div className="row text-center d-flex justify-content-center align-items-center flex-column">
-          <span>
-            {xLabel}
-          </span>
-          <input type="range" value={averagePeriod} onChange={e=>setAveragePeriod(e.target.value)} />
+        <div className="row text-center px-3">
+          <span className="badge bg-primary w-auto mx-auto">{xLabel}</span>
+          <input className='px-5' type="range" value={averagePeriod} max={Math.max(...data.map(i=>i[xData]))} onChange={e=>setAveragePeriod(e.target.value)} />
           <span>{averagePeriod}</span>
           <hr />
         </div>

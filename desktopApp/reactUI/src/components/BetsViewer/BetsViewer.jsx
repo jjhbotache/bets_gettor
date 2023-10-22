@@ -16,14 +16,29 @@ export default function BetsViewer({bets, loading, onSetBet}) {
             <div key={index} className={`row mx-2 mb-1 d-flex justify-content-center align-content-center p-1 rounded bg-black bg-opacity-50 ${styles.hoverable}`}
             onClick={e=>onSetBet(bet)}
             >
+              {/* title */}
               <strong><h4 className='text-center'>{bet.options.map(o=>o.name!="Draw"?o.name:" VS ")}</h4></strong>
-              <span className={`badge fs-6 rounded-pill text-light ${
-                bet.info.profit < 10 ? "bg-danger":
-                bet.info.profit < 20 ? "bg-warning":
-                bet.info.profit < 30 ? "bg-info":
-                bet.info.profit < 40 ? "bg-primary":
-                bet.info.profit < 50 ? "bg-success":"bg-light text-dark"
-              } w-auto`}>{"Profit: "+Math.floor(bet.info.profit)+"%"}</span>
+              <div className="container">
+                <div className="row">
+                  <div className="col">
+                    {/* minute */}
+                    <small className='text-muted'>{ bet.info.time }</small>
+                  </div>
+                  <div className="col d-flex justify-content-center">
+                    {/* badge */}
+                    <span className={`badge fs-6 rounded-pill text-light ${
+                      bet.info.profit < 10 ? "bg-danger":
+                      bet.info.profit < 20 ? "bg-warning":
+                      bet.info.profit < 30 ? "bg-info":
+                      bet.info.profit < 40 ? "bg-primary":
+                      bet.info.profit < 50 ? "bg-success":"bg-light text-dark"
+                    } w-auto`}>{"Profit: "+Math.floor(bet.info.profit)+"%"}</span>
+                  </div>
+                  <div className="col"></div>
+                </div>
+              </div>
+
+              
             </div>
           ))}       
         </div>
