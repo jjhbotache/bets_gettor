@@ -10,7 +10,6 @@ def scrape_page(id):
   
   response = {"msg":"no info"}
   data_usable = None
-  bookmaker_dict = {"name":bookmakers[id],"id":id}
   try:
     if id==1:
       url = "https://apuestas.wplay.co/es"
@@ -48,7 +47,7 @@ def scrape_page(id):
               odd = float(opt.find("span", {"class": "price dec"}).text.strip())
               new_event.append({"name": name, "odd": odd})
           
-          new_event = Event(new_event[0], new_event[2], new_event[1]["odd"], bookmaker_dict, link=link, time=time)
+          new_event = Event(new_event[0], new_event[2], new_event[1]["odd"], id-1, link=link, time=time)
           events.append(new_event)
 
       response = [e.get_dict() for e in events]
@@ -113,7 +112,7 @@ def scrape_page(id):
                           "odd": event[2]["odds"] / 1000
                       },
                       event[1]["odds"] / 1000,
-                      bookmaker_dict,
+                      id-1,
                       link,
                       time
                   )
@@ -125,7 +124,6 @@ def scrape_page(id):
 
       response = [e.get_dict() for e in events_objs]
       data_usable = events_objs
-
     elif id==3:
       url = "https://m.codere.com.co/NavigationService/Home/GetLiveEventsBySportHandle?sportHandle=soccer&gametypes=1"
       data = requests.get(url)
@@ -157,7 +155,7 @@ def scrape_page(id):
                   "odd": results[2]['Odd']          
                 },
                 results[1]['Odd'],
-                bookmaker_dict,
+                id-1,
                 f"{results[0]['Name']} - {results[2]['Name']}",
                 time_str
               )
@@ -169,6 +167,7 @@ def scrape_page(id):
       response = [e.get_dict() for e in events_objs]
       data_usable = events_objs
     elif id==0:
+      # scrape all the pages
       id_to_scrape = 1
       response = []
       data_usable = []
@@ -197,7 +196,7 @@ def scrape_page(id):
       for thread in thread_list:
         print("()()()(()()()()()(using "+str(get_memory_used_mb())+" mb of memory)()()()(()()()()()")
         memory_per_process = get_memory_used_mb()/len(thread_list) + 10
-        if get_memory_used_mb()+memory_per_process > 512:
+        if get_memory_used_mb()+memory_per_process > MAX_RAM_MEMORY:
           for thread in thread_list:
             thread.join()
             # delete the thread

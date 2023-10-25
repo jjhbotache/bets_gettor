@@ -1,10 +1,12 @@
 from bs4 import BeautifulSoup
 from .getters import *
 from .helper_functions import *
-from flask_cors import CORS
-from waitress import serve
+# from flask_cors import CORS
+# from waitress import serve
 import sqlite3
-from .consts import bookmakers
+from .consts import bookmakers, data_folder
+import os
+
 
 
 
@@ -18,7 +20,6 @@ def sure_bets():
 
 # ------------------------------------------------------------
 # V2
-
 
 # @app.route('/get_data_from_bookmaker', methods=['GET'])
 # @app.route('/get_data_from_bookmaker/<int:bookmaker_id>', methods=['GET'])
@@ -36,7 +37,9 @@ def get_data_from_bookmaker(bookmaker_id=0):
 # @app.route('/manage_surebets', methods=['POST','GET','PUT','DELETE'])
 def manage_surebet(method_from_function="GET",data_from_function=None):
     print("manage_surebets")
-    conn = sqlite3.connect('surebets.db')
+    dir_path = os.path.dirname(__file__)
+    
+    conn = sqlite3.connect(os.path.join(dir_path,data_folder,"surebets.db"))
     c = conn.cursor()
     c.execute("PRAGMA table_info(surebets)")
     columns = c.fetchall()

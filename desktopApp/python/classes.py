@@ -3,6 +3,7 @@ from .helper_functions import *
 from functools import reduce
 from .consts import *
 import time
+import traceback
 
 # make a class that gets two teams and create a match obj
 class Match:
@@ -16,16 +17,18 @@ class Match:
 
 
 class Option:
-    def get_js_code(self,bookmaker,name,price="promt('Insert the price of the bet')"):
+    def get_js_code(self,bookmaker,name,price="prompt('Insert the price of the bet')"):
+        
         try:
-            right_code = list(filter(
-                        lambda obj_code : int(obj_code["bookermaker_id"]) == int(bookmaker.id)
+            right_codes = list(filter(
+                        lambda obj_code : int(obj_code["bm_id"]) == int(bookmaker.id)
                         , JS_CODES
-                    ))[0]
-            right_code = right_code["code"].replace("<<name>>", name)
-            right_code = right_code["code"].replace("<<amount>>", price)
+                    ))
+            right_code = right_codes[0]["code"].replace(
+                "<<name>>", name).replace(
+                "<<amount>>", price)
         except Exception as e:
-            print("===========error:",e)
+            print("===========error:",traceback.format_exc())
             return "no code"
         return right_code
         
@@ -43,9 +46,10 @@ class Option:
     
 
 class Bookmaker:
-    def __init__(self, name:str, id:int):
-        self.name = name
+    def __init__(self, id:int):
         self.id = id
+        self.name = bookmakers[id]["name"]
+        self.icon = bookmakers[id]["icon"]
     
     def __str__(self):
         return f"{self.id}) {self.name}"
@@ -53,8 +57,8 @@ class Bookmaker:
 class Event:
     two_events_similarity_umbral = 1.5
     
-    def __init__(self,team1:dict,team2:dict,drawOdd:float,bookmaker:dict,link:str="",time:str="00:00"):
-        self.bookmaker = Bookmaker(bookmaker["name"],bookmaker["id"])
+    def __init__(self,team1:dict,team2:dict,drawOdd:float,bookmaker_id:int,link:str="",time:str="00:00"):
+        self.bookmaker = Bookmaker(bookmaker_id)
         self.link = link
         self.time = time
         self.team1= Option(team1["name"],float(team1["odd"]),self.bookmaker,self.link)
@@ -132,10 +136,7 @@ class Event:
                     "odd":0
                 },
                 0,
-                {
-                    "id":0,
-                    "name":""
-                }
+                0
             )
         else:
           return False
@@ -161,7 +162,7 @@ class Surebet:
         self.sum = self.prob_imp_t1 + self.prob_imp_t2 + self.prob_imp_d
         
         self.is_surebet = self.sum < 1
-        # self.is_surebet = self.sum < 1.03
+        self.is_surebet = self.sum < 1.2
         self.profit = (1 / self.sum) * 100 - 100
         
         # Limpiar y formatear los nombres de los equipos

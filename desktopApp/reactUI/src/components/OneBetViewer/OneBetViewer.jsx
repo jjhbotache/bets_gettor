@@ -109,17 +109,13 @@ export default function OneBetViewer({bet,betAmount}) {
           </div>
           {bet.options.map((option, index) => {
             let onClickFunction;
-            if(option.bookmaker.id === 3){
+            if(option.bookmaker.id === 2){
               option.link = "https://m.codere.com.co/deportescolombia/#/HomePage";
               onClickFunction = e => {
                 e.preventDefault();
-                const textToCopy = bet.options.map(o => o.name != "Draw" ? o.name : "-");
-                navigator.clipboard.writeText(`${textToCopy}`)
-                .then(re=>{
-                  window.open(option.link, "_blank");
-                  const notification = new Notification("Copied to clipboard", { body: textToCopy });
-                  setTimeout(() => notification.close(), 2500);
-                })
+                const textToCopy = bet.options.map(o => o.name != "Draw" ? o.name : "-").join(" vs ");
+                pywebview.api.copy_to_clipboard(textToCopy)
+                .then(re=>window.open(option.link, "_blank"))
                 
               }
             }
@@ -132,24 +128,13 @@ export default function OneBetViewer({bet,betAmount}) {
               
               <div className={"col-2 d-flex flex-column justify-content-center align_items-center "}> 
               <a  href={option.link} target="_blank" className={`hoverable rounded border-1 border border-info p-0 m-0 ${styles.infoRow}`} onClick={onClickFunction}> 
-                {option.bookmaker.id === 1 && ( <img className="d-block m-1 mx-auto rounded border" src={wplayIcon} style={{height:wAndH,width:wAndH}} /> )}
-                {option.bookmaker.id === 2 && ( <img className="d-block m-1 mx-auto rounded border" src={betplayIcon} style={{height:wAndH,width:wAndH}} /> )}
-                {option.bookmaker.id === 3 && ( <img className="d-block m-1 mx-auto rounded border" src={codereIcon} style={{height:wAndH,width:wAndH}} /> )}
+              <img className="d-block m-1 mx-auto rounded border" src={option.bookmaker.icon} style={{height:wAndH,width:wAndH}} />
               </a>
               </div>
               <div onClick={
                 e => {
                   e.preventDefault();
-                  
-                  navigator.clipboard.writeText(option.code)
-                  .then(re=>{
-                    const notification = new Notification("Copied to clipboard", {body: option.code=="no code"?"no code":("JS code to "+option.bookmaker.name)} );
-
-                      setTimeout(() => {
-                        notification.close();
-                      }, 2500);
-                  })
-                  .catch((error) => console.error("Error copying text: ", error));
+                  pywebview.api.copy_to_clipboard(option.code)
                 }
               } className="col-2 d-flex flex-column justify-content-center align_items-center"><i className="d-block m-auto border border-info rounded fi fi-rr-square-terminal hoverable"></i></div>
             </div>

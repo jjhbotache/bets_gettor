@@ -1,7 +1,0 @@
-{
-  "bigger odds": {
-    "Junior de Barranquilla":{"id_bookmaker": 3, "name": "Junior de Barranquilla", "odds": "2.30"},
-    "América de Cali": {"id_bookmaker": 2, "name": "América de Cali", "odds": 3.7},
-    "Draw": {"name": "Draw", "odds": 3.1, "id_bookmaker": 1}
-  }
-}
