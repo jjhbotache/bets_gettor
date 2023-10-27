@@ -108,6 +108,17 @@ export default function OneBetViewer({bet,betAmount}) {
             <div className="col-2"> <strong>Code</strong> </div>
           </div>
           {bet.options.map((option, index) => {
+            console.log("option",option);
+            // ---------------------
+            bet.options[index].exact_amount_to_bet = betAmount * (parseFloat(option.prob_impl)/bet.info.sum);
+            bet.options[index].normalized_price = Math.floor(parseFloat(option.exact_amount_to_bet) / 100) * 100;
+            bet.info.real_amount_to_bet = bet.options.reduce((a, b) => parseFloat(a) + parseFloat(b.normalized_price), 0);
+
+            bet.options[index].revenue = (option.exact_amount_to_bet * option.odd);
+            bet.options[index].real_profit = option.revenue - bet.info.real_amount_to_bet;
+
+            bet.info.min_real_profit = Math.floor(Math.min(...bet.options.map(o=>o.real_profit)));
+            // --------------------
             let onClickFunction;
             if(option.bookmaker.id === 2){
               option.link = "https://m.codere.com.co/deportescolombia/#/HomePage";
@@ -131,12 +142,9 @@ export default function OneBetViewer({bet,betAmount}) {
               <img className="d-block m-1 mx-auto rounded border" src={option.bookmaker.icon} style={{height:wAndH,width:wAndH}} />
               </a>
               </div>
-              <div onClick={
-                e => {
-                  e.preventDefault();
-                  pywebview.api.copy_to_clipboard(option.code)
-                }
-              } className="col-2 d-flex flex-column justify-content-center align_items-center"><i className="d-block m-auto border border-info rounded fi fi-rr-square-terminal hoverable"></i></div>
+              <div className="col-2 d-flex flex-column justify-content-center align_items-center">
+                <i onClick={e => {e.preventDefault();pywebview.api.get_js_code(option.bookmaker.id,option.name,option.normalized_price).then(js_code => pywebview.api.copy_to_clipboard(js_code))}} className="d-block m-auto border border-info rounded fi fi-rr-square-terminal hoverable" ></i>
+              </div>
             </div>
           )})
           }
@@ -149,29 +157,12 @@ export default function OneBetViewer({bet,betAmount}) {
           <h1>Bets info:</h1>
           {
             bet.options.map((option, index) => {
-              bet.options[index].exact_amount_to_bet = betAmount * (parseFloat(option.prob_impl)/bet.info.sum);
-              bet.options[index].normalized_price = Math.floor(parseFloat(option.exact_amount_to_bet) / 100) * 100;
-              bet.info.real_amount_to_bet = bet.options.reduce((a, b) => parseFloat(a) + parseFloat(b.normalized_price), 0);
-
-              bet.options[index].revenue = (option.exact_amount_to_bet * option.odd);
-              bet.options[index].real_profit = option.revenue - bet.info.real_amount_to_bet;
-
-              bet.info.min_real_profit = Math.floor(Math.min(...bet.options.map(o=>o.real_profit)));
-
               return (
                 <div className="row d-flex" key={index}>
                   <div className="col text-center gap-2 link-info hoverable" onClick={e=>{
                     // copy the amount to bet
                     e.preventDefault();
-                    navigator.clipboard.writeText(option.normalized_price)
-                    .then(re=>{
-                      const notification = new Notification("Copied to clipboard", { body: option.normalized_price });
-
-                      setTimeout(() => {
-                        notification.close();
-                      }, 2500);
-                    })
-                    // create a notification that last 2 seconds
+                    pywebview.api.copy_to_clipboard(option.normalized_price)
                   }}>
                     <i className=" fi fi-rr-dice-alt"></i>
                     <span className="mb-0" title={option.exact_amount_to_bet}>{addDots(option.normalized_price)}</span>

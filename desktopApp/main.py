@@ -9,7 +9,8 @@ def loop(window):
     copy_to_clipboard,
     # api functions
     sure_bets,
-    manage_surebet
+    manage_surebet,
+    get_js_code,
   )
 
 window = webview.create_window('Apibettor', 'reactUI/dist/index.html',maximized=True)

@@ -33,7 +33,7 @@ function App() {
       
   function fetching() {
     setLoading(true)
-    pywebview.api.sure_bets()
+    pywebview.api.sure_bets(amount)
     .then(bets => {
       // bets = mockAnswer;
       // sort by profit

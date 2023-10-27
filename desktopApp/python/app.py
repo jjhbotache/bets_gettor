@@ -6,6 +6,7 @@ from .helper_functions import *
 import sqlite3
 from .consts import bookmakers, data_folder
 import os
+from .classes import Option
 
 
 
@@ -14,8 +15,9 @@ import os
 
 
 # @app.route('/sure_bets', methods=['GET'])
-def sure_bets():
-    info = get_sure_bets()
+def sure_bets(amount_to_bet=0):
+    
+    info = get_sure_bets(amount_to_bet)
     return info
 
 # ------------------------------------------------------------
@@ -147,3 +149,9 @@ def manage_surebet(method_from_function="GET",data_from_function=None):
         print("done succesfully")
         return data
 # # ------------------------------------------------------------
+def get_js_code(id_bookmaker,name,price):
+    return Option.get_js_code(
+        id_bookmaker,
+        name,
+        price
+    )[0]

@@ -1,7 +1,5 @@
 from python.classes import *
-import time
-import pyautogui as pya
-import pyperclip as pypc
+import clipboard
 from plyer import notification
 import csv
 
@@ -15,14 +13,15 @@ def create_notification(titulo,mensaje,duracion=2):
   )
   
 def copy_to_clipboard(text="",notification=True):
-  # cut the text to 256 characters
-  if len(text)>256:
-    print("text too long, cutting it to 256 characters")
-    text = text[:256]
     
-  print("copied to clipboard:",text)
-  text = str(text)
-  create_notification("Copied to clipboard",text) if notification else None
-  pypc.copy(text)
+  try:
+    print("copied to clipboard:",text)
+    text = str(text)
+    create_notification("Copied to clipboard",text[:256]) if notification else None
+    # pypc.copy(text)
+    clipboard.copy(text)
+  except Exception as e:
+    print(e)
+    print(traceback.format_exc())
   
   

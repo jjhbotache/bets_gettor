@@ -17,33 +17,41 @@ class Match:
 
 
 class Option:
-    def get_js_code(self,bookmaker,name,price="prompt('Insert the price of the bet')"):
+    @classmethod
+    def get_js_code(self,bookmaker_id,name,price="prompt('Insert the price of the bet')"):
         
+        price = "prompt('Insert the price of the bet')" if price == 0 else price
+        right_code = ""
+        functions=[]
         try:
             right_codes = list(filter(
-                        lambda obj_code : int(obj_code["bm_id"]) == int(bookmaker.id)
+                        lambda obj_code : int(obj_code["bm_id"]) == int(bookmaker_id)
                         , JS_CODES
                     ))
-            right_code = right_codes[0]["code"].replace(
+            rigth_dict = right_codes[0]
+            right_code = rigth_dict["code"].replace(
                 "<<name>>", name).replace(
-                "<<amount>>", price)
+                "'<<amount>>'", str(price))
+                
+            try:functions = rigth_dict["functions"]
+            except:functions = []
+                
         except Exception as e:
             print("===========error:",traceback.format_exc())
             return "no code"
-        return right_code
+        return right_code,functions
         
     
-    def __init__(self, name:str, odd:float, bookmaker, link:str=""):
+    def __init__(self, name:str, odd:float, bookmaker, link:str="",amount_to_bet:int=0):
+        
         self.name = name
         self.odd = odd
         self.bookmaker = bookmaker
         self.link = link
-        self.code = self.get_js_code(bookmaker,name)
+        
     
     def __str__(self):
         return f"{self.name} ({self.odd})"
-
-    
 
 class Bookmaker:
     def __init__(self, id:int):
@@ -57,19 +65,15 @@ class Bookmaker:
 class Event:
     two_events_similarity_umbral = 1.5
     
-    def __init__(self,team1:dict,team2:dict,drawOdd:float,bookmaker_id:int,link:str="",time:str="00:00"):
+    def __init__(self,team1:dict,team2:dict,drawOdd:float,bookmaker_id:int,link:str="",time:str="00:00",amount_to_bet:int=0):
+        
         self.bookmaker = Bookmaker(bookmaker_id)
         self.link = link
         self.time = time
-        self.team1= Option(team1["name"],float(team1["odd"]),self.bookmaker,self.link)
-        self.team2= Option(team2["name"],float(team2["odd"]),self.bookmaker,self.link)
-        self.draw = Option("Draw",drawOdd,self.bookmaker,self.link)
+        self.team1= Option(team1["name"],float(team1["odd"]),self.bookmaker,self.link,amount_to_bet)
+        self.team2= Option(team2["name"],float(team2["odd"]),self.bookmaker,self.link,amount_to_bet)
+        self.draw = Option("Draw",drawOdd,self.bookmaker,self.link,amount_to_bet)
         
-        
-        
-        
-        
-        # self.get_teams_from_div()
     def get_dict(self):
         return {
             "bookmaker": self.bookmaker.__dict__,
@@ -146,12 +150,14 @@ class Event:
     
 
 class Surebet:
-    def __init__(self, events:list):
+    def __init__(self, events:list,amount_to_bet:int=0):
         self.events = events
         self.time = self.events[0].time
         self.team1 = self.events[0].team1
         self.team2 = self.events[0].team2
         self.draw = self.events[0].draw
+        
+        self.amount_to_bet = amount_to_bet
         
         self.get_biggers_odds()
         
@@ -202,7 +208,6 @@ class Surebet:
                 "bookmaker": self.team1.bookmaker.__dict__,
                 "link": self.team1.link,
                 "prob_impl": self.prob_imp_t1,
-                "code":self.team1.code
             },
             {
                 "name": self.draw.name,
@@ -210,7 +215,6 @@ class Surebet:
                 "bookmaker": self.draw.bookmaker.__dict__,
                 "link": self.draw.link,
                 "prob_impl": self.prob_imp_d,
-                "code":self.draw.code
             },
             {
                 "name": self.team2.name,
@@ -218,7 +222,6 @@ class Surebet:
                 "bookmaker": self.team2.bookmaker.__dict__,
                 "link": self.team2.link,
                 "prob_impl": self.prob_imp_t2,
-                "code":self.team2.code
             }
         ],
             "info":{

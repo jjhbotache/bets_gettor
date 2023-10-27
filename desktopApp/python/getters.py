@@ -6,8 +6,8 @@ from .consts import bookmakers
 import threading
 
   
-def scrape_page(id):
-  
+def scrape_page(id,amount_to_bet=0):
+  print("amount recibed:",amount_to_bet)
   response = {"msg":"no info"}
   data_usable = None
   try:
@@ -47,7 +47,7 @@ def scrape_page(id):
               odd = float(opt.find("span", {"class": "price dec"}).text.strip())
               new_event.append({"name": name, "odd": odd})
           
-          new_event = Event(new_event[0], new_event[2], new_event[1]["odd"], id-1, link=link, time=time)
+          new_event = Event(new_event[0], new_event[2], new_event[1]["odd"], id-1, link=link, time=time,amount_to_bet=amount_to_bet)
           events.append(new_event)
 
       response = [e.get_dict() for e in events]
@@ -114,7 +114,8 @@ def scrape_page(id):
                       event[1]["odds"] / 1000,
                       id-1,
                       link,
-                      time
+                      time,
+                      amount_to_bet
                   )
               )
               print(events_objs[-1])
@@ -157,7 +158,8 @@ def scrape_page(id):
                 results[1]['Odd'],
                 id-1,
                 f"{results[0]['Name']} - {results[2]['Name']}",
-                time_str
+                time_str,
+                amount_to_bet
               )
             )
             
@@ -177,12 +179,12 @@ def scrape_page(id):
       all_answers = []
       # Función para ejecutar la tarea y almacenar el resultado
       def task_fn(fn,args, result_var):
-        result = fn(args)
+        result = fn(args[0],args[1])
         result_var.append(result)
         
       for bookmaker_id in range(1,len(bookmakers)):
         try:
-          thread_list.append(threading.Thread(target=task_fn, args=(scrape_page,id_to_scrape,all_answers)))
+          thread_list.append(threading.Thread(target=task_fn, args=(scrape_page,[id_to_scrape,amount_to_bet],all_answers)))
           id_to_scrape+=1
           
           
@@ -219,7 +221,7 @@ def scrape_page(id):
     
   return response, data_usable
 
-def get_sure_bets():
+def get_sure_bets(amount_to_bet=0):
   response = {"msg":"no info"}
   """this function gets the sure bets from the data of the bookmakers
 
@@ -230,7 +232,7 @@ def get_sure_bets():
   surebets = []
   matches = []
   
-  list_of_events = scrape_page(0)[1]
+  list_of_events = scrape_page(0,amount_to_bet)[1]
   number_of_bookmakers = len(list_of_events)
   for index in range(number_of_bookmakers):
     for event in list_of_events[index]:
@@ -260,7 +262,7 @@ def get_sure_bets():
   print("~"*60)
   for lists in matches:
     print("~"*60)
-    current_surebet = Surebet(lists)
+    current_surebet = Surebet(lists,amount_to_bet)
     print(current_surebet)
     if current_surebet.is_surebet : surebets.append(current_surebet)
     
