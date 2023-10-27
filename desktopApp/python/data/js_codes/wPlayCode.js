@@ -1,3 +1,8 @@
+// wPlayCode.js
+// javascript code to bet on wplay
+//
+//
+
 let searchedName = '<<name>>';
 const amountToBet = '<<amount>>';
 // let searchedName = 'Draw';

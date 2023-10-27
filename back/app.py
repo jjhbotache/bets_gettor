@@ -13,18 +13,10 @@ import sqlite3
 
 
 
-app = Flask(__name__)
-
-cors = CORS(app)
-
-@app.route('/', methods=['GET'])            
-def main():
-    return "Hello World!"
-
-@app.route('/sure_bets', methods=['GET'])
-def sureBets():
+# @app.route('/sure_bets', methods=['GET'])
+def sure_bets():
     info = get_sure_bets()
-    return jsonify(info)   
+    return info
 
 # ------------------------------------------------------------
 # V2
@@ -40,8 +32,8 @@ bookmakers = [
     # "betfair",
 ]
 
-@app.route('/get_data_from_bookmaker', methods=['GET'])
-@app.route('/get_data_from_bookmaker/<int:bookmaker_id>', methods=['GET'])
+# @app.route('/get_data_from_bookmaker', methods=['GET'])
+# @app.route('/get_data_from_bookmaker/<int:bookmaker_id>', methods=['GET'])
 def get_data_from_bookmaker(bookmaker_id=0):
     response = {
         "msg": "no info",
@@ -51,15 +43,10 @@ def get_data_from_bookmaker(bookmaker_id=0):
     
     response["response"] = scrape_page(bookmaker_id)[0]
     response["msg"] = f"here is the info from the bookmaker {bookmaker_id}"
+    return response
     
-    #     response["msg"] = f"here is the info from the bookmaker {bookmaker_id}"
-    #     response["response"] = scrape_page(bookmaker_id)
-    # except Exception as e:
-        # response["msg"] = "bookmaker not found"
-        # response["error"] = str(e)
-    
-@app.route('/manage_surebets', methods=['POST','GET','PUT','DELETE'])
-def manage_surebet():
+# @app.route('/manage_surebets', methods=['POST','GET','PUT','DELETE'])
+def manage_surebet(method="GET",data_info=None):
     conn = sqlite3.connect('surebets.db')
     c = conn.cursor()
     c.execute("PRAGMA table_info(surebets)")
@@ -67,7 +54,6 @@ def manage_surebet():
     columns = [column[1] for column in columns]
     # for each method, do something
     # get the method
-    method = request.method
     if method == "GET":
         # get all the surebets
         c.execute("SELECT * FROM surebets")
@@ -83,7 +69,7 @@ def manage_surebet():
         ]
         
         print("done succesfully")
-        return jsonify(surebets)
+        return surebets
     elif method == "POST":
         # save a surebet
         # get the data
@@ -123,7 +109,7 @@ def manage_surebet():
         
             
         print("done succesfully")
-        return jsonify(data)
+        return d
     elif method == "PUT":
         # update a surebet
         # get the data
@@ -153,7 +139,7 @@ def manage_surebet():
             for surebet in data
         ]
         print("done succesfully")
-        return jsonify(data)
+        return d
     elif method == "DELETE":
         # delete a surebet
         # get the data
@@ -165,7 +151,7 @@ def manage_surebet():
         """)
         conn.commit()
         print("done succesfully")
-        return jsonify(data)
+        return d
 # # ------------------------------------------------------------
-# if __name__ == '__main__':app.run(debug=True)
-if __name__ == '__main__':serve(app, host='0.0.0.0', port=1000)
+if __name__ == '__main__':app.run(debug=True)
+# if __name__ == '__main__':serve(app, host='0.0.0.0', port=1000)

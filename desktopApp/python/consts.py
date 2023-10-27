@@ -16,8 +16,7 @@ JS_CODES = [
     },
     {
         "bm_id":1,
-        "code": """alert("hi: "+ "<<name>>" + " " + <<amount>>  )""",
-        "functions":[]
+        "code": import_js_file("betPlayCode.js"),
     },
     {
         "bm_id":2,
