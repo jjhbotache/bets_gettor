@@ -20,8 +20,7 @@ JS_CODES = [
     },
     {
         "bm_id":2,
-        "code": """alert("hi: "+ "<<name>>" + " " + <<amount>>  )""",
-        "functions":[]
+        "code": "",
     },
 ]
 

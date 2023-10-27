@@ -130,6 +130,7 @@ export default function OneBetViewer({bet,betAmount}) {
                 
               }
             }
+            
             return(
             // delete the text as a link and put it normal
             
@@ -143,7 +144,10 @@ export default function OneBetViewer({bet,betAmount}) {
               </a>
               </div>
               <div className="col-2 d-flex flex-column justify-content-center align_items-center">
-                <i onClick={e => {e.preventDefault();pywebview.api.get_js_code(option.bookmaker.id,option.name,option.normalized_price).then(js_code => pywebview.api.copy_to_clipboard(js_code))}} className="d-block m-auto border border-info rounded fi fi-rr-square-terminal hoverable" ></i>
+                {
+                  <i onClick={e => {e.preventDefault();pywebview.api.get_js_code(option.bookmaker.id,option.name,option.normalized_price).then(js=>pywebview.api.copy_to_clipboard(js))}} 
+                  className={"d-block m-auto border border-info rounded fi fi-rr-square-terminal hoverable" + (pywebview.api.get_js_code(option.bookmaker.id,option.name,option.normalized_price)?"":" disabled")} ></i>
+                }
               </div>
             </div>
           )})
