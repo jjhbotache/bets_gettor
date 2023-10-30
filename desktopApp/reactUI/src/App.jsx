@@ -3,9 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import Nav from './components/Nav';
 import BetsViewer from './components/BetsViewer/BetsViewer';
 import OneBetViewer from './components/OneBetViewer/OneBetViewer';
-import mockAnswer from "./mocks/sure_bets_response.json";
 import Sidebar from './components/Sidebar/Sidebar';
-import { isMobile } from './functions/functions';
 
 import { surebetsPeriod } from './main';
 
@@ -14,7 +12,7 @@ function App() {
   // wait for the connection to be established with python
   
 
-  const [surebets, setSureBets] = useState(mockAnswer)
+  const [surebets, setSureBets] = useState([])
   const numberOfSurebetsBefore = useRef(0)
   const [loading, setLoading] = useState(false)
   let timeToWait = 500;
@@ -23,19 +21,16 @@ function App() {
   const [pageIndex, setPageIndex] = useState(0);
   const [amount, setAmount] = useState(50000);
   const [sendLogs, setSendLogs] = useState(false);
+
   
   useEffect(() => {
-    // ask for permission to copy to clipboard
-    navigator.permissions.query({name: "clipboard-write"})
     fetching();
-    
   }, []);
       
   function fetching() {
     setLoading(true)
-    pywebview.api.sure_bets(amount)
+    pywebview.api.sure_bets([betOnViewer?.info.id])
     .then(bets => {
-      // bets = mockAnswer;
       // sort by profit
       bets.sort((a, b) => b.info.profit - a.info.profit);
       
@@ -66,7 +61,6 @@ function App() {
       `There are ${surebets.length} surebets`, "https://www.google.com/s2/favicons?sz=64&domain_url=https://www.betburger.com/")
     }
 
-
     // update the periods of the bets
     surebetsPeriod.forEach(sp=>{
       const existingBet = surebets.find(surebet => surebet.info.id === sp.info.id)
@@ -75,8 +69,18 @@ function App() {
         sp.endTime = Date.now();
         sp.period = (sp.endTime - sp.startTime)/1000;
         sp.noExists = true;
-        // if sendsLogs is true, send the data to the server
-        if(sendLogs){
+
+        console.log(`
+        Analaizing bet: ${sp.info.name}
+        Profit: ${sp.info.profit}
+        Period: ${sp.period}
+        `);
+        // if sendsLogs is true and the surebet has a positive profit, send the data to the server
+        if(sendLogs && (sp.info.profit > 0)){
+          pywebview.api.create_notification(
+            "Surebet sent",
+            `Name: ${sp.info.name}\nProfit: ${sp.info.profit}\nPeriod: ${sp.period}`,
+          )
           pywebview.api.manage_surebet("POST",sp)
         }
         // set on betViewer and delete it from the array
@@ -102,8 +106,6 @@ function App() {
         surebetsPeriod.push(sObj)
       }
     })
-
-
     
   }, [surebets]);
 
