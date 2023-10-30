@@ -221,7 +221,7 @@ def scrape_page(id,amount_to_bet=0):
     
   return response, data_usable
 
-def get_sure_bets(amount_to_bet=0):
+def get_sure_bets(ids_to_also_get=[]):
   response = {"msg":"no info"}
   """this function gets the sure bets from the data of the bookmakers
 
@@ -232,7 +232,7 @@ def get_sure_bets(amount_to_bet=0):
   surebets = []
   matches = []
   
-  list_of_events = scrape_page(0,amount_to_bet)[1]
+  list_of_events = scrape_page(0)[1]
   number_of_bookmakers = len(list_of_events)
   for index in range(number_of_bookmakers):
     for event in list_of_events[index]:
@@ -262,9 +262,9 @@ def get_sure_bets(amount_to_bet=0):
   print("~"*60)
   for lists in matches:
     print("~"*60)
-    current_surebet = Surebet(lists,amount_to_bet)
+    current_surebet = Surebet(lists)
     print(current_surebet)
-    if current_surebet.is_surebet : surebets.append(current_surebet)
+    if current_surebet.is_surebet or current_surebet.id in ids_to_also_get : surebets.append(current_surebet)
     
     
     

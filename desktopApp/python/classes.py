@@ -150,14 +150,13 @@ class Event:
     
 
 class Surebet:
-    def __init__(self, events:list,amount_to_bet:int=0):
+    def __init__(self, events:list):
         self.events = events
         self.time = self.events[0].time
         self.team1 = self.events[0].team1
         self.team2 = self.events[0].team2
         self.draw = self.events[0].draw
         
-        self.amount_to_bet = amount_to_bet
         
         self.get_biggers_odds()
         
@@ -168,7 +167,8 @@ class Surebet:
         self.sum = self.prob_imp_t1 + self.prob_imp_t2 + self.prob_imp_d
         
         self.is_surebet = self.sum < 1
-        self.is_surebet = self.sum < 1.2
+        self.is_surebet = self.sum < 1.1
+
         self.profit = (1 / self.sum) * 100 - 100
         
         # Limpiar y formatear los nombres de los equipos
@@ -179,9 +179,6 @@ class Surebet:
                    team2_name_cleaned[:2] + team2_name_cleaned[-2:]).lower()
         # tomar la fecha actual en milisegundos
                       
-        
-
-        
     def get_biggers_odds(self):
         # for each option, get the bigger odd with its bookmaker
         teams = [event.team1 for event in self.events] + [event.team2 for event in self.events]

@@ -15,9 +15,9 @@ from .classes import Option
 
 
 # @app.route('/sure_bets', methods=['GET'])
-def sure_bets(amount_to_bet=0):
+def sure_bets(ids_to_also_get=[]):
     
-    info = get_sure_bets(amount_to_bet)
+    info = get_sure_bets(ids_to_also_get)
     return info
 
 # ------------------------------------------------------------
