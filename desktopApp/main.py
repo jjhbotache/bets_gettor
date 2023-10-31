@@ -15,5 +15,5 @@ def loop(window):
 
 window = webview.create_window('Apibettor', 'reactUI/dist/index.html',maximized=True)
 webview.start(func=loop,args=window,
-              # debug=True,
+              debug=True,
               ) 

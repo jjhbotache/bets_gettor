@@ -5,6 +5,9 @@ import { addDots, isMobile, strTimeToFloat } from "../../functions/functions.jsx
 export default function OneBetViewer({bet,betAmount}) {
   const wAndH = 25;
   // console.log("onBetViewer",bet); 
+  console.log("period",bet.period);
+  console.log("startTime",bet.startTime);
+
   const [timer, setTimer] = useState(bet.period||(Date.now()-bet.startTime)/1000);
 
 
@@ -23,12 +26,12 @@ export default function OneBetViewer({bet,betAmount}) {
         const currentTime = strTimeToFloat(bet.info.time);
         const match_time_minutes = s.match_time_minutes;
         if(currentTime+shift >= match_time_minutes && currentTime-shift <= match_time_minutes){
-          console.log("match_time_minutes", match_time_minutes);
-          console.log("currentTime", currentTime);
+          // console.log("match_time_minutes", match_time_minutes);
+          // console.log("currentTime", currentTime);
         }
         return currentTime+shift >= match_time_minutes && currentTime-shift <= match_time_minutes;
       });
-      console.log("choosenSurebets", choosenSurebets);
+      // console.log("choosenSurebets", choosenSurebets);
       // get the average period of the choosen surebets
       const averagePeriod = choosenSurebets.reduce((a, b) => a + b.period, 0) / choosenSurebets.length;
       const minPeriod = Math.min(...choosenSurebets.map(s => s.period));
@@ -58,8 +61,15 @@ export default function OneBetViewer({bet,betAmount}) {
     };
   },[bet]);
 
+  const borderStyles = bet.noExists
+  ?styles.noExists
+    :bet.noSurebet
+  ?styles.noSurebet
+  :styles.surebet;
+  
+
   return(
-    <div className={`container rounded ${bet.noExists?(styles.noBet):styles.bet} `} style={{width:"95%",maxWidth:400}}>
+    <div className={`container rounded ${borderStyles} `} style={{width:"95%",maxWidth:400}}>
       {/* title, seconds and profit% */}
       <div className="row d-flex justify-content-center text-center">
         <h2 className="rounded bg-light bg-opacity-10 m-2">{bet.options.map(o=>o.name!="Draw"?o.name:" VS ")}
@@ -108,7 +118,7 @@ export default function OneBetViewer({bet,betAmount}) {
             <div className="col-2"> <strong>Code</strong> </div>
           </div>
           {bet.options.map((option, index) => {
-            console.log("option",option);
+            // console.log("option",option);
             // ---------------------
             bet.options[index].exact_amount_to_bet = betAmount * (parseFloat(option.prob_impl)/bet.info.sum);
             bet.options[index].normalized_price = Math.floor(parseFloat(option.exact_amount_to_bet) / 100) * 100;

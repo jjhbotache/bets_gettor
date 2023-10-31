@@ -7,7 +7,6 @@ import threading
 
   
 def scrape_page(id,amount_to_bet=0):
-  print("amount recibed:",amount_to_bet)
   response = {"msg":"no info"}
   data_usable = None
   try:
@@ -32,7 +31,6 @@ def scrape_page(id,amount_to_bet=0):
 
       button_indices = range(len(buttons))  # Crear una lista de índices de botones
       for button_idx in button_indices:
-          print("-" * 60)
           time = divs[button_idx].find("span", {"class": "clock"}).text.strip()
           
           new_event = []
@@ -41,7 +39,6 @@ def scrape_page(id,amount_to_bet=0):
           code = classes[-1].split("-")[-1]
           # https://apuestas.wplay.co/es/e/19637325
           link = "https://apuestas.wplay.co/es/e/" + code
-          print(link)
           for opt in button:
               name = opt.find("span", {"class": "seln-label"}).text.strip()
               odd = float(opt.find("span", {"class": "price dec"}).text.strip())
@@ -74,19 +71,19 @@ def scrape_page(id,amount_to_bet=0):
           # print(event)
           # https://betplay.com.co/apuestas#filter/football/all/all/kuopion_palloseura__w_
           team = event["event"]["name"].split(" - ")[0]
-          print("event:",team)
           link = " https://betplay.com.co/apuestas#filter/football/all/all/"+generar_segunda_string(team)
           # link = f"https://betplay.com.co/apuestas#event/live/1020077375{event['event']['id']}"
           # link = f"https://betplay.com.co/apuestas#event/live/1020077375{event['event']['id']}"
           
           output = event["mainBetOffer"]["outcomes"]
         except Exception as e:
-          print("error, couldnt get the mainBetOffer of the event:",e)
-          print(event["event"]["name"])
+          # print("error, couldnt get the mainBetOffer of the event:",e)
+          # print(event["event"]["name"])
+          pass
         return output,link
       
       events = list(map(get_mainBetOffer, events))
-      print("len events:",len(events))
+      # print("len events:",len(events))
       events_objs = []
       event_indices = range(len(events))  # Crear una lista de índices de eventos
 
@@ -118,8 +115,7 @@ def scrape_page(id,amount_to_bet=0):
                       amount_to_bet
                   )
               )
-              print(events_objs[-1])
-              print("-" * 60)
+              # print(events_objs[-1])
           except:
               pass
 
@@ -144,7 +140,6 @@ def scrape_page(id,amount_to_bet=0):
             #   """
             # )
           
-            print("-"*60)
             events_objs.append(
               Event(
                 {
@@ -222,6 +217,7 @@ def scrape_page(id,amount_to_bet=0):
   return response, data_usable
 
 def get_sure_bets(ids_to_also_get=[]):
+  print("ids_to_also_get:",ids_to_also_get)
   response = {"msg":"no info"}
   """this function gets the sure bets from the data of the bookmakers
 
@@ -239,7 +235,6 @@ def get_sure_bets(ids_to_also_get=[]):
       if any([list_of_matches[0].compare_with_other_event(event) not in [None,False] for list_of_matches in matches]): continue
       
       
-      print("analizing event:",event)
       ideal_event_to_compare = None
       same_events = []
       
@@ -260,11 +255,19 @@ def get_sure_bets(ids_to_also_get=[]):
         matches.append(same_events)
         
   print("~"*60)
+  print("Analizing matches:")
   for lists in matches:
     print("~"*60)
     current_surebet = Surebet(lists)
+    print("current_surebet: ",current_surebet)
+
+    if (current_surebet.is_surebet or current_surebet.id in ids_to_also_get) : surebets.append(current_surebet)
     print(current_surebet)
-    if current_surebet.is_surebet or current_surebet.id in ids_to_also_get : surebets.append(current_surebet)
+    print("is_surebet?:",current_surebet.is_surebet)
+    print("isInTheList?:",current_surebet.id in ids_to_also_get)
+
+
+
     
     
     

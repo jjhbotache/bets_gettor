@@ -21,7 +21,7 @@ function App() {
   const [pageIndex, setPageIndex] = useState(0);
   const [amount, setAmount] = useState(50000);
   const [sendLogs, setSendLogs] = useState(false);
-
+  const listOfIdsToFetch = useRef([]);
   
   useEffect(() => {
     fetching();
@@ -29,7 +29,7 @@ function App() {
       
   function fetching() {
     setLoading(true)
-    pywebview.api.sure_bets([betOnViewer?.info.id])
+    pywebview.api.sure_bets(listOfIdsToFetch.current)
     .then(bets => {
       // sort by profit
       bets.sort((a, b) => b.info.profit - a.info.profit);
@@ -62,19 +62,17 @@ function App() {
     }
 
     // update the periods of the bets
-    surebetsPeriod.forEach(sp=>{
+    surebetsPeriod.forEach((sp,i)=>{
       const existingBet = surebets.find(surebet => surebet.info.id === sp.info.id)
-      // if doesn't exist, means that desapeared, so we add the endTime and sent it
-      if(existingBet === undefined){
+      const isTheOneThatIsOnViewer = sp.info.id === betOnViewer?.info.id;
+
+      // if doesn't exist or if it's profit is negative, means that the bet is over, so we update the data and delete it from the array
+      if(existingBet === undefined || existingBet?.info.profit < 0){
         sp.endTime = Date.now();
         sp.period = (sp.endTime - sp.startTime)/1000;
-        sp.noExists = true;
+        sp.noSurebet = true;
 
-        console.log(`
-        Analaizing bet: ${sp.info.name}
-        Profit: ${sp.info.profit}
-        Period: ${sp.period}
-        `);
+        
         // if sendsLogs is true and the surebet has a positive profit, send the data to the server
         if(sendLogs && (sp.info.profit > 0)){
           pywebview.api.create_notification(
@@ -83,11 +81,34 @@ function App() {
           )
           pywebview.api.manage_surebet("POST",sp)
         }
-        // set on betViewer and delete it from the array
-        sp.info.id === betOnViewer?.info.id && setBetOnViewer(sp);
-        surebetsPeriod.splice(surebetsPeriod.indexOf(sp),1);
 
+        // if really not exist delete it from the array, else 
+        if(existingBet === undefined){
+          sp.noExists = true; 
+          sp.info.id === betOnViewer?.info.id && setBetOnViewer(sp);
+          surebetsPeriod.splice(surebetsPeriod.indexOf(sp),1)
+        }else{
+          sp.noExists = false;
+          // update the data of the bet on the array preserving the start time,end time, period, noSurebet and noExists
+          surebetsPeriod[i] = {
+            ...sp,
+            ...existingBet,
+          };
+          sp.info.id === betOnViewer?.info.id && setBetOnViewer(surebetsPeriod[i]);
+        } 
+
+        // set on betViewer for last time and delete it from the array
+        
+        
+      }else if( isTheOneThatIsOnViewer){
+        // if exists and it's the one that is on the bet viewer , update all the data of the surebet on the array (except the start time) and set it on the betviewer
+        surebetsPeriod[i] = {
+          ...sp,
+          ...existingBet,
+        };
+        setBetOnViewer(surebetsPeriod[i]);
       }
+
     })
 
     surebets.forEach(s =>{
@@ -100,14 +121,19 @@ function App() {
           endTime: null,
           period: null
         };
-
-        betOnViewer?.info.id === sObj.info.id && setBetOnViewer(sObj);
-
         surebetsPeriod.push(sObj)
       }
     })
     
   }, [surebets]);
+
+  useEffect(() => {
+    console.log("estoy actualizando el betOnViewer",betOnViewer);
+    // set the reference
+    listOfIdsToFetch.current = [];
+    betOnViewer && listOfIdsToFetch.current.push(betOnViewer.info.id);
+  }, [betOnViewer]);
+
 
 
 

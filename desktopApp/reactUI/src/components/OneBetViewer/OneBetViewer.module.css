@@ -15,11 +15,12 @@
   padding: 0.1rem 0;
 }
 
-.noBet{
-  border: solid 0.01em #a80000;
+.noExists{
+  border: dashed 0.2em rgb(168, 0, 0);
+  border-spacing: 0.5em;
 }
-.bet{
-  animation: pulse 0.8s ease-in-out infinite;
+.noSurebet{
+  border: solid 0.2em #a80000;
 }
 @keyframes pulse {
   0% {
@@ -35,4 +36,7 @@
     border: 0.2em solid #fbfcff;
     box-shadow: 0px 0px 20px 8px #000000;
   }
+}
+.surebet{
+  animation: pulse 0.8s ease-in-out infinite;
 }

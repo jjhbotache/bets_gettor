@@ -70,7 +70,9 @@ class Event:
         self.bookmaker = Bookmaker(bookmaker_id)
         self.link = link
         self.time = time
-        self.team1= Option(team1["name"],float(team1["odd"]),self.bookmaker,self.link,amount_to_bet)
+        self.team1= Option(team1["name"],
+        float(team1["odd"])
+        ,self.bookmaker,self.link,amount_to_bet)
         self.team2= Option(team2["name"],float(team2["odd"]),self.bookmaker,self.link,amount_to_bet)
         self.draw = Option("Draw",drawOdd,self.bookmaker,self.link,amount_to_bet)
         
@@ -129,7 +131,7 @@ class Event:
             # ideal_team1 = self.team1.name
             # ideal_team2 = self.team2.name
             
-            print("ideal events",ideal_team1,"//",ideal_team2)
+            # print("ideal events",ideal_team1,"//",ideal_team2)
             return Event(
                 {
                     "name":ideal_team1,
@@ -160,14 +162,14 @@ class Surebet:
         
         self.get_biggers_odds()
         
-        self.prob_imp_t1 = 1 / self.team1.odd
+        self.prob_imp_t1 = 1 / self.team1.odd 
         self.prob_imp_t2 = 1 / self.team2.odd
         self.prob_imp_d = 1 / self.draw.odd
         
         self.sum = self.prob_imp_t1 + self.prob_imp_t2 + self.prob_imp_d
         
         self.is_surebet = self.sum < 1
-        self.is_surebet = self.sum < 1.1
+        # self.is_surebet = self.sum < 1.1
 
         self.profit = (1 / self.sum) * 100 - 100
         
@@ -232,6 +234,7 @@ class Surebet:
         
     def __str__(self):
         bet_amount = 50000
+        return f" {self.team1} VS {self.team2} // {self.draw}"
         
         if self.sum < 1:
             # Cantidad a Apostar en Opción = (Probabilidad Implícita de Opción / Suma de las Probabilidades Implícitas) * Factor de Estaca
@@ -248,6 +251,5 @@ class Surebet:
                 
             """
         else:
-            return""
             return f"no surebet in:  {self.team1} VS {self.team2} // {self.draw}"
         
