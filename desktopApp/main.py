@@ -7,6 +7,7 @@ def loop(window):
   window.expose(
     create_notification,
     copy_to_clipboard,
+    send_mail,
     # api functions
     sure_bets,
     manage_surebet,

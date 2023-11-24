@@ -1,10 +1,11 @@
 import Nav from '../../components/Nav.jsx';
 import Sidebar from '../../components/Sidebar/Sidebar.jsx';
 import { useEffect, useRef, useState } from 'react';
-import { apiRoute } from '../../const/consts.js';
+import { apiRoute, inProduction } from '../../const/consts.js';
 import RenderSurebetsLogs from '../../components/RenderSurebetsLogs/RenderSurebetsLogs.jsx';
 import Graph from '../../components/Graph/Graph.jsx';
 import { surebetsPerMinute } from '../../functions/functions.jsx';
+import surebetsMock from "../../mocks/surebets_logs_response.json"
 
 export default function Logger() {
   const [pageIndex, setPageIndex] = useState(0);
@@ -69,7 +70,7 @@ export default function Logger() {
       return;
     }
 
-    pywebview.api.manage_surebet("DELETE",{ id: id })
+    inProduction && pywebview.api.manage_surebet("DELETE",{ id: id })
       .then(res => {
         console.log("res", res);
         setSurebetsLogs(surebetsLogs.filter(surebet => surebet.id !== id));
@@ -164,8 +165,12 @@ export default function Logger() {
   )
 
   function fetching() {
+    if(!inProduction){
+      setSurebetsLogs(surebetsMock);
+      return;
+    }
     setLoading(true);
-    pywebview.api.manage_surebet("GET")
+    inProduction && pywebview.api.manage_surebet("GET")
       .then(res => {
         console.log("res", res);
         // revertir el order del array obtenido

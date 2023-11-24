@@ -13,3 +13,4 @@ export const navLinks = [
 export const wplayIcon = "https://static.wplay.co/apuestas/web_static/R_MultiOp_4_49_1/desktop/wplay/image/icon.png";
 export const betplayIcon = "https://betplay.com.co/favicon.ico?v=1.1.0";
 export const codereIcon = "https://m.codere.com.co/deportescolombia/apple-touch-icon-120x120.png";
+export const inProduction = import.meta.env.MODE === 'production';

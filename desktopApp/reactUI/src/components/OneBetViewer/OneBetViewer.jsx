@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { betplayIcon, codereIcon, wplayIcon } from "../../const/consts.js";
+import { betplayIcon, codereIcon, inProduction, wplayIcon } from "../../const/consts.js";
 import styles from "./OneBetViewer.module.css";
 import { addDots, isMobile, strTimeToFloat } from "../../functions/functions.jsx";
 export default function OneBetViewer({bet,betAmount}) {
@@ -21,7 +21,7 @@ export default function OneBetViewer({bet,betAmount}) {
 
 
   function updateAverageTime() {
-    pywebview.api.manage_surebet().then(s => {
+    inProduction && pywebview.api.manage_surebet().then(s => {
       const choosenSurebets = s.filter(s => {
         const currentTime = strTimeToFloat(bet.info.time);
         const match_time_minutes = s.match_time_minutes;
@@ -72,7 +72,7 @@ export default function OneBetViewer({bet,betAmount}) {
     <div className={`container rounded ${borderStyles} `} style={{width:"95%",maxWidth:400}}>
       {/* title, seconds and profit% */}
       <div className="row d-flex justify-content-center text-center">
-        <h2 className="rounded bg-light bg-opacity-10 m-2">{bet.options.map(o=>o.name!="Draw"?o.name:" VS ")}
+        <h4 className="rounded bg-light bg-opacity-10 m-2">{bet.options.map(o=>o.name!="Draw"?o.name:" VS ")}
           
           <div className="dropdown open">
             <span className="badge bg-gradient m-1 border border-1 dropdown-toggle" type="button" id="segsDropdown" data-bs-toggle="dropdown" aria-haspopup="true"
@@ -85,12 +85,9 @@ export default function OneBetViewer({bet,betAmount}) {
               <small> <em className="d-block">{minTime.toFixed(1) + " - " + maxTime.toFixed(1) }</em> </small>
               <input className="form-control px-3" type="range" value={shift} onChange={e=>{setShift(e.target.value);updateAverageTime();}} />
             </div>
-          </div>
+          </div>       
 
-          
-
-
-        </h2>
+        </h4>
         <div className="row">
           <div className="col">
             <span className="text-muted">{bet.info.time}</span>
@@ -129,16 +126,25 @@ export default function OneBetViewer({bet,betAmount}) {
 
             bet.info.min_real_profit = Math.floor(Math.min(...bet.options.map(o=>o.real_profit)));
             // --------------------
-            let onClickFunction;
+            
             if(option.bookmaker.id === 2){
               option.link = "https://m.codere.com.co/deportescolombia/#/HomePage";
-              onClickFunction = e => {
+              const onClickFunction = e => {
                 e.preventDefault();
                 const textToCopy = bet.options.map(o => o.name != "Draw" ? o.name : "-").join(" vs ");
-                pywebview.api.copy_to_clipboard(textToCopy)
-                .then(re=>window.open(option.link, "_blank"))
+                inProduction && pywebview.api.copy_to_clipboard(textToCopy).then(re=>window.open(option.link, "_blank"))
                 
               }
+            }
+
+            function onOpenLink(e,link,privateMode=false) {
+              // if private is true, copy the text to clipboard
+              e.preventDefault();
+              !privateMode
+              ?(window.open(link, "_blank"))
+              :inProduction && pywebview.api.copy_to_clipboard(link)
+
+
             }
             
             return(
@@ -149,14 +155,14 @@ export default function OneBetViewer({bet,betAmount}) {
               <div className={"col-3 d-flex flex-column justify-content-center align_items-center "}> {option.odd}</div>
               
               <div className={"col-2 d-flex flex-column justify-content-center align_items-center "}> 
-              <a  href={option.link} target="_blank" className={`hoverable rounded border-1 border border-info p-0 m-0 ${styles.infoRow}`} onClick={onClickFunction}> 
+              <a  className={`hoverable rounded border-1 border border-info p-0 m-0 ${styles.infoRow}`} onClick={e=>onOpenLink(e,option.link)} onContextMenu={e=>onOpenLink(e,option.link,true)} > 
               <img className="d-block m-1 mx-auto rounded border" src={option.bookmaker.icon} style={{height:wAndH,width:wAndH}} />
               </a>
               </div>
               <div className="col-2 d-flex flex-column justify-content-center align_items-center">
                 {
                   <i onClick={e => {e.preventDefault();pywebview.api.get_js_code(option.bookmaker.id,option.name,option.normalized_price).then(js=>pywebview.api.copy_to_clipboard(js))}} 
-                  className={"d-block m-auto border border-info rounded fi fi-rr-square-terminal hoverable" + (pywebview.api.get_js_code(option.bookmaker.id,option.name,option.normalized_price)?"":" disabled")} ></i>
+                  className={"d-block m-auto border border-info rounded fi fi-rr-square-terminal hoverable" + (inProduction && pywebview.api.get_js_code(option.bookmaker.id,option.name,option.normalized_price)?"":" disabled")} ></i>
                 }
               </div>
             </div>
@@ -168,7 +174,7 @@ export default function OneBetViewer({bet,betAmount}) {
       {/* profit and execute info */}
       <div className="row">
         <div className="col">
-          <h1>Bets info:</h1>
+          <h4>Bets info:</h4>
           {
             bet.options.map((option, index) => {
               return (

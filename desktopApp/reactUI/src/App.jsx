@@ -6,11 +6,12 @@ import OneBetViewer from './components/OneBetViewer/OneBetViewer';
 import Sidebar from './components/Sidebar/Sidebar';
 
 import { surebetsPeriod } from './main';
+import { inProduction } from './const/consts';
+import surebetsMock from "./mocks/sure_bets_response.json"
 
 
 function App() {
   // wait for the connection to be established with python
-  
 
   const [surebets, setSureBets] = useState([])
   const numberOfSurebetsBefore = useRef(0)
@@ -28,6 +29,10 @@ function App() {
   }, []);
       
   function fetching() {
+    if (!inProduction){
+      setSureBets(surebetsMock)
+      return
+    }
     setLoading(true)
     pywebview.api.sure_bets(listOfIdsToFetch.current)
     .then(bets => {
@@ -54,10 +59,12 @@ function App() {
   }
 
   useEffect(() => {
+    
     // if the number of surebets is bigger than the last time, send a notification (if its not mobile)
     if (surebets.length > numberOfSurebetsBefore.current) {
       numberOfSurebetsBefore.current = surebets.length
-      pywebview.api.create_notification("New Surebet",
+
+      inProduction && pywebview.api.create_notification("New Surebet",
       `There are ${surebets.length} surebets`, "https://www.google.com/s2/favicons?sz=64&domain_url=https://www.betburger.com/")
     }
 
@@ -75,11 +82,24 @@ function App() {
         
         // if sendsLogs is true and the surebet has a positive profit, send the data to the server
         if(sendLogs && (sp.info.profit > 0)){
-          pywebview.api.create_notification(
-            "Surebet sent",
-            `Name: ${sp.info.name}\nProfit: ${sp.info.profit}\nPeriod: ${sp.period}`,
-          )
-          pywebview.api.manage_surebet("POST",sp)
+          sp.info.name = sp.options.map(o=>o.name!="Draw"?o.name:" VS ");
+          if (inProduction){
+
+            pywebview.api.create_notification(
+              "Surebet sent",
+              `Name: ${sp.info.name}\nProfit: ${sp.info.profit}\nPeriod: ${sp.period}`,
+            )
+            pywebview.api.send_mail(
+              "A surebed has happened",
+              `
+              Here is the data of the surebet:
+              Name: ${sp.info.name}
+              Profit: ${sp.info.profit}
+              Period: ${sp.period}
+              `
+            )
+            pywebview.api.manage_surebet("POST",sp)
+          }
         }
 
         // if really not exist delete it from the array, else 
