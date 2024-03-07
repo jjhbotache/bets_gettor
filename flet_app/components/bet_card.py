@@ -11,7 +11,7 @@ class Bet_card(UserControl):
         return Card(Container(
             Column([
                 Text(self.title,size=20),
-                FilledButton(f"Profit: {self.profit}")
+                FilledButton(f"Profit: {self.profit} %")
             ],
               spacing=10,alignment=alignment.center,horizontal_alignment="center"),
             padding=padding.all(10),

@@ -1,8 +1,13 @@
 from flet import *
 from pages.main_page import Main_page
+import threading
+from bets_gettor_logic.app import get_sure_bets
+import time
 
 
 def main(page: Page):
+        
+        
     def on_route_change(route):
         page.views.clear()
         if page.route == "/":
@@ -16,8 +21,6 @@ def main(page: Page):
             )
         print(page.views)
         page.update()
-            
-
 
     page.auto_scroll = True
     page.title = "Bets_gettor"

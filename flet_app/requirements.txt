@@ -1,1 +1,7 @@
 flet
+beautifulsoup4
+bs4
+cffi
+psutil
+psutil
+requests
