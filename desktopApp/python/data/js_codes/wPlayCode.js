@@ -3,8 +3,10 @@
 //
 //
 
-let searchedName = '<<name>>';
-const amountToBet = '<<amount>>';
+// let searchedName = '<<name>>';
+// const amountToBet = '<<amount>>';
+let searchedName = prompt("Ingrese el nombre del equipo al que desea apostar");
+const amountToBet = parseInt(prompt("Ingrese el monto a apostar"));
 // let searchedName = 'Draw';
 // const amountToBet = 50000;
 searchedName = searchedName.toLowerCase().trim() === "draw" ? "empate" : searchedName;

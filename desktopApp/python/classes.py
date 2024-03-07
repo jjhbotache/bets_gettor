@@ -21,7 +21,7 @@ class Option:
     def get_js_code(self,bookmaker_id,name,price="prompt('Insert the price of the bet')"):
         
         price = "prompt('Insert the price of the bet')" if price == 0 else price
-        right_code = ""
+        js_code = ""
         functions=[]
         try:
             right_codes = list(filter(
@@ -29,7 +29,7 @@ class Option:
                         , JS_CODES
                     ))
             rigth_dict = right_codes[0]
-            right_code = rigth_dict["code"].replace(
+            js_code = rigth_dict["code"].replace(
                 "<<name>>", name).replace(
                 "'<<amount>>'", str(price))
                 
@@ -39,7 +39,7 @@ class Option:
         except Exception as e:
             print("===========error:",traceback.format_exc())
             return "no code"
-        return right_code,functions
+        return js_code,functions
         
     
     def __init__(self, name:str, odd:float, bookmaker, link:str="",amount_to_bet:int=0):

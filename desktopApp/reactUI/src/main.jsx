@@ -5,6 +5,8 @@ import { createBrowserRouter, RouterProvider} from "react-router-dom";
 import Logger from './pages/logger/Logger.jsx';
 import "./index.css"
 import { inProduction } from './const/consts.js';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -44,6 +46,7 @@ inProduction
   ReactDOM.createRoot(document.getElementById('root')).render(
     <>
       <React.StrictMode>
+        <ToastContainer/>
         <RouterProvider router={router}/>
       </React.StrictMode>
     </>

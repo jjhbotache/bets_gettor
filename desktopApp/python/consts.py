@@ -20,7 +20,7 @@ JS_CODES = [
     },
     {
         "bm_id":2,
-        "code": "",
+        "code": import_js_file("codereCode.js"),
     },
 ]
 

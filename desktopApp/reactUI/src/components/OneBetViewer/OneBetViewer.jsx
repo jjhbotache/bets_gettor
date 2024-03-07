@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { betplayIcon, codereIcon, inProduction, wplayIcon } from "../../const/consts.js";
 import styles from "./OneBetViewer.module.css";
 import { addDots, isMobile, strTimeToFloat } from "../../functions/functions.jsx";
+import { toast } from "react-toastify";
 export default function OneBetViewer({bet,betAmount}) {
   const wAndH = 25;
   // console.log("onBetViewer",bet); 
@@ -66,6 +67,7 @@ export default function OneBetViewer({bet,betAmount}) {
     :bet.noSurebet
   ?styles.noSurebet
   :styles.surebet;
+
   
 
   return(
@@ -155,7 +157,12 @@ export default function OneBetViewer({bet,betAmount}) {
               <div className={"col-3 d-flex flex-column justify-content-center align_items-center "}> {option.odd}</div>
               
               <div className={"col-2 d-flex flex-column justify-content-center align_items-center "}> 
-              <a  className={`hoverable rounded border-1 border border-info p-0 m-0 ${styles.infoRow}`} onClick={e=>onOpenLink(e,option.link)} onContextMenu={e=>onOpenLink(e,option.link,true)} > 
+              <a onDoubleClick={
+                e=>{
+                  e.preventDefault();
+                  inProduction && pywebview.api.copy_to_clipboard(option.bookmaker.id).then(re=>toast("Bookmaker id copied to clipboard"))
+                }
+              }  className={`hoverable rounded border-1 border border-info p-0 m-0 ${styles.infoRow}`} onClick={e=>onOpenLink(e,option.link)} onContextMenu={e=>onOpenLink(e,option.link,true)} > 
               <img className="d-block m-1 mx-auto rounded border" src={option.bookmaker.icon} style={{height:wAndH,width:wAndH}} />
               </a>
               </div>
@@ -183,6 +190,7 @@ export default function OneBetViewer({bet,betAmount}) {
                     // copy the amount to bet
                     e.preventDefault();
                     pywebview.api.copy_to_clipboard(option.normalized_price)
+                    toast("Amount to bet copied to clipboard")
                   }}>
                     <i className=" fi fi-rr-dice-alt"></i>
                     <span className="mb-0" title={option.exact_amount_to_bet}>{addDots(option.normalized_price)}</span>
