@@ -45,3 +45,5 @@ bookmakers = [
         "icon":"https://m.codere.com.co/deportescolombia/apple-touch-icon-120x120.png"
     }
 ]
+
+DEBUG = False

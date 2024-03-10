@@ -4,6 +4,7 @@ from .helper_functions import *
 from .classes import *
 from .consts import bookmakers
 import threading
+from .consts import DEBUG
 
   
 def scrape_page(id,amount_to_bet=0):
@@ -191,7 +192,7 @@ def scrape_page(id,amount_to_bet=0):
           break
           
       for thread in thread_list:
-        print("()()()(()()()()()(using "+str(get_memory_used_mb())+" mb of memory)()()()(()()()()()")
+        if DEBUG: print("()()()(()()()()()(using "+str(get_memory_used_mb())+" mb of memory)()()()(()()()()()")
         memory_per_process = get_memory_used_mb()/len(thread_list) + 10
         if get_memory_used_mb()+memory_per_process > MAX_RAM_MEMORY:
           for thread in thread_list:
@@ -229,6 +230,7 @@ def get_sure_bets(ids_to_also_get=[]):
   
   list_of_events = scrape_page(0)[1]
   number_of_bookmakers = len(list_of_events)
+  if number_of_bookmakers == 0: return []
   for index in range(number_of_bookmakers):
     for event in list_of_events[index]:
       if any([list_of_matches[0].compare_with_other_event(event) not in [None,False] for list_of_matches in matches]): continue
@@ -253,17 +255,19 @@ def get_sure_bets(ids_to_also_get=[]):
         same_events.append(event)
         matches.append(same_events)
         
-  print("~"*60)
-  print("ids_to_also_get:",ids_to_also_get)
-  print("Analizing matches:")
-  for lists in matches:
+  if DEBUG:
     print("~"*60)
+    print("ids_to_also_get:",ids_to_also_get)
+    print("Analizing matches:")
+
+  for lists in matches:
+    if DEBUG: print("~"*60)
     current_surebet = Surebet(lists)
 
     if (current_surebet.is_surebet or current_surebet.id in ids_to_also_get) : surebets.append(current_surebet)
-    print(current_surebet)
-    print("is_surebet?:",current_surebet.is_surebet)
-    print("isInTheList?:",current_surebet.id in ids_to_also_get)
+    # print(current_surebet)
+    # print("is_surebet?:",current_surebet.is_surebet)
+    # print("isInTheList?:",current_surebet.id in ids_to_also_get)
 
 
 
