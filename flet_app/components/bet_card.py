@@ -8,7 +8,7 @@ class Bet_card(UserControl):
         self.on_open_surebet = on_open_surebet
 
         self.title = surebet["options"][0]["name"] + " vs " + surebet["options"][2]["name"]
-        self.profit = round(surebet["info"]["profit"],3)
+        self.profit = surebet["info"]["profit"]
 
     def open_surebet(self):
         self.on_open_surebet(self.surebet)

@@ -2,12 +2,11 @@ from flet import *
 from components.bet_card import Bet_card
 from random import randint
 
-
 class Bets_lister(UserControl):
-    def __init__(self, page, on_set_sb_in_bet_viewer, surebets=[]):
+    def __init__(self, page, on_set_sb_in_bet_viewer, on_amount_change,surebets=[]):
         super().__init__()
         self.page = page
-
+        self.on_amount_change = on_amount_change
         self.surebets = sorted(surebets, key=lambda x: x["info"]["profit"], reverse=True)
         self.surebets_controls = []
 
@@ -23,10 +22,6 @@ class Bets_lister(UserControl):
 
     def build(self):
         return Container(Column([
-            Row([
-              Text("Bets Amount"),
-              TextField("0.00"),
-            ]),
             Text("Bets Gettor",size=40),
             Text("By: Juan Jose Huertas Botache",size=8),
             Column(
@@ -41,6 +36,6 @@ class Bets_lister(UserControl):
         ),
         bgcolor=colors.GREEN_900,
         padding=padding.all(10),
-        height=self.page.height,
+        height=self.page.height*0.9,
         )    
     

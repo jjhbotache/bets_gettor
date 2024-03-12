@@ -7,36 +7,65 @@ import time
 import os
 import asyncio
 from constants import DEBUG
+from helpers.main_page_functions import old_bets_register_manager
+from helpers.calc_functions import calc_amounts_to_bet
+from helpers.number_funtions import normalize_amount
 
 # print(*(dir(UserControl())),sep="\n")
 class Main_page(UserControl):
     def __init__(self, page):
         super().__init__()
         self.page = page
+        # globals
         self.surebets = []
-        self.sb_on_bet_viewer = None
+        self.bet_on_bet_viewer = None
+        self.amount_to_bet = 50000
         
 
-        self.old_surebets = [
-            # {
-            # id: abcdef,
-            # start_time: 123456,
-            # end_time: 123456,
-            # }
-        ]
-        self.sb_old_surebet = None
+        self.old_surebets_registers = []
 
 
         self.bets_listener_column_ref = Ref[Column]()
         self.bet_viewer_column_ref = Ref[Column]()
 
-
     def set_sb_in_bet_viewer(self, sb):
         """This method is called from the bet viewer to set the surebet in the bet viewer """
+
         print("setting sb in bet viewer:",sb["info"]["id"])
-        self.sb_on_bet_viewer = sb
+        self.bet_on_bet_viewer = sb
+        self.page.run_thread(self.sync_bet_on_bet_viewer_thread())
+        return
+        old_bet_with_same_id = [old_sb for old_sb in self.old_surebets_registers if old_sb["id"] == sb["info"]["id"]][0]
+        # prepapre the bet to be shown in the bet viewer
+        self.bet_on_bet_viewer["info"]["start_time"] = old_bet_with_same_id["start_time"]
+        self.bet_on_bet_viewer["info"]["end_time"] = old_bet_with_same_id["end_time"]
         
-        self.sb_old_surebet = [old_sb for old_sb in self.old_surebets if old_sb["id"] == sb["info"]["id"]][0]
+        
+
+    def sync_and_set_bet_data(self,bet_id):
+      """ This method is called to sync the info of the bet on the bet viewer"""
+      if self.bet_on_bet_viewer:
+        
+
+        try: self.bet_on_bet_viewer = [bet for bet in self.surebets if bet["info"]["id"] == bet_id][0]
+        except: print("bet not found")
+
+        # sync also the register
+        old_bet_register = [old_sb for old_sb in self.old_surebets_registers if old_sb["id"] == self.bet_on_bet_viewer["info"]["id"]][0]
+        self.bet_on_bet_viewer["info"]["start_time"] = old_bet_register["start_time"]
+        self.bet_on_bet_viewer["info"]["end_time"] = old_bet_register["end_time"]
+
+        # set the amounts and profits
+        amounts = [normalize_amount(round(a)) for a in calc_amounts_to_bet( total_bet=self.amount_to_bet, bet=self.bet_on_bet_viewer )]
+        for i,a in enumerate(amounts):
+          self.bet_on_bet_viewer["options"][i]["amount_to_bet"] = a
+          odd = self.bet_on_bet_viewer["options"][i]["odd"]
+          self.bet_on_bet_viewer["options"][i]["profit_amount"] = odd * a
+
+        min_profit_amount = min(o["profit_amount"] for o in self.bet_on_bet_viewer["options"])
+
+        self.bet_on_bet_viewer["info"]["profit_amount"] = min_profit_amount - self.amount_to_bet
+
         self.update_main_columns(update_bet_listener=False)
 
     def get_sure_bets_thread(self):
@@ -48,29 +77,23 @@ class Main_page(UserControl):
             if DEBUG: print("surebets: ",len(self.surebets))
 
 
-            # for each surebet, if it is not in the old_surebets list,
-            # if it is not, add it
-            # also, for each old surebet, if it is not in the new surebets list, set the end_time
-          
-            old_surebet_ids = [old_sb["id"] for old_sb in self.old_surebets]
-            for sb in self.surebets:
-                sb_id = sb["info"]["id"]
-                if sb_id not in old_surebet_ids:
-                    self.old_surebets.append(
-                        {
-                            "id": sb_id,
-                            "start_time": time.time(),
-                            "end_time": None
-                        }
-                    )
+            self.old_surebets_registers = old_bets_register_manager(self.old_surebets_registers,self.surebets)
+            if DEBUG: print("old_surebets: ",self.old_surebets_registers,sep="\n")
 
-            new_surebet_ids = [sb["info"]["id"] for sb in self.surebets]
-            for old_sb in self.old_surebets:
-                old_surebet_id = old_sb["id"]
-                if old_surebet_id not in new_surebet_ids:
-                    old_sb["end_time"] = time.time()
 
-            self.update_main_columns(update_bet_viewer=False)
+            if self.bet_on_bet_viewer: self.sync_and_set_bet_data(self.bet_on_bet_viewer["info"]["id"])
+            self.update_main_columns()
+
+    def sync_bet_on_bet_viewer_thread(self):
+        """ This method is called in a thread to sync the bet on the bet viewer """
+        while self.bet_on_bet_viewer:
+          self.sync_and_set_bet_data(self.bet_on_bet_viewer["info"]["id"])
+          time.sleep(.6)
+
+    def update_amount_to_bet(self,e):
+        """ This method is called when the amount to bet is changed """
+        self.amount_to_bet = int(e.control.value)
+        self.update_main_columns(update_bet_listener=False)
      
     def update_main_columns(self,update_bet_viewer=True,update_bet_listener=True):
       """ This method updates the main columns """
@@ -79,43 +102,58 @@ class Main_page(UserControl):
           Bets_lister(
             page=self.page,
             surebets=self.surebets,
-            on_set_sb_in_bet_viewer=self.set_sb_in_bet_viewer
+            on_set_sb_in_bet_viewer=self.set_sb_in_bet_viewer,
+            on_amount_change=self.update_amount_to_bet
           )
         ]
 
       if update_bet_viewer:
-        self.bet_viewer_column_ref.current.controls = [
-          Bet_viewer(
-            page=self.page,
-            get_sb=self.get_sb_to_bet_viewer,
-          )
-        ]
+        if self.bet_on_bet_viewer:
+          self.bet_viewer_column_ref.current.controls = [
+            Bet_viewer(
+              page=self.page,
+              bet=self.bet_on_bet_viewer,
+              amount_to_bet=self.amount_to_bet,
+            )
+          ]
+        else:
+          self.bet_viewer_column_ref.current.controls = [
+            Text("No bet selected",size=40)
+          ]
+          self.bet_viewer_column_ref.current.alignment = alignment.center
+          self.bet_viewer_column_ref.current.horizontal_alignment = CrossAxisAlignment.CENTER
+
       
       self.update()
         
-
     def get_sb_to_bet_viewer(self):
         """ This method returns the surebet that is being shown in the bet viewer """
-        if self.sb_on_bet_viewer:
+        if self.bet_on_bet_viewer:
           return {
-              **self.sb_on_bet_viewer,
+              **self.bet_on_bet_viewer,
               "old_surebet": self.sb_old_surebet
           }
         else:
           return None
 
+    def on_amount_change(self,e):
+        """ This method is called when the amount to bet is changed """
+        self.amount_to_bet = int(e.control.value)
+        self.update_main_columns(update_bet_listener=False)
 
     def did_mount(self):
         if DEBUG: print("did mount")
         self.update_main_columns()
         self.page.run_thread(self.get_sure_bets_thread())
 
-
     def build(self):
         if DEBUG: print("building")
         return(
           Row([
-            Column([],expand=1,ref=self.bets_listener_column_ref),
+            Column([
+              Row([TextField(value=self.amount_to_bet,label="Bet amount",input_filter=NumbersOnlyInputFilter(),on_change=self.on_amount_change,height=self.page.height*0.1)]),         
+              Column([],expand=1,ref=self.bets_listener_column_ref),
+            ],expand=1,height=self.page.height,spacing=0),
             Column([],expand=1,ref=self.bet_viewer_column_ref),
           ])
         )
