@@ -10,6 +10,8 @@ from constants import DEBUG
 from helpers.main_page_functions import old_bets_register_manager
 from helpers.calc_functions import calc_amounts_to_bet
 from helpers.number_funtions import normalize_amount
+from plyer import notification
+
 
 # print(*(dir(UserControl())),sep="\n")
 class Main_page(UserControl):
@@ -20,6 +22,7 @@ class Main_page(UserControl):
         self.surebets = []
         self.bet_on_bet_viewer = None
         self.amount_to_bet = 50000
+        self.getting_surebets = False
         
 
         self.old_surebets_registers = []
@@ -40,8 +43,6 @@ class Main_page(UserControl):
         self.bet_on_bet_viewer["info"]["start_time"] = old_bet_with_same_id["start_time"]
         self.bet_on_bet_viewer["info"]["end_time"] = old_bet_with_same_id["end_time"]
         
-        
-
     def sync_and_set_bet_data(self,bet_id):
       """ This method is called to sync the info of the bet on the bet viewer"""
       if self.bet_on_bet_viewer:
@@ -73,16 +74,34 @@ class Main_page(UserControl):
         if DEBUG: print("starting loop! getting surebets")
         while True:
             if DEBUG: print("getting surebets"+("-"*60))
-            self.surebets = get_sure_bets()
+            
+            self.getting_surebets = True;self.update_main_columns(update_bet_viewer=False)
+            new_surebets = get_sure_bets()
+            if len(new_surebets) > len(self.surebets):
+              print("notifying!!")
+              notification.notify(
+                title="New surebets!",
+                message=f"There are {len(new_surebets)-len(self.surebets)} new surebets!	",
+                timeout=10,
+                
+              )
+            self.surebets = new_surebets
+            self.getting_surebets = False;self.update_main_columns(update_bet_viewer=False)
+
             if DEBUG: print("surebets: ",len(self.surebets))
 
-
-            self.old_surebets_registers = old_bets_register_manager(self.old_surebets_registers,self.surebets)
-            if DEBUG: print("old_surebets: ",self.old_surebets_registers,sep="\n")
+            self.old_surebets_registers = old_bets_register_manager(
+              old_bets_register_list= self.old_surebets_registers,
+              new_bets_list= self.surebets,
+              id_in_viewer= self.bet_on_bet_viewer["info"]["id"] if self.bet_on_bet_viewer else None
+            )
+            if DEBUG: print("old_surebets: ",*self.old_surebets_registers,sep="\n")
 
 
             if self.bet_on_bet_viewer: self.sync_and_set_bet_data(self.bet_on_bet_viewer["info"]["id"])
+            
             self.update_main_columns()
+            time.sleep(.3)
 
     def sync_bet_on_bet_viewer_thread(self):
         """ This method is called in a thread to sync the bet on the bet viewer """
@@ -103,7 +122,8 @@ class Main_page(UserControl):
             page=self.page,
             surebets=self.surebets,
             on_set_sb_in_bet_viewer=self.set_sb_in_bet_viewer,
-            on_amount_change=self.update_amount_to_bet
+            on_amount_change=self.update_amount_to_bet,
+            loading=self.getting_surebets
           )
         ]
 

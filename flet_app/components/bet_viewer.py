@@ -2,6 +2,10 @@ from flet import *
 import time
 from constants import DEBUG
 from helpers.str_functions import add_dots
+import pyperclip
+from plyer import notification
+
+
 
 
 class Bet_viewer(UserControl):
@@ -25,7 +29,7 @@ class Bet_viewer(UserControl):
         
         self.bet_title = self.bet["options"][0]["name"] + " vs " + self.bet["options"][2]["name"] 
         
-        self.profit_color = "white" if self.bet["info"]["profit_amount"]>0 else "red"
+        
 
 
         # refs
@@ -38,8 +42,26 @@ class Bet_viewer(UserControl):
         self.total_bet_ref = Ref[Text]()
         self.total_profit_ref = Ref[Text]()
 
+    def on_copy_amount(self,amount):
+        pyperclip.copy(str(amount))
+        notification.notify(
+            title="Amount copied",
+            message=f"Amount {amount} copied to clipboard",
+            timeout=2
+        )
+        
+    def on_copy_bm_link(self,link):
+        pyperclip.copy(link)
+        notification.notify(
+            title="Link copied",
+            message=f"Link {link} copied to clipboard",
+            timeout=2
+        )
 
     def build(self):
+        bg_color = colors.GREEN_900 if not self.bet["info"]["end_time"] else colors.BLUE_GREY_900
+        profit_color = "white" if self.bet["info"]["profit_amount"]>0 else "red"
+        
         return Container(Column([
             Text(self.bet_title,size=25,ref=self.bet_title_ref),
             Text(self.existence_time,ref=self.bet_time_ref),
@@ -57,18 +79,24 @@ class Bet_viewer(UserControl):
             # team / odd / bookmaker / code
             Column([
                 ResponsiveRow([
-                    Text("Team",col=5,size=20),
-                    Text("odd",col=3,size=20),
-                    Text("BM",col=2,size=20),
-                    Text("Code",col=2,size=20),
+                    Text("Team",col=5,size=20,text_align=TextAlign.CENTER),
+                    Text("odd",col=5,size=20,text_align=TextAlign.CENTER),
+                    Text("BM",col=2,size=20,text_align=TextAlign.CENTER),
                 ]),
                 *[
                     ResponsiveRow([
                         Text(option["name"],col=5),
-                        Text(option["odd"],col=3),
-                        IconButton(icons.DELETE,col=2),
-                        IconButton(icons.CODE,col=2),
-                    ],vertical_alignment=CrossAxisAlignment.CENTER)
+                        Text(option["odd"],col=5),
+                        Container(
+                        content=Image(
+                            src=option["bookmaker"]["icon"],
+                            height=30,
+                            fit=ImageFit.CONTAIN,
+                        ),
+                        on_click=lambda _: self.on_copy_bm_link(option["link"]),
+                        col=2,
+                        ),
+                    ],vertical_alignment=CrossAxisAlignment.CENTER,alignment=MainAxisAlignment.CENTER)
                     for option in self.bet["options"]
                 ]
             ],width=float("inf"),spacing=1,ref=self.table_info_ref),
@@ -80,12 +108,18 @@ class Bet_viewer(UserControl):
             Column([ 
                 ResponsiveRow([
                     Text("Bet",col=4,size=30),
-                    Text("---",col=4,size=30),
+                    Text("-",col=4,size=30),
                     Text("Profit",col=4,size=30),
                 ]),
                 *[ResponsiveRow([
-                    Text(add_dots(o["amount_to_bet"]),col=4,size=20),
+                    Container(
+                        content=Text(add_dots(o["amount_to_bet"]),size=20),
+                        on_click=lambda _: self.on_copy_amount(o["amount_to_bet"]),
+                        col=4
+                    ),
+                    
                     Text("→",col=4,size=25),
+                    
                     Text(add_dots(o["profit_amount"]),col=4,size=20),
                 ])
                 for o in self.bet["options"]]
@@ -94,7 +128,7 @@ class Bet_viewer(UserControl):
             Divider(color=colors.BLUE_ACCENT),
 
             Text(f'Total Profit: {add_dots(self.bet["info"]["profit_amount"])}',
-                 size=20,ref=self.total_profit_ref,weight=FontWeight.BOLD,color=self.profit_color), 
+                 size=20,ref=self.total_profit_ref,weight=FontWeight.BOLD,color=profit_color), 
             ],
             expand=1,
             horizontal_alignment=CrossAxisAlignment.CENTER,
@@ -102,7 +136,7 @@ class Bet_viewer(UserControl):
             spacing=1,
             ),
             height=self.page.height,
-            bgcolor=colors.GREEN_900 if not self.bet["info"]["end_time"] else colors.BLUE_GREY_900,
+            bgcolor=bg_color,
             padding=padding.all(10),
             )
             

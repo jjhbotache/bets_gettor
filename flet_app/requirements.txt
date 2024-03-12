@@ -1,3 +1,5 @@
 flet
 bs4
 psutil
+requests
+plyer

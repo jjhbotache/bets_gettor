@@ -229,9 +229,10 @@ def get_sure_bets(ids_to_also_get=[]):
   matches = []
   
   list_of_events = scrape_page(0)[1]
+  
   number_of_bookmakers = len(list_of_events)
-  if number_of_bookmakers == 0: return []
   for index in range(number_of_bookmakers):
+    if not list_of_events[index]: continue
     for event in list_of_events[index]:
       if any([list_of_matches[0].compare_with_other_event(event) not in [None,False] for list_of_matches in matches]): continue
       
@@ -241,7 +242,7 @@ def get_sure_bets(ids_to_also_get=[]):
       
       for index_to_look_for in range(number_of_bookmakers):
         if index_to_look_for == index: continue
-        
+        if not list_of_events[index_to_look_for]: continue
         for event_in_question in list_of_events[index_to_look_for]:
           # print("evento en cuestion:",event_in_question)
           base_obj_to_compare = ideal_event_to_compare if ideal_event_to_compare not in [None,False] else event
