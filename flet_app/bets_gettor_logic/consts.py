@@ -46,4 +46,4 @@ bookmakers = [
     }
 ]
 
-DEBUG = False
+DEBUG = True

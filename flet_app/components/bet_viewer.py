@@ -41,22 +41,17 @@ class Bet_viewer(UserControl):
         self.table_amounts_ref = Ref[Column]()
         self.total_bet_ref = Ref[Text]()
         self.total_profit_ref = Ref[Text]()
-
-    def on_copy_amount(self,amount):
-        pyperclip.copy(str(amount))
+        
+        
+    def copy_to_clipboard(self,data):
+        print("copied to clipboard: ",data)
+        pyperclip.copy(str(data))
         notification.notify(
-            title="Amount copied",
-            message=f"Amount {amount} copied to clipboard",
-            timeout=2
+            title="Data copied!",
+            message=f"{data} copied to clipboard",
+            timeout=1
         )
         
-    def on_copy_bm_link(self,link):
-        pyperclip.copy(link)
-        notification.notify(
-            title="Link copied",
-            message=f"Link {link} copied to clipboard",
-            timeout=2
-        )
 
     def build(self):
         bg_color = colors.GREEN_900 if not self.bet["info"]["end_time"] else colors.BLUE_GREY_900
@@ -93,7 +88,7 @@ class Bet_viewer(UserControl):
                             height=30,
                             fit=ImageFit.CONTAIN,
                         ),
-                        on_click=lambda _: self.on_copy_bm_link(option["link"]),
+                        on_click=lambda _: self.copy_to_clipboard(option["link"]),
                         col=2,
                         ),
                     ],vertical_alignment=CrossAxisAlignment.CENTER,alignment=MainAxisAlignment.CENTER)
@@ -111,18 +106,22 @@ class Bet_viewer(UserControl):
                     Text("-",col=4,size=30),
                     Text("Profit",col=4,size=30),
                 ]),
-                *[ResponsiveRow([
-                    Container(
-                        content=Text(add_dots(o["amount_to_bet"]),size=20),
-                        on_click=lambda _: self.on_copy_amount(o["amount_to_bet"]),
-                        col=4
-                    ),
-                    
-                    Text("→",col=4,size=25),
-                    
-                    Text(add_dots(o["profit_amount"]),col=4,size=20),
-                ])
-                for o in self.bet["options"]]
+                *list(map(
+                    lambda option: (
+                        ResponsiveRow([
+                            Container(
+                                content=Text(add_dots(option["amount_to_bet"]),size=20),
+                                on_click=lambda e: self.copy_to_clipboard(option["amount_to_bet"]),
+                                col=4,
+                            ),
+                            
+                            Text("→",col=4,size=25),
+                            
+                            Text(add_dots(option["profit_amount"]),col=4,size=20),
+                        ])
+                    )   
+                    ,self.bet["options"]
+                ))
              ],spacing=1,ref=self.table_amounts_ref),
             
             Divider(color=colors.BLUE_ACCENT),

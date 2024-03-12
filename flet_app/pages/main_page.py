@@ -49,7 +49,7 @@ class Main_page(UserControl):
         
 
         try: self.bet_on_bet_viewer = [bet for bet in self.surebets if bet["info"]["id"] == bet_id][0]
-        except: print("bet not found")
+        except: pass
 
         # sync also the register
         old_bet_register = [old_sb for old_sb in self.old_surebets_registers if old_sb["id"] == self.bet_on_bet_viewer["info"]["id"]][0]
