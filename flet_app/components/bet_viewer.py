@@ -78,22 +78,23 @@ class Bet_viewer(UserControl):
                     Text("odd",col=5,size=20,text_align=TextAlign.CENTER),
                     Text("BM",col=2,size=20,text_align=TextAlign.CENTER),
                 ]),
-                *[
-                    ResponsiveRow([
-                        Text(option["name"],col=5),
-                        Text(option["odd"],col=5),
+                *list(map(
+                    lambda option: ResponsiveRow([
+                        Text(option["name"],col=5,text_align=TextAlign.CENTER),
+                        Text(option["odd"],col=5,text_align=TextAlign.CENTER),
                         Container(
-                        content=Image(
-                            src=option["bookmaker"]["icon"],
-                            height=30,
-                            fit=ImageFit.CONTAIN,
+                            content=Image(
+                                src=option["bookmaker"]["icon"],
+                                height=30,
+                                fit=ImageFit.CONTAIN,
+                            ),
+                            on_click=lambda _: self.copy_to_clipboard(option["link"]),
+                            col=2,
+                            alignment=alignment.center,
                         ),
-                        on_click=lambda _: self.copy_to_clipboard(option["link"]),
-                        col=2,
-                        ),
-                    ],vertical_alignment=CrossAxisAlignment.CENTER,alignment=MainAxisAlignment.CENTER)
-                    for option in self.bet["options"]
-                ]
+                    ], vertical_alignment=CrossAxisAlignment.CENTER, alignment=MainAxisAlignment.CENTER),
+                    self.bet["options"]
+                ))
             ],width=float("inf"),spacing=1,ref=self.table_info_ref),
             
             Divider(color=colors.BLUE_ACCENT),

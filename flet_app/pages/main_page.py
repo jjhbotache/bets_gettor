@@ -1,11 +1,8 @@
 from flet import *
 from components.bets_lister import Bets_lister
 from components.bet_viewer import Bet_viewer
-from bets_gettor_logic.app import get_sure_bets
-import threading
+from modules.bets_gettor_logic.app import get_sure_bets
 import time
-import os
-import asyncio
 from constants import DEBUG
 from helpers.main_page_functions import old_bets_register_manager
 from helpers.calc_functions import calc_amounts_to_bet
@@ -13,7 +10,6 @@ from helpers.number_funtions import normalize_amount
 from plyer import notification
 
 
-# print(*(dir(UserControl())),sep="\n")
 class Main_page(UserControl):
     def __init__(self, page):
         super().__init__()
@@ -76,13 +72,15 @@ class Main_page(UserControl):
             if DEBUG: print("getting surebets"+("-"*60))
             
             self.getting_surebets = True;self.update_main_columns(update_bet_viewer=False)
-            new_surebets = get_sure_bets()
+            new_surebets = get_sure_bets(
+              ids_to_also_get=[self.bet_on_bet_viewer["info"]["id"]] if self.bet_on_bet_viewer else []
+            )
             if len(new_surebets) > len(self.surebets):
               print("notifying!!")
               notification.notify(
                 title="New surebets!",
                 message=f"There are {len(new_surebets)-len(self.surebets)} new surebets!	",
-                timeout=10,
+                timeout=2,
                 
               )
             self.surebets = new_surebets
@@ -171,7 +169,13 @@ class Main_page(UserControl):
         return(
           Row([
             Column([
-              Row([TextField(value=self.amount_to_bet,label="Bet amount",input_filter=NumbersOnlyInputFilter(),on_change=self.on_amount_change,height=self.page.height*0.1)]),         
+              Container(
+                content=Row([TextField(value=self.amount_to_bet,label="Bet amount",input_filter=NumbersOnlyInputFilter(),on_change=self.on_amount_change)]),         
+                bgcolor=colors.BLUE_GREY_500,
+                height=self.page.height*0.1,
+                padding=padding.all(5),
+                margin=margin.only(bottom=5)
+              ),
               Column([],expand=1,ref=self.bets_listener_column_ref),
             ],expand=1,height=self.page.height,spacing=0),
             Column([],expand=1,ref=self.bet_viewer_column_ref),
