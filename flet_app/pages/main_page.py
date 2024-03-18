@@ -141,8 +141,10 @@ class Main_page(UserControl):
           self.bet_viewer_column_ref.current.alignment = alignment.center
           self.bet_viewer_column_ref.current.horizontal_alignment = CrossAxisAlignment.CENTER
 
-      
-      self.update()
+      try:
+        self.update()
+      except Exception as e:
+        print("error updating columns:",e) 
         
     def get_sb_to_bet_viewer(self):
         """ This method returns the surebet that is being shown in the bet viewer """
@@ -170,7 +172,14 @@ class Main_page(UserControl):
           Row([
             Column([
               Container(
-                content=Row([TextField(value=self.amount_to_bet,label="Bet amount",input_filter=NumbersOnlyInputFilter(),on_change=self.on_amount_change)]),         
+                content=Row(
+                  [
+                    TextField(value=self.amount_to_bet,label="Bet amount",input_filter=NumbersOnlyInputFilter(),on_change=self.on_amount_change),
+                    IconButton(icon=icons.SETTINGS,tooltip="Settings",on_click=lambda e: self.page.go("/settings")),
+                    ElevatedButton(text="Execute manager",on_click=lambda e: self.page.go("/execute_manager"))
+                  ],
+                  alignment=MainAxisAlignment.SPACE_BETWEEN
+                ),         
                 bgcolor=colors.BLUE_GREY_500,
                 height=self.page.height*0.1,
                 padding=padding.all(5),

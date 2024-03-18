@@ -3,6 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.options import Options as EdgeOptions
 from time import sleep
+from helpers.cookies_funtions import get_cookies_from_url
+from os import path
 
 
 
@@ -10,8 +12,19 @@ class Bot:
     def __init__(self,incognito=False):
       edge_options = EdgeOptions()
       if incognito: edge_options.add_argument("--inprivate")
+      edge_options.add_argument("--enable-chrome-browser-cloud-management")
+      edge_options.add_argument("--enable-javascript")
+      edge_options.add_argument("--enable-cookies")
+      # Establecer el User-Agent deseado
+      # user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0"
+      # edge_options.add_argument(f"user-agent={user_agent}")
+
+      
+      
       
       self.driver = webdriver.Edge( options=edge_options )
+     
+      
       self.driver.maximize_window()
       self.driver.implicitly_wait(20)
       self.driver.get('https://www.google.com')
@@ -24,6 +37,19 @@ class Bot:
       ]
       self.retry_times = 3
       self.retry_delay = 1       
+    
+    def add_bm_cookies(self,bookmaker:str):
+      if bookmaker == 'wplay':
+         self.driver.add_cookie(
+        get_cookies_from_url([
+          path.join(path.dirname(__file__), "cookies", "wplay_cookies.json"),
+          path.join(path.dirname(__file__), "cookies", "wplay_cookies.json")
+        ])
+      )
+      else:
+        raise Exception('Bookmaker not found')
+        
+    
     
     def get_url(self):
       """gets the current url
@@ -67,6 +93,7 @@ class Bot:
           break
       else:
         raise Exception('Tab not found')
+    
     
     def write_on(self,css_selector,text,from_element=None):
       """writes on a input

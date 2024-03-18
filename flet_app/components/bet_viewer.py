@@ -124,8 +124,8 @@ class Bet_viewer(UserControl):
                     ,self.bet["options"]
                 ))
              ],spacing=1,ref=self.table_amounts_ref),
-            
-            Divider(color=colors.BLUE_ACCENT),
+            ElevatedButton("Execute",disabled=True)
+            ,Divider(color=colors.BLUE_ACCENT),
 
             Text(f'Total Profit: {add_dots(self.bet["info"]["profit_amount"])}',
                  size=20,ref=self.total_profit_ref,weight=FontWeight.BOLD,color=profit_color), 

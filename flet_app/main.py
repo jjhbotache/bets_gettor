@@ -1,5 +1,7 @@
 from flet import *
 from pages.main_page import Main_page
+from pages.settings import Settings
+from pages.execute_manager import Execute_manager
 from os import system
 
 
@@ -8,17 +10,34 @@ def main(page: Page):
     print(("\n"*10))
         
     def on_route_change(route):
-        page.views.clear()
         if page.route == "/":
+            if len(page.views) == 1:
+                page.views.clear()
+                page.views.append(View("/", [Main_page(page)]))
+            else:
+                page.views.pop()
+        elif page.route == "/settings":
+            page.views.clear()
             page.views.append(
                 View(
-                    "/",
+                    "/settings",
                     [
-                        Main_page(page)
+                        Settings(page)
+                        
                     ]
                 )
             )
-        print(page.views[0])
+        elif page.route == "/execute_manager":
+            page.views.append(
+                View(
+                    "/execute_manager",
+                    [
+                        Execute_manager(page)
+                    ]
+                )
+            )
+            
+            
         page.update()
 
     page.auto_scroll = True
