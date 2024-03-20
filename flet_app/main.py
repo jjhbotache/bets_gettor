@@ -5,6 +5,11 @@ from pages.execute_manager import Execute_manager
 from os import system
 
 
+bots={
+    "selenium": None,
+    "manual": None,
+}
+
 def main(page: Page):
     system("cls")
     print(("\n"*10))

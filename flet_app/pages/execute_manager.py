@@ -1,4 +1,5 @@
 from flet import *
+from modules.bot.automatizaation_functions import login_bm
 import json
 from os import path
 
@@ -27,12 +28,22 @@ class Execute_manager(UserControl):
                 Icon(name=icons.CHECK_CIRCLE_OUTLINE)
                 # Icon(name=icons.DONE)
                 ),
-              DataCell(FilledButton("login",data=bm))
+              DataCell(FilledButton("login",data=bm,on_click=self.on_login_click))
             ],
           ),
         )
       
     self.update()
+
+  def on_login_click(self, e):
+    print(e.control.data)
+    login_bm(
+      bm_name=e.control.data["name"],
+      credentials={
+        "username":e.control.data["username"],
+        "password":e.control.data["password"]
+      }
+    )
 
   def build(self):
     return Column(

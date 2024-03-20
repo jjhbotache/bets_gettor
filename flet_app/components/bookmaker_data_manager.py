@@ -14,19 +14,19 @@ class Bookmaker_data_manager(UserControl):
   def reset_data(self):
     self.on_data_change(
       {
-        "name":self.name,
-        "type":self.given_type,
+        "name":self.name.strip(),
+        "type":self.given_type.strip(),
         "username":self.username,
         "password":self.password
       }
     )
     
   def on_username_change(self,e):
-    self.username = e.control.value
+    self.username = e.control.value.strip()	
     self.reset_data()
     
   def on_password_change(self,e):
-    self.password = e.control.value
+    self.password = e.control.value.strip()
     self.reset_data()
       
   def build(self):

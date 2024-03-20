@@ -169,7 +169,7 @@ class Surebet:
         self.sum = self.prob_imp_t1 + self.prob_imp_t2 + self.prob_imp_d
         
         self.is_surebet = self.sum < 1
-        if DEBUG: self.is_surebet = self.sum < 1.05 #only for testing
+        if DEBUG: self.is_surebet = self.sum < 1.2 #only for testing
 
         self.profit = (1 / self.sum) * 100 - 100
         

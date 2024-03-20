@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.options import Options as EdgeOptions
 from time import sleep
-from helpers.cookies_funtions import get_cookies_from_url
+from .helpers.cookies_funtions import get_cookies_from_url
 from os import path
 
 
@@ -49,8 +49,6 @@ class Bot:
       else:
         raise Exception('Bookmaker not found')
         
-    
-    
     def get_url(self):
       """gets the current url
 

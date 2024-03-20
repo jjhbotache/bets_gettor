@@ -1,4 +1,4 @@
-from selenium_class import Bot
+from .selenium_class import Bot
 from time import sleep
 from os import system
 
