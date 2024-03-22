@@ -5,6 +5,8 @@ from time import sleep
 from os import system,path
 
 class Bot():
+  bookmakers = ["wplay","betplay","codere"]
+  
   def __init__(self, start_edge:bool=False):
     
     if start_edge:
@@ -46,15 +48,22 @@ class Bot():
     pyautogui.press("f12") # open dev tools
     sleep(1)
     pyautogui.hotkey('ctrl', 'shift','p') # open command palette
-    sleep(.5)
     pyperclip.copy("Show console")
-    pyautogui.press("enter") # get console
-    
-    pyperclip.copy(js_script)
-    sleep(.5)
+    sleep(.4)
     pyautogui.hotkey('ctrl', 'v')
+    sleep(.6)
+    pyautogui.press("enter") # get console
+    pyperclip.copy(js_script)
+    sleep(.4)
+    pyautogui.hotkey('ctrl', 'l')
+    pyautogui.click(
+      x=1600,
+      y=510
+    )
+    sleep(.4)
+    pyautogui.hotkey('ctrl', 'v')
+    sleep(.6)
     pyautogui.press('enter')
-    sleep(.5)
     pyautogui.press("f12")
     
   def get_edge_windows(self,filtered_by_new_window:bool=False):
@@ -119,6 +128,7 @@ class Bot():
       elif bookmaker == "codere":
         bookmaker_window = [window for window in edge_windows if "codere" in window.window_text().lower() and type_str in window.window_text().lower() ][0]
     except IndexError:
+      
       print(f"Window for {bookmaker} in private:{not primary} not found.")
       return
         
@@ -128,18 +138,64 @@ class Bot():
       "window": bookmaker_window,
     }
       
-    
+  def get_all_bm_windows(self):
+    bookmakers_dicts = []
+    for bm_name in Bot.bookmakers:
+      bookmakers_dicts.append( self.get_bm_window(bm_name) )
+      
+      if bm_name != "codere":
+        bookmakers_dicts.append( self.get_bm_window(bm_name, False)  )
+        
+    return bookmakers_dicts
 
+  def bet_in_bookmaker(self, bookmaker_window:dict, amount:int,option:str):
+    """ bets in the bookmaker
+
+    Args:
+        bookmaker_window (dict): the bookmaker window
+          {
+            "bookmaker": str,
+            "type": str,
+            "window": pywinauto.window.WindowSpecification
+          }
+        amount (int): the amount to bet
+        option (str): the option to bet on
+    """
+    window,bookmaker = bookmaker_window["window"],bookmaker_window["bookmaker"]
+    self.window = window
+    self.focus_window()
+    
+    bet_script_path = path.join(
+      path.dirname(__file__),
+      f"bet_script_for_{bookmaker}.js")
+    with open(bet_script_path, "r") as f:
+      bet_script = f.read()
+        
+    self.execute_js(
+      bet_script.replace(
+      "AMOUNT", str(amount) )
+      .replace(
+      "OPTION", str(option) )
+    )
+    
+    if bookmaker == "betplay":
+      sleep(2)
+      pyautogui.write(str(amount))
+      aux_script_path = path.join(
+        path.dirname(__file__),
+        "aux_scripts",
+        "betplay_aux_script_1.js"
+      )
+      with open(aux_script_path, "r") as f:
+        aux_script = f.read()
+      self.execute_js(aux_script)
 
 
 if __name__ == "__main__":
-    bot = Bot()
-    bot.focus_window(
-      bot.get_bm_window("codere",True)["window"]
-    )
-    # bot.go_to_url("https://www.wplay.co/")
-    # bot.login_in_bookmaker("wplay",{
-    #   "username":"camitoschamosos@gmail.com",
-    #   "password":"Chaminosos1234"
-    # })
+  bot = Bot()
+  bot.bet_in_bookmaker(
+    bookmaker_window=bot.get_bm_window("betplay"),
+    amount=1000,
+    option="peru"
+  )
     
