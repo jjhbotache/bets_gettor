@@ -1,4 +1,4 @@
-import Nav from '../../components/Nav.jsx';
+import Nav from '../../components/Nav/Nav.jsx';
 import Sidebar from '../../components/Sidebar/Sidebar.jsx';
 import { useEffect, useRef, useState } from 'react';
 import { apiRoute, inProduction } from '../../const/consts.js';

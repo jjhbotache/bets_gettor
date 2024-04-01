@@ -1,5 +1,7 @@
-body,#root{
+#root{
   height: 100vh;
+  display: flex;
+  flex-direction: column;
   background:#222;
   color: white;
 }
@@ -22,4 +24,10 @@ i {
 }
 .hoverable:hover{
   transform: scale(1.07);
+}
+
+ul{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }

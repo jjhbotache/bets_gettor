@@ -6,7 +6,7 @@ export const SidebarStyledContainer = styled.nav`
   justify-content: start;
   align-items: center;
 
-  height: 100%;
+  /* height: 100%; */
   background-color: #05003e !important; /* Usando variables para colores */
   box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.502);
   transition: all 0.2s ease;

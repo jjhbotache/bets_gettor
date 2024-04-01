@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import Nav from '../../components/Nav';
+import Nav from '../../components/Nav/Nav';
 import BetsViewer from '../../components/BetsViewer/BetsViewer';
 import OneBetViewer from '../../components/OneBetViewer/OneBetViewer';
 import Sidebar from '../../components/Sidebar/Sidebar';
@@ -8,7 +8,7 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import { surebetsPeriod } from '../../main';
 import { inProduction } from '../../const/consts';
 import surebetsMock from "../../mocks/sure_bets_response.json"
-import { AppStyledContainer } from './AppStyledComponents';
+import { AppStyledContainer, MiniPageContainer } from './AppStyledComponents';
 
 // TODO: take out this into a page folder with its own components
 
@@ -176,47 +176,49 @@ function App() {
         ]
       } value={pageIndex} onChange={i=>{setPageIndex(i)}} />
 
-      {/* extract to a component */}
-      {pageIndex === 0 && (
-        <div className="container h-100 d-flex justify-content-center align-items-center ">
-          <div className="row d-flex justify-content-center px-sm-5">
-            {/* betAmount input */}
-            <div className="input-group input-group-sm mb-sm-1 mx-auto my-0 py-0" style={{maxWidth:"400px"}}>
-              <span className="input-group-text">Bet amount</span>
-              <input type="number" step={2500} className="form-control bg-dark text-light rounded" value={amount} onChange={(e)=>{setAmount(e.target.value)}}/>
-              <div className="form-check form-switch d-flex flex-column align-items-center justify-content-center p-0">
-                <label className="form-check-label mx-1" htmlFor="flexSwitchCheckDefault">Sent data: </label>
-                <input className="form-check-input mx-auto my-0" type="checkbox" role="switch" checked={sendLogs} onChange={e=>setSendLogs(e.target.checked)} />
+      <MiniPageContainer>
+        {pageIndex === 0 && (
+          <BetsViewer bets={surebets} loading={loading} onSetBet={bet=>{
+            setBetOnViewer(bet);
+            setPageIndex(1);
+            firstBetDone.current=true;
+            setBetOnViewer(surebetsPeriod.find(sp=>sp.info.id===bet.info.id));
+            }}/>
+          // <div className="container h-100 d-flex justify-content-center align-items-center ">
+          //   <div className="row d-flex justify-content-center px-sm-5">
+          //     {/* betAmount input */}
+          //     <div className="input-group input-group-sm mb-sm-1 mx-auto my-0 py-0" style={{maxWidth:"400px"}}>
+          //       <span className="input-group-text">Bet amount</span>
+          //       <input type="number" step={2500} className="form-control bg-dark text-light rounded" value={amount} onChange={(e)=>{setAmount(e.target.value)}}/>
+          //       <div className="form-check form-switch d-flex flex-column align-items-center justify-content-center p-0">
+          //         <label className="form-check-label mx-1" htmlFor="flexSwitchCheckDefault">Sent data: </label>
+          //         <input className="form-check-input mx-auto my-0" type="checkbox" role="switch" checked={sendLogs} onChange={e=>setSendLogs(e.target.checked)} />
+          //       </div>
+          //     </div>
+              
+          //   </div>
+          // </div>
+        )}
+
+
+        {pageIndex === 1 && (
+          betOnViewer ? ( 
+            <div className="mt-1 w-100" >
+              {/* betAmount input */}
+              <div className="input-group input-group-sm mb-sm-3 mx-auto mb-1" style={{maxWidth:"400px"}}>
+                <span className="input-group-text">Bet amount</span>
+                <input type="number" step={2500} className="form-control bg-dark text-light" value={amount} onChange={(e)=>{setAmount(e.target.value)}}/>
               </div>
+              <OneBetViewer bet={betOnViewer} betAmount={amount} />
             </div>
-            <BetsViewer bets={surebets} loading={loading} onSetBet={bet=>{
-              setBetOnViewer(bet);
-              setPageIndex(1);
-              firstBetDone.current=true;
-              setBetOnViewer(surebetsPeriod.find(sp=>sp.info.id===bet.info.id));
-              }}/>
-          </div>
-        </div>
-      )}
-
-
-      {pageIndex === 1 && (
-        betOnViewer ? ( 
-          <div className="mt-1 w-100" >
-            {/* betAmount input */}
-            <div className="input-group input-group-sm mb-sm-3 mx-auto mb-1" style={{maxWidth:"400px"}}>
-              <span className="input-group-text">Bet amount</span>
-              <input type="number" step={2500} className="form-control bg-dark text-light" value={amount} onChange={(e)=>{setAmount(e.target.value)}}/>
+          ) : (
+            <div className="d-flex align-items-center flex-column gap-2 m-1 w-100" >
+              <h1>Choose a bet from the surebets viewer</h1>
+              <button className="btn btn-primary w-50" onClick={()=>{setPageIndex(0)}}>Surebets</button>
             </div>
-            <OneBetViewer bet={betOnViewer} betAmount={amount} />
-          </div>
-        ) : (
-          <div className="d-flex align-items-center flex-column gap-2 m-1 w-100" >
-            <h1>Choose a bet from the surebets viewer</h1>
-            <button className="btn btn-primary w-50" onClick={()=>{setPageIndex(0)}}>Surebets</button>
-          </div>
-        )
-      )}
+          )
+        )}
+      </MiniPageContainer>
     </AppStyledContainer>
     
     </>
