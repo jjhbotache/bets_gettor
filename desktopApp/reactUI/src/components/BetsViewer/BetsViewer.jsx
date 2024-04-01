@@ -2,7 +2,7 @@ import styles from './BV.module.css'
 
 
 
-const colors = ["border-warning", "border-secondary", "border-success", "border-danger", "border-info"];
+// TODO: use styled components and BEM 
 export default function BetsViewer({bets, loading, onSetBet}) {
   return(
     <div className={`container-fluid border-4 rounded p-1 ${loading?styles.rainbowBorder:styles.noLoading} ${styles.BVContainer} `}>
@@ -26,6 +26,7 @@ export default function BetsViewer({bets, loading, onSetBet}) {
                   </div>
                   <div className="col d-flex justify-content-center">
                     {/* badge */}
+                    {/* EXTRACT THIS INTO A STYLED COMPONENT */}
                     <span className={`badge fs-6 rounded-pill text-light ${
                       bet.info.profit < 10 ? "bg-danger":
                       bet.info.profit < 20 ? "bg-warning":

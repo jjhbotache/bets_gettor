@@ -85,8 +85,14 @@ export default function Logger() {
     <div className="d-flex h-100">
       <Sidebar li={
           [
-            ["Bets", (<i className="fi fi-rr-clipboard-list"></i>)],
-            ["Graphs", (<i className="fi fi-br-stats"></i>)],
+            {
+              title: "Bets",
+              icon: <i className="fi fi-rr-clipboard-list"></i>,
+            },
+            {
+              title: "Graphs",
+              icon: <i className="fi fi-br-stats"></i>,
+            },
           ]
         } value={pageIndex} onChange={i=>{setPageIndex(i)}} />
       {/* page */}

@@ -133,7 +133,7 @@ class Bot():
       return
         
     return {
-      "bookmaker": "betplay",
+      "bookmaker": bookmaker,
       "type": "primary" if primary else "secondary",
       "window": bookmaker_window,
     }
@@ -149,7 +149,7 @@ class Bot():
     return bookmakers_dicts
 
   def bet_in_bookmaker(self, bookmaker_window:dict, amount:int,option:str):
-    """ bets in the bookmaker
+    """ bets in the bookmaker (wplay, betplay)
 
     Args:
         bookmaker_window (dict): the bookmaker window
@@ -161,7 +161,12 @@ class Bot():
         amount (int): the amount to bet
         option (str): the option to bet on
     """
+    
+    
     window,bookmaker = bookmaker_window["window"],bookmaker_window["bookmaker"]
+    
+    if bookmaker == "codere":raise Exception("Can't bet on codere yet")
+    
     self.window = window
     self.focus_window()
     
@@ -194,8 +199,8 @@ class Bot():
 if __name__ == "__main__":
   bot = Bot()
   bot.bet_in_bookmaker(
-    bookmaker_window=bot.get_bm_window("betplay"),
-    amount=1000,
-    option="peru"
+    bookmaker_window=bot.get_bm_window("codere"),
+    amount=1,
+    option="jaguares cordoba"
   )
     

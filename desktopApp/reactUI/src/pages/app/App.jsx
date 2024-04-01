@@ -1,22 +1,24 @@
 import { useEffect, useRef, useState } from 'react'
 
-import Nav from './components/Nav';
-import BetsViewer from './components/BetsViewer/BetsViewer';
-import OneBetViewer from './components/OneBetViewer/OneBetViewer';
-import Sidebar from './components/Sidebar/Sidebar';
+import Nav from '../../components/Nav';
+import BetsViewer from '../../components/BetsViewer/BetsViewer';
+import OneBetViewer from '../../components/OneBetViewer/OneBetViewer';
+import Sidebar from '../../components/Sidebar/Sidebar';
 
-import { surebetsPeriod } from './main';
-import { inProduction } from './const/consts';
-import surebetsMock from "./mocks/sure_bets_response.json"
+import { surebetsPeriod } from '../../main';
+import { inProduction } from '../../const/consts';
+import surebetsMock from "../../mocks/sure_bets_response.json"
+import { AppStyledContainer } from './AppStyledComponents';
+
+// TODO: take out this into a page folder with its own components
+
 
 
 function App() {
-  // wait for the connection to be established with python
 
   const [surebets, setSureBets] = useState([])
   const numberOfSurebetsBefore = useRef(0)
   const [loading, setLoading] = useState(false)
-  let timeToWait = 500;
   const [betOnViewer, setBetOnViewer] = useState(null);
   const firstBetDone = useRef(false)
   const [pageIndex, setPageIndex] = useState(0);
@@ -27,13 +29,19 @@ function App() {
   useEffect(() => {
     fetching();
   }, []);
-      
+  
+  /**
+   * Fetch the surebets from the server and set the state
+   * 
+   * @returns {void}
+   */
   function fetching() {
+    let timeToWait = 500;
+    setLoading(true)
     if (!inProduction){
       setSureBets(surebetsMock)
       return
     }
-    setLoading(true)
     pywebview.api.sure_bets(listOfIdsToFetch.current)
     .then(bets => {
       // sort by profit
@@ -68,6 +76,7 @@ function App() {
       `There are ${surebets.length} surebets`, "https://www.google.com/s2/favicons?sz=64&domain_url=https://www.betburger.com/")
     }
 
+    // TODO: refactor this to extract the logic to a function
     // update the periods of the bets
     surebetsPeriod.forEach((sp,i)=>{
       const existingBet = surebets.find(surebet => surebet.info.id === sp.info.id)
@@ -148,13 +157,9 @@ function App() {
   }, [surebets]);
 
   useEffect(() => {
-    console.log("estoy actualizando el betOnViewer",betOnViewer);
-    // set the reference
-    listOfIdsToFetch.current = [];
-    betOnViewer && listOfIdsToFetch.current.push(betOnViewer.info.id);
+    // if the betOnViewer is not null, set the listOfIdsToFetch to the id of the betOnViewer
+    betOnViewer && (listOfIdsToFetch.current = [betOnViewer.info.id]);
   }, [betOnViewer]);
-
-
 
 
 
@@ -162,15 +167,16 @@ function App() {
     <>
     <Nav/>
 
-    <div className="d-flex h-100 ">
-
+    {/* change to a styled component */}
+    <AppStyledContainer>
       <Sidebar li={
         [
-          ["Surebets", (<i className="fi fi-rs-receipt"></i>)],
-          ["Bet viewer", (<i className="fi fi-sr-vector-circle"></i>)],
+          { label: "Surebets", icon: <i className="fi fi-rs-receipt"></i> },
+          { label: "Bet viewer", icon: <i className="fi fi-sr-vector-circle"></i> }
         ]
       } value={pageIndex} onChange={i=>{setPageIndex(i)}} />
 
+      {/* extract to a component */}
       {pageIndex === 0 && (
         <div className="container h-100 d-flex justify-content-center align-items-center ">
           <div className="row d-flex justify-content-center px-sm-5">
@@ -211,12 +217,7 @@ function App() {
           </div>
         )
       )}
-
-    </div>
-
-
-
-    
+    </AppStyledContainer>
     
     </>
   )

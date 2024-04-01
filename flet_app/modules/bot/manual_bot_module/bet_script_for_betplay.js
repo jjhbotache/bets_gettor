@@ -78,7 +78,7 @@ async function putAmount() {
           clearInterval(interval)
           r()
         }
-      }, 1000)
+      }, 500)
     }
   )
 
@@ -93,7 +93,7 @@ async function putAmount() {
           clearInterval(interval)
           r()
         }
-      }, 1000)
+      }, 500)
     }
   )
   

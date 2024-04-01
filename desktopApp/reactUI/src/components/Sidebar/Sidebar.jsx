@@ -1,46 +1,26 @@
 import React, { useState } from "react";
-import styles from "./CustomNav.module.css"; // Importa los estilos CSS
+import { SidebarStyledContainer, StyledItem } from "./SidebarStyledComponents";
 
 const Sidebar = ({ li , value, onChange }) => {
   const [window, setWindow] = useState(true);
 
-  let openClose = () => {
-    if (window === false) {
-      setWindow(true);
-    } else {
-      setWindow(false);
-    }
+  function toggleWindow (){
+    setWindow(!window)
   };
 
-
-
   return (
-    <nav
-      className={` ${styles["navbar-menu"]}`} // Aplica estilos desde el objeto de estilos
-      style={{ width: window === false ? 210 : 60 }}
-    >
-      <div className={styles.burger} onClick={() => openClose()}>
-        <i className="fi fi-br-menu-dots-vertical m-2"></i>
-      </div>
+    <SidebarStyledContainer $window={window}>
+      <div className="burger" onClick={toggleWindow}> <i className="fi fi-br-menu-dots-vertical m-2"></i> </div>
 
-      <ul className={styles.navbar__list}>
-        {li.map((item, i) => (
-          <div className={styles.navbar__li_box + " d-flex align-items-center " + (li.indexOf(item) == value?" border-start ":"" ) } key={i} 
-          onClick={()=>onChange(i)}>
-            <div className="ps-1"> 
-              {item[1] && item[1]}
-            </div>
-            <h6
-              className={styles.navbar__li} // Aplica estilos desde el objeto de estilos
-              style={{ display: window === false ? "inline-block" : "none" }}
-            >
-              {item[0]}
-            </h6>
-          </div>
+      <ul className="items-container">
+        {li.map((item,i) => (
+          <StyledItem onClick={()=>onChange(i)} $border={li.indexOf(item) == value} key={item.label}>
+            <div> {item.icon} </div>
+            {!window && <h6 >{item.label}</h6>}
+          </StyledItem>
         ))}
-
       </ul>
-    </nav>
+    </SidebarStyledContainer>
   );
 };
 

@@ -176,7 +176,7 @@ class Main_page(UserControl):
                   [
                     TextField(value=self.amount_to_bet,label="Bet amount",input_filter=NumbersOnlyInputFilter(),on_change=self.on_amount_change),
                     IconButton(icon=icons.SETTINGS,tooltip="Settings",on_click=lambda e: self.page.go("/settings")),
-                    ElevatedButton(text="Execute manager",on_click=lambda e: self.page.go("/execute_manager"))
+                    # ElevatedButton(text="Execute manager",on_click=lambda e: self.page.go("/execute_manager"))
                   ],
                   alignment=MainAxisAlignment.SPACE_BETWEEN
                 ),         

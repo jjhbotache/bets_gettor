@@ -51,7 +51,33 @@ class Bet_viewer(UserControl):
             message=f"{data} copied to clipboard",
             timeout=1
         )
+       
+    def on_execute(self,event):
+        print("executing bet")
+        print("bet:",self.bet)
         
+        self.page.overlay.append(
+            BottomSheet(
+                Container(
+                    Column([
+                        Text("Opening windows",size=30),
+                        Text("Choose how to execute the surebet",size=15),
+                        Divider(),  
+                        *list(map(
+                            lambda o: Text(o["name"],size=20)
+                            ,self.bet["options"]
+                        ))
+                    ]),
+                    padding=padding.all(20),
+                ),
+                open=True,
+            )
+        )
+        self.page.update()
+        
+        
+        
+        pass
 
     def build(self):
         bg_color = colors.GREEN_900 if not self.bet["info"]["end_time"] else colors.BLUE_GREY_900
@@ -124,8 +150,8 @@ class Bet_viewer(UserControl):
                     ,self.bet["options"]
                 ))
              ],spacing=1,ref=self.table_amounts_ref),
-            ElevatedButton("Execute",disabled=True)
-            ,Divider(color=colors.BLUE_ACCENT),
+            ElevatedButton("Execute",on_click=self.on_execute),
+            Divider(color=colors.BLUE_ACCENT),
 
             Text(f'Total Profit: {add_dots(self.bet["info"]["profit_amount"])}',
                  size=20,ref=self.total_profit_ref,weight=FontWeight.BOLD,color=profit_color), 
