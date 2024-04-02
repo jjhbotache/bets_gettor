@@ -1,9 +1,24 @@
-#root{
-  height: 100vh;
+html,body, #root {
+  /* height: 100vh;
+  max-height: 100vh; */
+
+  height: 100%;
+  max-height: 100%;
+
+
   display: flex;
   flex-direction: column;
   background:#222;
   color: white;
+
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+  /* overflow: hidden; */
+}
+
+* {
+  margin: 0;
+  padding: 0;
 }
 
 i {
@@ -28,6 +43,4 @@ i {
 
 ul{
   list-style-type: none;
-  padding: 0;
-  margin: 0;
 }

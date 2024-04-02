@@ -166,8 +166,6 @@ function App() {
   return(
     <>
     <Nav/>
-
-    {/* change to a styled component */}
     <AppStyledContainer>
       <Sidebar li={
         [
@@ -184,27 +182,12 @@ function App() {
             firstBetDone.current=true;
             setBetOnViewer(surebetsPeriod.find(sp=>sp.info.id===bet.info.id));
             }}/>
-          // <div className="container h-100 d-flex justify-content-center align-items-center ">
-          //   <div className="row d-flex justify-content-center px-sm-5">
-          //     {/* betAmount input */}
-          //     <div className="input-group input-group-sm mb-sm-1 mx-auto my-0 py-0" style={{maxWidth:"400px"}}>
-          //       <span className="input-group-text">Bet amount</span>
-          //       <input type="number" step={2500} className="form-control bg-dark text-light rounded" value={amount} onChange={(e)=>{setAmount(e.target.value)}}/>
-          //       <div className="form-check form-switch d-flex flex-column align-items-center justify-content-center p-0">
-          //         <label className="form-check-label mx-1" htmlFor="flexSwitchCheckDefault">Sent data: </label>
-          //         <input className="form-check-input mx-auto my-0" type="checkbox" role="switch" checked={sendLogs} onChange={e=>setSendLogs(e.target.checked)} />
-          //       </div>
-          //     </div>
-              
-          //   </div>
-          // </div>
         )}
 
 
         {pageIndex === 1 && (
           betOnViewer ? ( 
             <div className="mt-1 w-100" >
-              {/* betAmount input */}
               <div className="input-group input-group-sm mb-sm-3 mx-auto mb-1" style={{maxWidth:"400px"}}>
                 <span className="input-group-text">Bet amount</span>
                 <input type="number" step={2500} className="form-control bg-dark text-light" value={amount} onChange={(e)=>{setAmount(e.target.value)}}/>

@@ -7,10 +7,13 @@ export const NavStyledContainer = styled.nav`
   justify-content: center;
   align-items: center;
   background-color: #2b003e;
+  
   height: 50px;
+  min-height: 50px;
   width: 100%;
   color: #fff;
   padding: 0 1em;
+  box-sizing: border-box;
   overflow:hidden;
 
   .tabs-container{
