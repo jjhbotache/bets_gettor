@@ -20,6 +20,8 @@ export const BetItemContainer = styled.div`
     font-size: 1.5em;
     font-weight: 600;
     text-align: center;
+    display: flex;
+    justify-content: center;
   }
 
   .grid{
@@ -41,7 +43,8 @@ export const ProfitBadge = styled.span`
   padding: 5px;
   border-radius: 5em;
   width: auto;
-  max-width: 7em;
+  min-width: 7em;
+  text-align: center;
   color: #fff;
   background-color: ${props => {
     switch (true) {

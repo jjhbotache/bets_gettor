@@ -12,7 +12,7 @@ export default function BetsViewer({bets, loading, onSetBet}) {
       </header>
       <div className='bets-container'>
         {bets.map((bet, index) => (
-          <h1 key={index} onClick={()=>{onSetBet(bet)}}> hola <br/>asdasdasd </h1>
+          <BetItem key={index} bet={bet} onSetBet={onSetBet}/>
         ))}       
       </div>
     </BVContainer>

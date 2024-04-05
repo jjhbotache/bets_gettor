@@ -16,18 +16,17 @@ const rainbowBorderAnimation = keyframes`
 export const BVContainer = styled.div`
   display: flex;
   flex-direction: column;
-
-  height: 80%;
-  max-height: 80%;
+  height: 80vh;
   width: 100%;
   max-width: 400px;
-
-  ${props => props.$loading 
-    ?css`animation: ${noLoadingAnimation} 1s linear infinite;`
-    :css`animation: ${rainbowBorderAnimation} 4s linear infinite;`
-  }
   border-radius: 1em;
   padding: .5em;
+
+  ${
+    props => props.$loading 
+      ?css`animation: ${noLoadingAnimation} 1s linear infinite;`
+      :css`animation: ${rainbowBorderAnimation} 4s linear infinite;`
+  }
 
 
   header{
@@ -38,19 +37,17 @@ export const BVContainer = styled.div`
     margin: .2em 0;
     padding: 1em .4em;
     border-radius: 1em;
+    max-height: 10vh;
   }
 
   .bets-container{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 1em;
     flex-grow: 1;
-    
-    scrollbar-width: none; /* Para Firefox */
-    
-    overflow-x: hidden;
-    overflow-y: scroll;
+    gap: .5em;
+    /* max-height: 60vh; */
+    scrollbar-width: none;
+    overflow-y: auto;
   }
 
 `;

@@ -4,6 +4,9 @@ export function isMobile() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 export function addDots(numero) {
+  if (isNaN(numero)) {
+    return numero;
+  }
   // made by bign
   // Convertir el número a una cadena
   let cadena = numero.toString();

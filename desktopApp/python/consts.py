@@ -24,8 +24,6 @@ JS_CODES = [
     },
 ]
 
-
-
 MAX_RAM_MEMORY = 1024 #in mb 
 
 bookmakers = [

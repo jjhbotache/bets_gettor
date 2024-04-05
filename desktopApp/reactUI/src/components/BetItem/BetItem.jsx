@@ -9,7 +9,7 @@ export default function BetItem({bet, onSetBet}) {
       <strong className="title">{title}</strong>
       <div className="grid">
         <small className='time'>{ bet.info.time }</small>
-        <ProfitBadge $profit={bet.info.profit}> {"Profit: "+Math.floor(bet.info.profit)+"%"} </ProfitBadge>
+        <ProfitBadge $profit={bet.info.profit} > {"Profit: "+Math.floor(bet.info.profit)+"%"} </ProfitBadge>
       </div>
     </div>
   </BetItemContainer>

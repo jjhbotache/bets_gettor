@@ -13,6 +13,7 @@ export const SidebarStyledContainer = styled.nav`
 
   
   width: ${ props => props.$window === false ? " 180px" : " 55px" };
+  height: 100%;
   
   .burger{
     display: flex;

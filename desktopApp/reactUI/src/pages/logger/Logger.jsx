@@ -6,6 +6,7 @@ import RenderSurebetsLogs from '../../components/RenderSurebetsLogs/RenderSurebe
 import Graph from '../../components/Graph/Graph.jsx';
 import { surebetsPerMinute } from '../../functions/functions.jsx';
 import surebetsMock from "../../mocks/surebets_logs_response.json"
+import { LoggerContainer, MiniPageGraphs, MiniPageRows } from './LoggerStyledComponents.jsx';
 
 export default function Logger() {
   const [pageIndex, setPageIndex] = useState(0);
@@ -79,56 +80,58 @@ export default function Logger() {
       .catch(err => console.log(err));
   }
 
+  function fetching() {
+    if(!inProduction){
+      setSurebetsLogs(surebetsMock);
+      return;
+    }
+    setLoading(true);
+    inProduction && pywebview.api.manage_surebet("GET")
+      .then(res => {
+        console.log("res", res);
+        // revertir el order del array obtenido
+        setSurebetsLogs(res.reverse());
+        setOrder(undefined);
+      })
+      .catch(err => console.log(err))
+      .finally(() => setLoading(false));
+  }
+
   return (
     <>
     <Nav/>
-    <div className="d-flex h-100">
-      <Sidebar li={
-          [
-            {
-              title: "Bets",
-              icon: <i className="fi fi-rr-clipboard-list"></i>,
-            },
-            {
-              title: "Graphs",
-              icon: <i className="fi fi-br-stats"></i>,
-            },
-          ]
-        } value={pageIndex} onChange={i=>{setPageIndex(i)}} />
-      {/* page */}
-      {
-        pageIndex === 0 && (
-          <>
-          <div className="container-fluid">
-            <div className="row justify-content-center align-items-center text-center g-2">
-              <h1 className='ms-2'>Logger ({surebetsLogs.length})</h1>
-              <button onClick={fetching} type="button" className="btn btn-outline-info w-auto">
-                {loading?
-                (
-                  <div className="d-flex justify-content-center align-items-center">
-                    <div className="spinner-border text-warning spinner-border-lg"
-                      role="status">
-                    </div>
-                  </div>
-                ):"refresh"}
-              </button>
-            </div>
-
-            <hr className='my-5'/>
-            <RenderSurebetsLogs surebetsLogs={surebetsToRender} onOrder={
-              param =>{
-                setOrder(param);
-                setAsc(!asc);
-              }
-            } asc={asc} order={order} onDeleteRow={id=>deleteRow(id)}/>
-          </div>
-          </>
-        )
-      }
-      {
-        pageIndex === 1 && (
-          <div className="container-fluid">
-            <div className="row gap-4 gap-sm-0">
+    <LoggerContainer>
+        <Sidebar li={
+            [
+              {
+                title: "Bets",
+                icon: <i className="fi fi-rr-clipboard-list"></i>,
+              },
+              {
+                title: "Graphs",
+                icon: <i className="fi fi-br-stats"></i>,
+              },
+            ]
+          } value={pageIndex} onChange={i=>{setPageIndex(i)}} />
+        {/* page */}
+        {
+          pageIndex === 0 && (
+            <MiniPageRows>
+              <h1 className='title'>Logger ({surebetsLogs.length})</h1>
+              <button onClick={fetching} type="button" className="refresh-btn">{loading?"loading...":"refresh"} </button>
+              <hr className='separator'/>
+              <RenderSurebetsLogs surebetsLogs={surebetsToRender} onOrder={
+                param =>{
+                  setOrder(param);
+                  setAsc(!asc);
+                }
+              } asc={asc} order={order} onDeleteRow={id=>deleteRow(id)}/>
+            </MiniPageRows>
+          )
+        }
+        {
+          pageIndex === 1 && (
+            <MiniPageGraphs>
               <Graph data={surebetsLogs.map(surebet=>(
                     {
                       "M. time": Math.round(surebet.match_time_minutes),
@@ -152,38 +155,19 @@ export default function Logger() {
                   yLabel="Profit" 
                   title="Time - Profit"/>
               <Graph data={surebetsPerMinute(surebetsLogs).sort((a,b)=>a["M. time"]-b["M. time"])} 
-                  xData="M. time" 
-                  yData="surebetsAmount" 
-                  xLabel="Match time" 
-                  yLabel="S. Amount" 
-                  title="Time - Amount"/>
+                    xData="M. time" 
+                    yData="surebetsAmount" 
+                    xLabel="Match time" 
+                    yLabel="S. Amount" 
+                    title="Time - Amount"/>
+            </MiniPageGraphs>
 
-              
-
-            </div>
-          </div>
-
-        )
-      }
-    </div>
+          )
+        }
+    </LoggerContainer>
     </>
 
   )
 
-  function fetching() {
-    if(!inProduction){
-      setSurebetsLogs(surebetsMock);
-      return;
-    }
-    setLoading(true);
-    inProduction && pywebview.api.manage_surebet("GET")
-      .then(res => {
-        console.log("res", res);
-        // revertir el order del array obtenido
-        setSurebetsLogs(res.reverse());
-        setOrder(undefined);
-      })
-      .catch(err => console.log(err))
-      .finally(() => setLoading(false));
-  }
+  
 };

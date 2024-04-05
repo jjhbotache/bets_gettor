@@ -175,6 +175,8 @@ function App() {
       } value={pageIndex} onChange={i=>{setPageIndex(i)}} />
 
       <MiniPageContainer>
+        <h4>Total amount to bet</h4>
+        <input type="number" step={2500} className="amount-input" value={amount} onChange={(e)=>{setAmount(e.target.value)}}/>
         {pageIndex === 0 && (
           <BetsViewer bets={surebets} loading={loading} onSetBet={bet=>{
             setBetOnViewer(bet);
@@ -187,18 +189,12 @@ function App() {
 
         {pageIndex === 1 && (
           betOnViewer ? ( 
-            <div className="mt-1 w-100" >
-              <div className="input-group input-group-sm mb-sm-3 mx-auto mb-1" style={{maxWidth:"400px"}}>
-                <span className="input-group-text">Bet amount</span>
-                <input type="number" step={2500} className="form-control bg-dark text-light" value={amount} onChange={(e)=>{setAmount(e.target.value)}}/>
-              </div>
-              <OneBetViewer bet={betOnViewer} betAmount={amount} />
-            </div>
+            <OneBetViewer bet={betOnViewer} betAmount={amount}/>
           ) : (
-            <div className="d-flex align-items-center flex-column gap-2 m-1 w-100" >
+            <>
               <h1>Choose a bet from the surebets viewer</h1>
-              <button className="btn btn-primary w-50" onClick={()=>{setPageIndex(0)}}>Surebets</button>
-            </div>
+              <button className="subets-btn" onClick={()=>{setPageIndex(0)}}>Surebets</button>
+            </>
           )
         )}
       </MiniPageContainer>
