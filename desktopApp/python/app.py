@@ -4,7 +4,7 @@ from .helper_functions import *
 # from flask_cors import CORS
 # from waitress import serve
 import sqlite3
-from .consts import bookmakers, data_folder
+from .consts import bookmakers, data_folder,JS_CODES
 import os
 from .classes import Option
 
@@ -149,9 +149,7 @@ def manage_surebet(method_from_function="GET",data_from_function=None):
         print("done succesfully")
         return data
 # # ------------------------------------------------------------
-def get_js_code(id_bookmaker,name,price):
-    return Option.get_js_code(
-        id_bookmaker,
-        name,
-        price
-    )[0]
+def get_js_code(id_bookmaker,name,amount):
+    code = list(filter(lambda i: i["bm_id"] == id_bookmaker,JS_CODES))[0]["code"]
+    print(code)
+    return code.replace("{{<<name>>}}",str(name)).replace("{{<<amount>>}}",str(amount))

@@ -17,29 +17,6 @@ class Match:
 
 
 class Option:
-    @classmethod
-    def get_js_code(self,bookmaker_id,name,price="prompt('Insert the price of the bet')"):
-        
-        price = "prompt('Insert the price of the bet')" if price == 0 else price
-        js_code = ""
-        functions=[]
-        try:
-            right_codes = list(filter(
-                        lambda obj_code : int(obj_code["bm_id"]) == int(bookmaker_id)
-                        , JS_CODES
-                    ))
-            rigth_dict = right_codes[0]
-            js_code = rigth_dict["code"].replace(
-                "<<name>>", name).replace(
-                "'<<amount>>'", str(price))
-                
-            try:functions = rigth_dict["functions"]
-            except:functions = []
-                
-        except Exception as e:
-            print("===========error:",traceback.format_exc())
-            return "no code"
-        return js_code,functions
         
     
     def __init__(self, name:str, odd:float, bookmaker, link:str="",amount_to_bet:int=0):
@@ -168,8 +145,8 @@ class Surebet:
         
         self.sum = self.prob_imp_t1 + self.prob_imp_t2 + self.prob_imp_d
         
-        self.is_surebet = self.sum < 1
-        self.is_surebet = self.sum < 1.2 # for testing
+        
+        self.is_surebet = self.sum < 1 if not DEBUG else self.sum < 1.2
 
         self.profit = (1 / self.sum) * 100 - 100
         

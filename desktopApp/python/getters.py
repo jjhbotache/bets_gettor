@@ -191,7 +191,7 @@ def scrape_page(id,amount_to_bet=0):
           break
           
       for thread in thread_list:
-        print("()()()(()()()()()(using "+str(get_memory_used_mb())+" mb of memory)()()()(()()()()()")
+        if DEBUG: print("()()()(()()()()()(using "+str(get_memory_used_mb())+" mb of memory)()()()(()()()()()")
         memory_per_process = get_memory_used_mb()/len(thread_list) + 10
         if get_memory_used_mb()+memory_per_process > MAX_RAM_MEMORY:
           for thread in thread_list:
@@ -261,9 +261,10 @@ def get_sure_bets(ids_to_also_get=[]):
     current_surebet = Surebet(lists)
 
     if (current_surebet.is_surebet or current_surebet.id in ids_to_also_get) : surebets.append(current_surebet)
-    print(current_surebet)
-    print("is_surebet?:",current_surebet.is_surebet)
-    print("isInTheList?:",current_surebet.id in ids_to_also_get)
+    if DEBUG:
+      print(current_surebet)
+      print("is_surebet?:",current_surebet.is_surebet)
+      print("isInTheList?:",current_surebet.id in ids_to_also_get)
 
 
 

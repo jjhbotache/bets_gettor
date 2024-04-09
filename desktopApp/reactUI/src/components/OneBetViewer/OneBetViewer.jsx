@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { betplayIcon, codereIcon, inProduction, wplayIcon, } from "../../const/consts.js";
-import styles from "./OneBetViewer.module.css";
 import { addDots, isMobile, strTimeToFloat, } from "../../functions/functions.jsx";
 import { toast } from "react-toastify";
 import { Badge, Divider, Grid, OneBetViewerContainer, } from "./OneBetViewerStyledComponents.jsx";
 import { ProfitBadge } from "../BetItem/BetItemStyledComponents.jsx";
+
 export default function OneBetViewer({ bet, betAmount }) {
   const iconsWidthAndHeight = 25;
   const [timer, setTimer] = useState( bet.period || (Date.now() - bet.startTime) / 1000 );
@@ -55,6 +55,17 @@ export default function OneBetViewer({ bet, betAmount }) {
       });
   }
 
+  async function onCopyCode(option) {
+    if (!inProduction) {
+      toast("This feature is only available in production mode")
+      return;
+    };
+    console.log("option", option);
+    const js = await pywebview.api .get_js_code( option.bookmaker.id, option.name, option.normalized_price )
+    await pywebview.api.copy_to_clipboard(js,false);
+    toast("Code copied to clipboard");
+  }
+
   useEffect(() => {
     updateAverageTime();
   }, []);
@@ -93,10 +104,18 @@ export default function OneBetViewer({ bet, betAmount }) {
   function onOpenLink(e, link, privateMode = false) {
     // if private is true, copy the text to clipboard
     e.preventDefault();
-    !privateMode
-        ? window.open(link, "_blank")
-      : inProduction && pywebview.api.copy_to_clipboard(link);
+
+    if(!privateMode){
+      window.open(link, "_blank")
+    }else{
+      inProduction?
+      pywebview.api.copy_to_clipboard(link,false).then(e=>{
+        toast("Link copied to clipboard");
+      })
+      :toast("This feature is only available in production mode")
+    }
   }
+
   bet.options.forEach((option,index) => {
     option.exact_amount_to_bet = betAmount * (parseFloat(option.prob_impl) / bet.info.sum);
     option.normalized_price = Math.floor(parseFloat(option.exact_amount_to_bet) / 100) * 100;
@@ -174,49 +193,15 @@ export default function OneBetViewer({ bet, betAmount }) {
             <>
               <div> {option.name}</div>
               <div> {option.odd}</div>
-              <div>
-                <a onDoubleClick={(e) => {
-                    e.preventDefault(); inProduction &&
-                      pywebview.api.copy_to_clipboard(option.bookmaker.id) .then((re) => toast("Bookmaker id copied to clipboard") );
-                      toast("TRYED Bookmaker id copied to clipboard");
-                  }}
-                  // onClick={(e) => onOpenLink(e, option.link)}
-                  onContextMenu={(e) => onOpenLink(e, option.link, true)}
-                  title="Open in new tab"
-                >
-                  <img
-                    src={option.bookmaker.icon}
-                    style={{ height: iconsWidthAndHeight, width: iconsWidthAndHeight }}
-                  />
-                </a>
-              </div>
-              <div className="col-2 d-flex flex-column justify-content-center align_items-center">
-                {
-                  <i
-                    onClick={(e) => {
-                      e.preventDefault();
-                      pywebview.api
-                        .get_js_code(
-                          option.bookmaker.id,
-                          option.name,
-                          option.normalized_price
-                        )
-                        .then((js) => pywebview.api.copy_to_clipboard(js));
-                    }}
-                    className={
-                      "d-block m-auto border border-info rounded fi fi-rr-square-terminal hoverable" +
-                      (inProduction &&
-                      pywebview.api.get_js_code(
-                        option.bookmaker.id,
-                        option.name,
-                        option.normalized_price
-                      )
-                        ? ""
-                        : " disabled")
-                    }
-                  ></i>
-                }
-              </div>
+              <img
+                className="hoverable"
+                src={option.bookmaker.icon}
+                style={{ height: iconsWidthAndHeight, width: iconsWidthAndHeight }}
+                onClick={e=> onOpenLink(e,option.link)}
+                onContextMenu={e=> onOpenLink(e,option.link,true)}
+                title="Open link (right click to copy link to clipboard)"
+                />
+              <i onClick={e=> onCopyCode( option)} className="fi fi-rr-square-terminal hoverable" ></i>
             </>
           );
         })}
