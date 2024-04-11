@@ -1,0 +1,1 @@
+document.querySelector('.mod-KambiBC-betslip__place-bet-btn').click()

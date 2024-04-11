@@ -88,6 +88,29 @@ export const OneBetViewerContainer = styled.div`
     opacity: .6;
   }
 
+  .btn-execute{
+    margin-top: 1em;
+    width: 100%;
+    max-width: 10em;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em;
+    /* make it colorful */
+    background: #03175f;
+    color: white;
+    padding: .5em;
+    border-radius: 1em;
+    cursor: pointer;
+    border: none;
+    /* add it a hover */
+    transition: all .2s;
+    &:hover{
+      background: #7b00ff;
+    }
+
+  }
+ 
+
 `;
 
 export const Badge = styled.span`

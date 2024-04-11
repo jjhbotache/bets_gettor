@@ -4,6 +4,7 @@ import { addDots, isMobile, strTimeToFloat, } from "../../functions/functions.js
 import { toast } from "react-toastify";
 import { Badge, Divider, Grid, OneBetViewerContainer, } from "./OneBetViewerStyledComponents.jsx";
 import { ProfitBadge } from "../BetItem/BetItemStyledComponents.jsx";
+import Switch from "../Switch/Switch.jsx";
 
 export default function OneBetViewer({ bet, betAmount }) {
   const iconsWidthAndHeight = 25;
@@ -16,6 +17,8 @@ export default function OneBetViewer({ bet, betAmount }) {
   const [maxTime, setMaxTime] = useState(0);
 
   const [shift, setShift] = useState(5);
+  const [execInfo, setExecInfo] = useState([]);
+
 
   const bookmakerIcons = {
     0: wplayIcon,
@@ -68,6 +71,16 @@ export default function OneBetViewer({ bet, betAmount }) {
 
   useEffect(() => {
     updateAverageTime();
+    const exectInfoToSet = []
+    bet.options.forEach((option) => {
+      exectInfoToSet.push({
+        name: option.name,
+        // if the bookmaker is already in the list, put incognito to true, else put it to false
+        incognito: exectInfoToSet.some(e => e.bookmaker.id === option.bookmaker.id) ? true : false,
+        bookmaker: option.bookmaker
+      })
+    });
+    setExecInfo(exectInfoToSet)
   }, []);
 
   useEffect(() => {
@@ -88,10 +101,29 @@ export default function OneBetViewer({ bet, betAmount }) {
   const state = bet.noExists
     ? "No exists"
     : bet.noSurebet
-    ? "No surebet"
-    : "Surebet";
+      ? "No surebet"
+      : "Surebet";
 
   const title = bet.options.map((o) => (o.name != "Draw" ? o.name : " VS "));
+  bet.options.forEach((option,index) => {
+    
+
+
+
+    option.exact_amount_to_bet = betAmount * (parseFloat(option.prob_impl) / bet.info.sum);
+    option.normalized_price = Math.floor(parseFloat(option.exact_amount_to_bet) / 100) * 100;
+    bet.info.real_amount_to_bet = bet.options.reduce( (a, b) => parseFloat(a) + parseFloat(b.normalized_price), 0 );
+    option.revenue = option.exact_amount_to_bet * option.odd;
+    option.real_profit = option.revenue - bet.info.real_amount_to_bet;
+    bet.info.min_real_profit = Math.floor( Math.min(...bet.options.map((o) => o.real_profit)) );
+    // --------------------
+    option.bookmaker.icon = bookmakerIcons[option.bookmaker.id];
+    
+    if (option.bookmaker.id === 2) { // codere
+      option.link = "https://m.codere.com.co/deportescolombia/#/HomePage";
+      option.onClickFunction = onClickCodere;
+    }
+  });
   
   function onClickCodere(){
     e.preventDefault();
@@ -116,22 +148,31 @@ export default function OneBetViewer({ bet, betAmount }) {
     }
   }
 
-  bet.options.forEach((option,index) => {
-    option.exact_amount_to_bet = betAmount * (parseFloat(option.prob_impl) / bet.info.sum);
-    option.normalized_price = Math.floor(parseFloat(option.exact_amount_to_bet) / 100) * 100;
-    bet.info.real_amount_to_bet = bet.options.reduce( (a, b) => parseFloat(a) + parseFloat(b.normalized_price), 0 );
-    option.revenue = option.exact_amount_to_bet * option.odd;
-    option.real_profit = option.revenue - bet.info.real_amount_to_bet;
-    bet.info.min_real_profit = Math.floor( Math.min(...bet.options.map((o) => o.real_profit)) );
-    // --------------------
-    option.bookmaker.icon = bookmakerIcons[option.bookmaker.id];
-    
-    if (option.bookmaker.id === 2) { // codere
-      option.link = "https://m.codere.com.co/deportescolombia/#/HomePage";
-      option.onClickFunction = onClickCodere;
-    }
-  });
+
   
+  
+  function setIncognitoExecution(option,checked){
+    const exectInfoToSet = []
+    // first, push the new value
+    exectInfoToSet.push({
+      name: option.name,
+      incognito: checked,
+      bookmaker: option.bookmaker
+    })
+    // then, push the rest of the values (if the bookmaker is already in the list, put incognito to the opposite value)
+    bet.options.forEach((option) => {
+      if(option.name === exectInfoToSet[0].name) return;
+      // if the bookmaker is already in the list, put incognito to the opposite value. Else, put it to the same value as it was
+      const incognito = exectInfoToSet.some(e => e.bookmaker.id === option.bookmaker.id)
+        ? !exectInfoToSet.find(e => e.bookmaker.id === option.bookmaker.id).incognito : execInfo.find(e => e.name === option.name).incognito;
+      exectInfoToSet.push({
+        name: option.name,
+        incognito: incognito,
+        bookmaker: option.bookmaker
+      })
+    });
+    setExecInfo(exectInfoToSet)
+  }
 
 
 
@@ -183,12 +224,15 @@ export default function OneBetViewer({ bet, betAmount }) {
       </Grid>
       <Divider />
       {/* info */}
-      <Grid $columns={4}>
+      <Grid $columns={5}>
         <strong>Team</strong>
         <strong>Odd</strong>
         <strong>BM</strong>
         <strong>Code</strong>
+        <strong>Incognito Execution</strong>
         {bet.options.map((option, index) => {
+          const inputId = `input${index}_${option.name}`;
+          const execInfoToUse = execInfo.find((e) => e.name === option.name);
           return (
             <>
               <div> {option.name}</div>
@@ -202,10 +246,15 @@ export default function OneBetViewer({ bet, betAmount }) {
                 title="Open link (right click to copy link to clipboard)"
                 />
               <i onClick={e=> onCopyCode( option)} className="fi fi-rr-square-terminal hoverable" ></i>
+              <Switch id={inputId} checked={!!execInfoToUse?.incognito} onChange={(e) => setIncognitoExecution(option,e.target.checked)} />
+              
             </>
           );
         })}
       </Grid>
+      <button className="btn-execute">
+        <i className="fi fi-rr-play"></i>
+      </button>
       <hr />
       {/* profit and execute info */}
           <h4>Bets info:</h4>

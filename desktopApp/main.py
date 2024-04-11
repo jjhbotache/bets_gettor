@@ -1,6 +1,7 @@
 import webview
 from main_functions import * 
 from python.app import *
+from python.bot.bot import bet
 
 
 def loop(window):
@@ -12,6 +13,7 @@ def loop(window):
     sure_bets,
     manage_surebet,
     get_js_code,
+    bet,
   )
 
 window = webview.create_window('Apibettor', 'reactUI/dist/index.html',maximized=True)
